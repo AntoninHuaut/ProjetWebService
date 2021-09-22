@@ -1,6 +1,7 @@
 package fr.fontainehuaut.libraryservice.entity;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class PublisherEntity {
 
     @Id
@@ -17,4 +19,8 @@ public class PublisherEntity {
 
     @Column(name = "name", nullable = false)
     private String name;
+
+    public PublisherEntity(String name) {
+        this.name = name;
+    }
 }

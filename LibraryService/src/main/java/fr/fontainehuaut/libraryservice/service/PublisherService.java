@@ -25,8 +25,12 @@ public class PublisherService {
         return publisherRepository.findById(id);
     }
 
-    public PublisherEntity add() {
-        return publisherRepository.save(new PublisherEntity());
+    public Optional<PublisherEntity> add(PublisherEntity publisherEntity) {
+        if (publisherEntity.getName() == null || publisherEntity.getName().isEmpty()) {
+            return Optional.empty();
+        }
+
+        return Optional.of(publisherRepository.save(publisherEntity));
     }
 
     public Optional<PublisherEntity> update(PublisherEntity publisherEntity) {
@@ -34,12 +38,14 @@ public class PublisherService {
             return Optional.of(publisherRepository.save(publisherEntity));
 
         }
+
         return Optional.empty();
     }
 
     public Optional<PublisherEntity> delete(Long id) {
         Optional<PublisherEntity> optionalPublisherEntity = publisherRepository.findById(id);
         optionalPublisherEntity.ifPresent(publisherRepository::delete);
+
         return optionalPublisherEntity;
     }
 }

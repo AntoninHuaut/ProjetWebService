@@ -9,9 +9,9 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Accessors(fluent = true)
 @Getter
 @Setter
-@Accessors(fluent = true)
 @NoArgsConstructor
 public class BookEntity {
 

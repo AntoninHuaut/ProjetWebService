@@ -26,22 +26,22 @@ public class BookService {
     }
 
     public Optional<BookEntity> add(BookEntity bookForm) {
-        if (isInvalid(bookForm.title())) return Optional.empty();
+        if (isInvalid(bookForm.getTitle())) return Optional.empty();
 
-        BookEntity bookEntity = new BookEntity(bookForm.title())
-                .publicationYear(bookForm.publicationYear())
-                .description(bookForm.description())
-                .state(bookForm.state())
-                .authors(bookForm.authors())
-                .publisherEntity(bookForm.publisherEntity());
+        BookEntity bookEntity = new BookEntity(bookForm.getTitle())
+                .setPublicationYear(bookForm.getPublicationYear())
+                .setDescription(bookForm.getDescription())
+                .setState(bookForm.getState())
+                .setAuthors(bookForm.getAuthors())
+                .setPublisherEntity(bookForm.getPublisherEntity());
         return Optional.of(bookRepository.save(bookEntity));
     }
 
     public Optional<BookEntity> update(BookEntity bookEntity) {
-        if (isInvalid(bookEntity.title())) return Optional.empty();
+        if (isInvalid(bookEntity.getTitle())) return Optional.empty();
 
-        if (bookEntity.bookId() != null
-                && bookRepository.existsById(bookEntity.bookId())) {
+        if (bookEntity.getBookId() != null
+                && bookRepository.existsById(bookEntity.getBookId())) {
             return Optional.of(bookRepository.save(bookEntity));
 
         }

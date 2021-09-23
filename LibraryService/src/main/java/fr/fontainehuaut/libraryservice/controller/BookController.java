@@ -37,8 +37,8 @@ public class BookController {
     }
 
     @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<BookEntity> add(@RequestBody BookEntity book) {
-        Optional<BookEntity> optBook = bookService.add(book);
+    public ResponseEntity<BookEntity> add(@RequestBody BookEntity bookForm) {
+        Optional<BookEntity> optBook = bookService.add(bookForm);
         if (optBook.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }

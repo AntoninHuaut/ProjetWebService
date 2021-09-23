@@ -28,16 +28,16 @@ public class BorrowService {
     public Optional<BorrowEntity> add(BorrowEntity borrowForm) {
         if (isInvalid(borrowForm)) return Optional.empty();
 
-        BorrowEntity borrowEntity = new BorrowEntity(borrowForm.bookId(), borrowForm.userId(),
-                borrowForm.borrowDate(), borrowForm.maxBorrowDayDuration());
+        BorrowEntity borrowEntity = new BorrowEntity(borrowForm.getBookId(), borrowForm.getUserId(),
+                borrowForm.getBorrowDate(), borrowForm.getMaxBorrowDayDuration());
         return Optional.of(borrowRepository.save(borrowEntity));
     }
 
     public Optional<BorrowEntity> update(BorrowEntity BorrowEntity) {
         if (isInvalid(BorrowEntity)) return Optional.empty();
 
-        if (BorrowEntity.borrowId() != null
-                && borrowRepository.existsById(BorrowEntity.borrowId())) {
+        if (BorrowEntity.getBorrowId() != null
+                && borrowRepository.existsById(BorrowEntity.getBorrowId())) {
             return Optional.of(borrowRepository.save(BorrowEntity));
 
         }
@@ -53,7 +53,7 @@ public class BorrowService {
     }
 
     private boolean isInvalid(BorrowEntity borrowEntity) {
-        return borrowEntity.bookId() == null || borrowEntity.userId() == null || borrowEntity.borrowDate() == null
-                || borrowEntity.maxBorrowDayDuration() == null || borrowEntity.maxBorrowDayDuration() <= 0;
+        return borrowEntity.getBookId() == null || borrowEntity.getUserId() == null || borrowEntity.getBorrowDate() == null
+                || borrowEntity.getMaxBorrowDayDuration() == null || borrowEntity.getMaxBorrowDayDuration() <= 0;
     }
 }

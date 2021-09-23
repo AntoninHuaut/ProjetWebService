@@ -9,7 +9,6 @@ import javax.persistence.*;
 import java.time.Instant;
 
 @Entity
-@Accessors(fluent = true)
 @Getter
 @Setter
 @NoArgsConstructor

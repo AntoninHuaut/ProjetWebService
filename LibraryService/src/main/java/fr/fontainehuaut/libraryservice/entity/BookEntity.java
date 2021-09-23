@@ -3,6 +3,7 @@ package fr.fontainehuaut.libraryservice.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@Accessors(fluent = true)
 @NoArgsConstructor
 public class BookEntity {
 
@@ -36,4 +38,8 @@ public class BookEntity {
 
     @OneToOne
     private PublisherEntity publisherEntity;
+
+    public BookEntity(String title) {
+        this.title = title;
+    }
 }

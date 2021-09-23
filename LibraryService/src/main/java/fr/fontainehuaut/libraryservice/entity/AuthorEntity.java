@@ -19,4 +19,8 @@ public class AuthorEntity {
 
     @Column(name = "name", nullable = false)
     private String name;
+
+    public AuthorEntity(String name) {
+        this.name = name;
+    }
 }

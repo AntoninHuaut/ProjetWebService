@@ -16,14 +16,17 @@ public class BorrowEntity {
     @Column(name = "borrowId", nullable = false)
     private Long borrowId;
 
+    @ManyToOne
+    private BookEntity bookId;
+
     @Column(name = "userId", nullable = false)
     private Long userId;
 
     @Column(name = "borrowDate", nullable = false)
     private Instant borrowDate;
 
-    @Column(name = "dueDate", nullable = false)
-    private Instant dueDate;
+    @Column(name = "maxBorrowDayDuration", nullable = false)
+    private Integer maxBorrowDayDuration = 7;
 
     @Column(name = "returnedDate")
     private Instant returnedDate;

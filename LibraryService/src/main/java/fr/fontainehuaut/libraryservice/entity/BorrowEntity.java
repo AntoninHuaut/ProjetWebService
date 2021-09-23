@@ -16,9 +16,15 @@ public class BorrowEntity {
     @Column(name = "borrowId", nullable = false)
     private Long borrowId;
 
-    @Column(name = "date", nullable = false)
-    private Instant date;
+    @Column(name = "userId", nullable = false)
+    private Long userId;
 
-    @Column(name = "returned", nullable = false)
-    private boolean returned = false;
+    @Column(name = "borrowDate", nullable = false)
+    private Instant borrowDate;
+
+    @Column(name = "dueDate", nullable = false)
+    private Instant dueDate;
+
+    @Column(name = "returnedDate")
+    private Instant returnedDate;
 }

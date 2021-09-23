@@ -34,9 +34,12 @@ public class BookEntity {
     private BookState state;
 
     @OneToMany
+    private List<BorrowEntity> borrowEntity;
+
+    @OneToMany
     private List<AuthorEntity> authors;
 
-    @OneToOne
+    @ManyToOne
     private PublisherEntity publisherEntity;
 
     public BookEntity(String title) {

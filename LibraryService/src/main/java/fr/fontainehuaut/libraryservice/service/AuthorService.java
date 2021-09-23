@@ -34,7 +34,8 @@ public class AuthorService {
     public Optional<AuthorEntity> update(AuthorEntity authorEntity) {
         if (isInvalid(authorEntity.getName())) return Optional.empty();
 
-        if (authorRepository.existsById(authorEntity.getAuthorId())) {
+        if (authorEntity.getAuthorId() != null
+                && authorRepository.existsById(authorEntity.getAuthorId())) {
             return Optional.of(authorRepository.save(authorEntity));
 
         }
@@ -50,6 +51,6 @@ public class AuthorService {
     }
 
     private boolean isInvalid(String authorName) {
-       return authorName == null || authorName.isEmpty();
+        return authorName == null || authorName.isEmpty();
     }
 }

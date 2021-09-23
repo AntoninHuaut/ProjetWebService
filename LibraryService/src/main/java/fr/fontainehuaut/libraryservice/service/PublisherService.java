@@ -1,6 +1,5 @@
 package fr.fontainehuaut.libraryservice.service;
 
-import fr.fontainehuaut.libraryservice.entity.BookEntity;
 import fr.fontainehuaut.libraryservice.entity.PublisherEntity;
 import fr.fontainehuaut.libraryservice.repository.PublisherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +34,8 @@ public class PublisherService {
     public Optional<PublisherEntity> update(PublisherEntity publisherEntity) {
         if (isInvalid(publisherEntity.getName())) return Optional.empty();
 
-        if (publisherRepository.existsById(publisherEntity.getPublisherId())) {
+        if (publisherEntity.getPublisherId() != null
+                && publisherRepository.existsById(publisherEntity.getPublisherId())) {
             return Optional.of(publisherRepository.save(publisherEntity));
 
         }

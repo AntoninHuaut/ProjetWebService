@@ -40,7 +40,8 @@ public class BookService {
     public Optional<BookEntity> update(BookEntity bookEntity) {
         if (isInvalid(bookEntity.title())) return Optional.empty();
 
-        if (bookRepository.existsById(bookEntity.bookId())) {
+        if (bookEntity.bookId() != null
+                && bookRepository.existsById(bookEntity.bookId())) {
             return Optional.of(bookRepository.save(bookEntity));
 
         }

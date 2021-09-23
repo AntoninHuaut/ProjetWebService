@@ -30,13 +30,13 @@ public class BookEntity {
     private String description;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "state")
-    private BookState state;
+    @Column(name = "state", nullable = false)
+    private BookState state = BookState.AVAILABLE;
 
     @OneToMany
     private List<AuthorEntity> authors;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private PublisherEntity publisherEntity;
 
     public BookEntity(String title) {

@@ -31,7 +31,7 @@ public class BookEntity {
     @Column(name = "state", nullable = false)
     private BookState state = BookState.AVAILABLE;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "authorId")
     private List<AuthorEntity> authors;
 

@@ -20,6 +20,7 @@ public class BorrowEntity {
     private Long borrowId;
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "bookId")
     private BookEntity bookId;
 
     @Column(name = "userId", nullable = false)

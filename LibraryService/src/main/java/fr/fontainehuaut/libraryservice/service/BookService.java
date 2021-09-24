@@ -26,6 +26,7 @@ public class BookService {
     }
 
     public Optional<BookEntity> add(BookEntity bookEntity) {
+        System.out.println(bookEntity);
         if (bookEntity.getBookId() != null) return Optional.empty();
         if (isInvalid(bookEntity.getTitle())) return Optional.empty();
 

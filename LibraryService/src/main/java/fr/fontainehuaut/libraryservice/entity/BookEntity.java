@@ -33,8 +33,23 @@ public class BookEntity {
     private BookState state = BookState.AVAILABLE;
 
     @OneToMany
+    @JoinColumn(name = "authorId")
     private List<AuthorEntity> authors;
 
     @ManyToOne(optional = false)
-    private PublisherEntity publisherEntity;
+    @JoinColumn(name = "publisherId")
+    private PublisherEntity publisher;
+
+    @Override
+    public String toString() {
+        return "BookEntity{" +
+                "bookId=" + bookId +
+                ", title='" + title + '\'' +
+                ", publicationYear=" + publicationYear +
+                ", description='" + description + '\'' +
+                ", state=" + state +
+                ", authors=" + authors +
+                ", publisher=" + publisher +
+                '}';
+    }
 }

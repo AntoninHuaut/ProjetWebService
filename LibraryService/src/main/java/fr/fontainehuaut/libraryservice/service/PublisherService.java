@@ -26,15 +26,22 @@ public class PublisherService {
     }
 
     public Optional<PublisherEntity> add(PublisherEntity publisherEntity) {
-        publisherEntity.setPublisherId(null);
-        return findById(publisherRepository.save(publisherEntity).getPublisherId());
+        try {
+            publisherEntity.setPublisherId(null);
+            return findById(publisherRepository.save(publisherEntity).getPublisherId());
+        } catch (Exception ignore) {
+            return Optional.empty();
+        }
     }
 
     public Optional<PublisherEntity> update(PublisherEntity publisherEntity) {
         if (publisherEntity.getPublisherId() != null
                 && publisherRepository.existsById(publisherEntity.getPublisherId())) {
-            return Optional.of(publisherRepository.save(publisherEntity));
-
+            try {
+                return Optional.of(publisherRepository.save(publisherEntity));
+            } catch (Exception ignore) {
+                return Optional.empty();
+            }
         }
 
         return Optional.empty();

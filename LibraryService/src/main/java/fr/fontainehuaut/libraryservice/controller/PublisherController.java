@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -38,7 +39,7 @@ public class PublisherController {
     }
 
     @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<PublisherEntity> add(@RequestBody PublisherForm publisherForm) {
+    public ResponseEntity<PublisherEntity> add(@Valid @RequestBody PublisherForm publisherForm) {
         Optional<PublisherEntity> optPublisher = publisherService.add(publisherForm.toEntity());
         if (optPublisher.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
@@ -48,7 +49,7 @@ public class PublisherController {
     }
 
     @PutMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<PublisherEntity> update(@RequestBody PublisherForm publisherForm) {
+    public ResponseEntity<PublisherEntity> update(@Valid @RequestBody PublisherForm publisherForm) {
         Optional<PublisherEntity> optPublisher = publisherService.update(publisherForm.toEntity());
         if (optPublisher.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);

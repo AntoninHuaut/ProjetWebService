@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -38,7 +39,7 @@ public class BookController {
     }
 
     @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<BookEntity> add(@RequestBody BookForm bookForm) {
+    public ResponseEntity<BookEntity> add(@Valid @RequestBody BookForm bookForm) {
         Optional<BookEntity> optBook = bookService.add(bookForm.toEntity());
         if (optBook.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
@@ -48,7 +49,7 @@ public class BookController {
     }
 
     @PutMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<BookEntity> update(@RequestBody BookForm bookForm) {
+    public ResponseEntity<BookEntity> update(@Valid @RequestBody BookForm bookForm) {
         Optional<BookEntity> optBook = bookService.update(bookForm.toEntity());
         if (optBook.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);

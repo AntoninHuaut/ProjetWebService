@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -38,7 +39,7 @@ public class AuthorController {
     }
 
     @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AuthorEntity> add(@RequestBody AuthorForm authorForm) {
+    public ResponseEntity<AuthorEntity> add(@Valid @RequestBody AuthorForm authorForm) {
         Optional<AuthorEntity> optAuthor = authorService.add(authorForm.toEntity());
         if (optAuthor.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
@@ -48,7 +49,7 @@ public class AuthorController {
     }
 
     @PutMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AuthorEntity> update(@RequestBody AuthorForm authorForm) {
+    public ResponseEntity<AuthorEntity> update(@Valid @RequestBody AuthorForm authorForm) {
         Optional<AuthorEntity> optAuthor = authorService.update(authorForm.toEntity());
         if (optAuthor.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);

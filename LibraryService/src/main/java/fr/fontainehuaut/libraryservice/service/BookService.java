@@ -26,15 +26,22 @@ public class BookService {
     }
 
     public Optional<BookEntity> add(BookEntity bookEntity) {
-        bookEntity.setBookId(null);
-        return findById(bookRepository.save(bookEntity).getBookId());
+        try {
+            bookEntity.setBookId(null);
+            return findById(bookRepository.save(bookEntity).getBookId());
+        } catch (Exception ignore) {
+            return Optional.empty();
+        }
     }
 
     public Optional<BookEntity> update(BookEntity bookEntity) {
         if (bookEntity.getBookId() != null
                 && bookRepository.existsById(bookEntity.getBookId())) {
-            return Optional.of(bookRepository.save(bookEntity));
-
+            try {
+                return Optional.of(bookRepository.save(bookEntity));
+            } catch (Exception ignore) {
+                return Optional.empty();
+            }
         }
 
         return Optional.empty();

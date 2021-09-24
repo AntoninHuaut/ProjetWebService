@@ -26,15 +26,22 @@ public class AuthorService {
     }
 
     public Optional<AuthorEntity> add(AuthorEntity authorEntity) {
-        authorEntity.setAuthorId(null);
-        return findById(authorRepository.save(authorEntity).getAuthorId());
+        try {
+            authorEntity.setAuthorId(null);
+            return findById(authorRepository.save(authorEntity).getAuthorId());
+        } catch (Exception ignore) {
+            return Optional.empty();
+        }
     }
 
     public Optional<AuthorEntity> update(AuthorEntity authorEntity) {
         if (authorEntity.getAuthorId() != null
                 && authorRepository.existsById(authorEntity.getAuthorId())) {
-            return Optional.of(authorRepository.save(authorEntity));
-
+            try {
+                return Optional.of(authorRepository.save(authorEntity));
+            } catch (Exception ignore) {
+                return Optional.empty();
+            }
         }
 
         return Optional.empty();

@@ -26,15 +26,22 @@ public class BorrowService {
     }
 
     public Optional<BorrowEntity> add(BorrowEntity borrowEntity) {
-        borrowEntity.setBorrowId(null);
-        return findById(borrowRepository.save(borrowEntity).getBorrowId());
+        try {
+            borrowEntity.setBorrowId(null);
+            return findById(borrowRepository.save(borrowEntity).getBorrowId());
+        } catch (Exception ignore) {
+            return Optional.empty();
+        }
     }
 
     public Optional<BorrowEntity> update(BorrowEntity BorrowEntity) {
         if (BorrowEntity.getBorrowId() != null
                 && borrowRepository.existsById(BorrowEntity.getBorrowId())) {
+            try {
             return Optional.of(borrowRepository.save(BorrowEntity));
-
+        } catch (Exception ignore) {
+                return Optional.empty();
+            }
         }
 
         return Optional.empty();

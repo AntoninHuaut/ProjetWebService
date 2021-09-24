@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -38,7 +39,7 @@ public class BorrowController {
     }
 
     @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<BorrowEntity> add(@RequestBody BorrowForm borrowForm) {
+    public ResponseEntity<BorrowEntity> add(@Valid @RequestBody BorrowForm borrowForm) {
         Optional<BorrowEntity> optBorrow = borrowService.add(borrowForm.toEntity());
         if (optBorrow.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
@@ -48,7 +49,7 @@ public class BorrowController {
     }
 
     @PutMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<BorrowEntity> update(@RequestBody BorrowForm borrowForm) {
+    public ResponseEntity<BorrowEntity> update(@Valid @RequestBody BorrowForm borrowForm) {
         Optional<BorrowEntity> optBorrow = borrowService.update(borrowForm.toEntity());
         if (optBorrow.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);

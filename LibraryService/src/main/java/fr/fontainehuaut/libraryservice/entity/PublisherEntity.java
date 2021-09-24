@@ -19,8 +19,4 @@ public class PublisherEntity {
 
     @Column(name = "name", nullable = false)
     private String name;
-
-    public PublisherEntity(String name) {
-        this.name = name;
-    }
 }

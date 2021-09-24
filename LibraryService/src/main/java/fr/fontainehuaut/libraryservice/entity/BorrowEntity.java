@@ -33,11 +33,4 @@ public class BorrowEntity {
 
     @Column(name = "returnedDate")
     private Instant returnedDate;
-
-    public BorrowEntity(BookEntity bookId, Long userId, Instant borrowDate, Integer maxBorrowDayDuration) {
-        this.bookId = bookId;
-        this.userId = userId;
-        this.borrowDate = borrowDate;
-        this.maxBorrowDayDuration = maxBorrowDayDuration;
-    }
 }

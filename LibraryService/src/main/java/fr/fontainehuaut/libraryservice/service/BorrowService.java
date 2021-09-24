@@ -27,7 +27,7 @@ public class BorrowService {
 
     public Optional<BorrowEntity> add(BorrowEntity borrowEntity) {
         borrowEntity.setBorrowId(null);
-        return Optional.of(borrowRepository.save(borrowEntity));
+        return findById(borrowRepository.save(borrowEntity).getBorrowId());
     }
 
     public Optional<BorrowEntity> update(BorrowEntity BorrowEntity) {

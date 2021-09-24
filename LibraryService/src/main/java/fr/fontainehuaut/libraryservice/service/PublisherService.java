@@ -27,7 +27,7 @@ public class PublisherService {
 
     public Optional<PublisherEntity> add(PublisherEntity publisherEntity) {
         publisherEntity.setPublisherId(null);
-        return Optional.of(publisherRepository.save(publisherEntity));
+        return findById(publisherRepository.save(publisherEntity).getPublisherId());
     }
 
     public Optional<PublisherEntity> update(PublisherEntity publisherEntity) {

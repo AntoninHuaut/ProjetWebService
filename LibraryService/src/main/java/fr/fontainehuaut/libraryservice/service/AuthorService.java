@@ -27,7 +27,7 @@ public class AuthorService {
 
     public Optional<AuthorEntity> add(AuthorEntity authorEntity) {
         authorEntity.setAuthorId(null);
-        return Optional.of(authorRepository.save(authorEntity));
+        return findById(authorRepository.save(authorEntity).getAuthorId());
     }
 
     public Optional<AuthorEntity> update(AuthorEntity authorEntity) {

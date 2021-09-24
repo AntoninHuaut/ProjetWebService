@@ -3,7 +3,6 @@ package fr.fontainehuaut.libraryservice.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import java.util.List;
@@ -23,7 +22,7 @@ public class BookEntity {
     private String title;
 
     @Column(name = "publicationYear")
-    private int publicationYear;
+    private Integer publicationYear;
 
     @Column(name = "description")
     private String description;
@@ -32,7 +31,7 @@ public class BookEntity {
     @Column(name = "state", nullable = false)
     private BookState state = BookState.AVAILABLE;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "authorId")
     private List<AuthorEntity> authors;
 

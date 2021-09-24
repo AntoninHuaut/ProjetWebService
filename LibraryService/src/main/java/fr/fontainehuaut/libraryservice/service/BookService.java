@@ -27,7 +27,7 @@ public class BookService {
 
     public Optional<BookEntity> add(BookEntity bookEntity) {
         bookEntity.setBookId(null);
-        return Optional.of(bookRepository.save(bookEntity));
+        return findById(bookRepository.save(bookEntity).getBookId());
     }
 
     public Optional<BookEntity> update(BookEntity bookEntity) {

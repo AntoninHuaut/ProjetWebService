@@ -1,11 +1,13 @@
 package fr.fontainehuaut.libraryservice.form;
 
+import fr.fontainehuaut.libraryservice.entity.BorrowEntity;
 import fr.fontainehuaut.libraryservice.entity.PublisherEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Getter

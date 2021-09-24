@@ -26,7 +26,6 @@ public class PublisherService {
     }
 
     public Optional<PublisherEntity> add(PublisherEntity publisherEntity) {
-        System.out.println(publisherEntity.getPublisherId());
         if (publisherEntity.getPublisherId() != null) return Optional.empty();
         if (isInvalid(publisherEntity.getName())) return Optional.empty();
 

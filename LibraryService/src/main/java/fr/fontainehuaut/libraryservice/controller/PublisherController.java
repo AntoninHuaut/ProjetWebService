@@ -38,7 +38,7 @@ public class PublisherController {
 
     @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PublisherEntity> add(@RequestBody PublisherEntity publisher) {
-        Optional<PublisherEntity> optPublisher = publisherService.add(publisher.getName());
+        Optional<PublisherEntity> optPublisher = publisherService.add(publisher);
         if (optPublisher.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }

@@ -25,10 +25,11 @@ public class AuthorService {
         return authorRepository.findById(id);
     }
 
-    public Optional<AuthorEntity> add(String authorName) {
-        if (isInvalid(authorName)) return Optional.empty();
+    public Optional<AuthorEntity> add(AuthorEntity authorEntity) {
+        if (authorEntity.getAuthorId() != null) return Optional.empty();
+        if (isInvalid(authorEntity.getName())) return Optional.empty();
 
-        return Optional.of(authorRepository.save(new AuthorEntity(authorName)));
+        return Optional.of(authorRepository.save(authorEntity));
     }
 
     public Optional<AuthorEntity> update(AuthorEntity authorEntity) {

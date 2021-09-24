@@ -25,10 +25,12 @@ public class PublisherService {
         return publisherRepository.findById(id);
     }
 
-    public Optional<PublisherEntity> add(String publisherName) {
-        if (isInvalid(publisherName)) return Optional.empty();
+    public Optional<PublisherEntity> add(PublisherEntity publisherEntity) {
+        System.out.println(publisherEntity.getPublisherId());
+        if (publisherEntity.getPublisherId() != null) return Optional.empty();
+        if (isInvalid(publisherEntity.getName())) return Optional.empty();
 
-        return Optional.of(publisherRepository.save(new PublisherEntity(publisherName)));
+        return Optional.of(publisherRepository.save(publisherEntity));
     }
 
     public Optional<PublisherEntity> update(PublisherEntity publisherEntity) {

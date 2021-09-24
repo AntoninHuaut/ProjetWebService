@@ -38,7 +38,7 @@ public class AuthorController {
 
     @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AuthorEntity> add(@RequestBody AuthorEntity authorForm) {
-        Optional<AuthorEntity> optAuthor = authorService.add(authorForm.getName());
+        Optional<AuthorEntity> optAuthor = authorService.add(authorForm);
         if (optAuthor.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }

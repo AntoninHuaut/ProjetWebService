@@ -25,11 +25,10 @@ public class BorrowService {
         return borrowRepository.findById(id);
     }
 
-    public Optional<BorrowEntity> add(BorrowEntity borrowForm) {
-        if (isInvalid(borrowForm)) return Optional.empty();
+    public Optional<BorrowEntity> add(BorrowEntity borrowEntity) {
+        if (borrowEntity.getBorrowId() != null) return Optional.empty();
+        if (isInvalid(borrowEntity)) return Optional.empty();
 
-        BorrowEntity borrowEntity = new BorrowEntity(borrowForm.getBookId(), borrowForm.getUserId(),
-                borrowForm.getBorrowDate(), borrowForm.getMaxBorrowDayDuration());
         return Optional.of(borrowRepository.save(borrowEntity));
     }
 

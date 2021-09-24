@@ -25,15 +25,10 @@ public class BookService {
         return bookRepository.findById(id);
     }
 
-    public Optional<BookEntity> add(BookEntity bookForm) {
-        if (isInvalid(bookForm.getTitle())) return Optional.empty();
+    public Optional<BookEntity> add(BookEntity bookEntity) {
+        if (bookEntity.getBookId() != null) return Optional.empty();
+        if (isInvalid(bookEntity.getTitle())) return Optional.empty();
 
-        BookEntity bookEntity = new BookEntity(bookForm.getTitle())
-                .setPublicationYear(bookForm.getPublicationYear())
-                .setDescription(bookForm.getDescription())
-                .setState(bookForm.getState())
-                .setAuthors(bookForm.getAuthors())
-                .setPublisherEntity(bookForm.getPublisherEntity());
         return Optional.of(bookRepository.save(bookEntity));
     }
 

@@ -1,6 +1,7 @@
 package fr.fontainehuaut.libraryservice.controller;
 
 import fr.fontainehuaut.libraryservice.entity.BookEntity;
+import fr.fontainehuaut.libraryservice.form.BookForm;
 import fr.fontainehuaut.libraryservice.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,8 +38,8 @@ public class BookController {
     }
 
     @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<BookEntity> add(@RequestBody BookEntity bookForm) {
-        Optional<BookEntity> optBook = bookService.add(bookForm);
+    public ResponseEntity<BookEntity> add(@RequestBody BookForm bookForm) {
+        Optional<BookEntity> optBook = bookService.add(bookForm.toEntity());
         if (optBook.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
@@ -47,8 +48,8 @@ public class BookController {
     }
 
     @PutMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<BookEntity> update(@RequestBody BookEntity book) {
-        Optional<BookEntity> optBook = bookService.update(book);
+    public ResponseEntity<BookEntity> update(@RequestBody BookForm bookForm) {
+        Optional<BookEntity> optBook = bookService.update(bookForm.toEntity());
         if (optBook.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }

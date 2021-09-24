@@ -1,6 +1,7 @@
 package fr.fontainehuaut.libraryservice.controller;
 
 import fr.fontainehuaut.libraryservice.entity.AuthorEntity;
+import fr.fontainehuaut.libraryservice.form.AuthorForm;
 import fr.fontainehuaut.libraryservice.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,8 +38,8 @@ public class AuthorController {
     }
 
     @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AuthorEntity> add(@RequestBody AuthorEntity authorForm) {
-        Optional<AuthorEntity> optAuthor = authorService.add(authorForm);
+    public ResponseEntity<AuthorEntity> add(@RequestBody AuthorForm authorForm) {
+        Optional<AuthorEntity> optAuthor = authorService.add(authorForm.toEntity());
         if (optAuthor.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
@@ -47,8 +48,8 @@ public class AuthorController {
     }
 
     @PutMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AuthorEntity> update(@RequestBody AuthorEntity author) {
-        Optional<AuthorEntity> optAuthor = authorService.update(author);
+    public ResponseEntity<AuthorEntity> update(@RequestBody AuthorForm authorForm) {
+        Optional<AuthorEntity> optAuthor = authorService.update(authorForm.toEntity());
         if (optAuthor.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }

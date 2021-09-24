@@ -26,16 +26,11 @@ public class BookService {
     }
 
     public Optional<BookEntity> add(BookEntity bookEntity) {
-        System.out.println(bookEntity);
-        if (bookEntity.getBookId() != null) return Optional.empty();
-        if (isInvalid(bookEntity.getTitle())) return Optional.empty();
-
+        bookEntity.setBookId(null);
         return Optional.of(bookRepository.save(bookEntity));
     }
 
     public Optional<BookEntity> update(BookEntity bookEntity) {
-        if (isInvalid(bookEntity.getTitle())) return Optional.empty();
-
         if (bookEntity.getBookId() != null
                 && bookRepository.existsById(bookEntity.getBookId())) {
             return Optional.of(bookRepository.save(bookEntity));
@@ -50,9 +45,5 @@ public class BookService {
         optBookEntity.ifPresent(bookRepository::delete);
 
         return optBookEntity;
-    }
-
-    private boolean isInvalid(String bookTitle) {
-        return bookTitle == null || bookTitle.isEmpty();
     }
 }

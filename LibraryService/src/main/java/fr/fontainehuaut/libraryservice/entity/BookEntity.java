@@ -39,17 +39,4 @@ public class BookEntity {
     @ManyToOne(optional = false)
     @JoinColumn(name = "publisherId")
     private PublisherEntity publisher;
-
-    @Override
-    public String toString() {
-        return "BookEntity{" +
-                "bookId=" + bookId +
-                ", title='" + title + '\'' +
-                ", publicationYear=" + publicationYear +
-                ", description='" + description + '\'' +
-                ", state=" + state +
-                ", authors=" + authors +
-                ", publisher=" + publisher +
-                '}';
-    }
 }

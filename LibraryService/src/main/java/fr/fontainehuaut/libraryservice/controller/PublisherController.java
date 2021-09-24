@@ -1,6 +1,7 @@
 package fr.fontainehuaut.libraryservice.controller;
 
 import fr.fontainehuaut.libraryservice.entity.PublisherEntity;
+import fr.fontainehuaut.libraryservice.form.PublisherForm;
 import fr.fontainehuaut.libraryservice.service.PublisherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,8 +38,8 @@ public class PublisherController {
     }
 
     @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<PublisherEntity> add(@RequestBody PublisherEntity publisher) {
-        Optional<PublisherEntity> optPublisher = publisherService.add(publisher);
+    public ResponseEntity<PublisherEntity> add(@RequestBody PublisherForm publisherForm) {
+        Optional<PublisherEntity> optPublisher = publisherService.add(publisherForm.toEntity());
         if (optPublisher.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
@@ -47,8 +48,8 @@ public class PublisherController {
     }
 
     @PutMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<PublisherEntity> update(@RequestBody PublisherEntity publisher) {
-        Optional<PublisherEntity> optPublisher = publisherService.update(publisher);
+    public ResponseEntity<PublisherEntity> update(@RequestBody PublisherForm publisherForm) {
+        Optional<PublisherEntity> optPublisher = publisherService.update(publisherForm.toEntity());
         if (optPublisher.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }

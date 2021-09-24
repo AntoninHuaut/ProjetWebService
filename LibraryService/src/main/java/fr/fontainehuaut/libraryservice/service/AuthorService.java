@@ -26,15 +26,11 @@ public class AuthorService {
     }
 
     public Optional<AuthorEntity> add(AuthorEntity authorEntity) {
-        if (authorEntity.getAuthorId() != null) return Optional.empty();
-        if (isInvalid(authorEntity.getName())) return Optional.empty();
-
+        authorEntity.setAuthorId(null);
         return Optional.of(authorRepository.save(authorEntity));
     }
 
     public Optional<AuthorEntity> update(AuthorEntity authorEntity) {
-        if (isInvalid(authorEntity.getName())) return Optional.empty();
-
         if (authorEntity.getAuthorId() != null
                 && authorRepository.existsById(authorEntity.getAuthorId())) {
             return Optional.of(authorRepository.save(authorEntity));
@@ -49,9 +45,5 @@ public class AuthorService {
         optAuthorEntity.ifPresent(authorRepository::delete);
 
         return optAuthorEntity;
-    }
-
-    private boolean isInvalid(String authorName) {
-        return authorName == null || authorName.isEmpty();
     }
 }

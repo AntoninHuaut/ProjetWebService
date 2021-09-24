@@ -1,6 +1,7 @@
 package fr.fontainehuaut.libraryservice.controller;
 
 import fr.fontainehuaut.libraryservice.entity.BorrowEntity;
+import fr.fontainehuaut.libraryservice.form.BorrowForm;
 import fr.fontainehuaut.libraryservice.service.BorrowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,8 +38,8 @@ public class BorrowController {
     }
 
     @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<BorrowEntity> add(@RequestBody BorrowEntity borrowForm) {
-        Optional<BorrowEntity> optBorrow = borrowService.add(borrowForm);
+    public ResponseEntity<BorrowEntity> add(@RequestBody BorrowForm borrowForm) {
+        Optional<BorrowEntity> optBorrow = borrowService.add(borrowForm.toEntity());
         if (optBorrow.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
@@ -47,8 +48,8 @@ public class BorrowController {
     }
 
     @PutMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<BorrowEntity> update(@RequestBody BorrowEntity author) {
-        Optional<BorrowEntity> optBorrow = borrowService.update(author);
+    public ResponseEntity<BorrowEntity> update(@RequestBody BorrowForm borrowForm) {
+        Optional<BorrowEntity> optBorrow = borrowService.update(borrowForm.toEntity());
         if (optBorrow.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }

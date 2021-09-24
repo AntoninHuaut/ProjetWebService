@@ -26,15 +26,11 @@ public class PublisherService {
     }
 
     public Optional<PublisherEntity> add(PublisherEntity publisherEntity) {
-        if (publisherEntity.getPublisherId() != null) return Optional.empty();
-        if (isInvalid(publisherEntity.getName())) return Optional.empty();
-
+        publisherEntity.setPublisherId(null);
         return Optional.of(publisherRepository.save(publisherEntity));
     }
 
     public Optional<PublisherEntity> update(PublisherEntity publisherEntity) {
-        if (isInvalid(publisherEntity.getName())) return Optional.empty();
-
         if (publisherEntity.getPublisherId() != null
                 && publisherRepository.existsById(publisherEntity.getPublisherId())) {
             return Optional.of(publisherRepository.save(publisherEntity));
@@ -49,9 +45,5 @@ public class PublisherService {
         optPublisherEntity.ifPresent(publisherRepository::delete);
 
         return optPublisherEntity;
-    }
-
-    private boolean isInvalid(String publisherName) {
-        return publisherName == null || publisherName.isEmpty();
     }
 }

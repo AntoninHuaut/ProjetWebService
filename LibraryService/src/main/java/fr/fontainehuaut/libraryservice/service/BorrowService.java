@@ -26,15 +26,11 @@ public class BorrowService {
     }
 
     public Optional<BorrowEntity> add(BorrowEntity borrowEntity) {
-        if (borrowEntity.getBorrowId() != null) return Optional.empty();
-        if (isInvalid(borrowEntity)) return Optional.empty();
-
+        borrowEntity.setBorrowId(null);
         return Optional.of(borrowRepository.save(borrowEntity));
     }
 
     public Optional<BorrowEntity> update(BorrowEntity BorrowEntity) {
-        if (isInvalid(BorrowEntity)) return Optional.empty();
-
         if (BorrowEntity.getBorrowId() != null
                 && borrowRepository.existsById(BorrowEntity.getBorrowId())) {
             return Optional.of(borrowRepository.save(BorrowEntity));
@@ -49,10 +45,5 @@ public class BorrowService {
         optBorrowEntity.ifPresent(borrowRepository::delete);
 
         return optBorrowEntity;
-    }
-
-    private boolean isInvalid(BorrowEntity borrowEntity) {
-        return borrowEntity.getBookId() == null || borrowEntity.getUserId() == null || borrowEntity.getBorrowDate() == null
-                || borrowEntity.getMaxBorrowDayDuration() == null || borrowEntity.getMaxBorrowDayDuration() <= 0;
     }
 }

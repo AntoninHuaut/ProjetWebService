@@ -21,6 +21,12 @@ export default class Server {
         });
 
         const router = new Router();
+
+        router.options('/(.*)', (ctx: Context<any>) => {
+            ctx.response.status = 200;
+            ctx.response.body = null;
+        });
+
         router.all('/(.*)', async (ctx: Context<any>) => {
             try {
                 await this.proxy(ctx);

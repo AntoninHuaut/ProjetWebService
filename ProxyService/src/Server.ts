@@ -17,6 +17,11 @@ export default class Server {
             console.log(`Listening on localhost:${this.config.port}`);
         });
 
+        app.use((ctx, next) => {
+            ctx.response.headers.set('Access-Control-Allow-Origin', '*');
+            return next();
+        });
+
         app.use((ctx) => this.proxy(ctx));
 
         await app.listen({ port: this.config.port });

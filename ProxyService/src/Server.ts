@@ -6,6 +6,7 @@ export default class Server {
 
     private static readonly CORS_ORIGIN = 'Access-Control-Allow-Origin';
     private static readonly CORS_METHODS = 'Access-Control-Allow-Methods';
+    private static readonly CORS_HEADERS = 'Access-Control-Allow-Headers';
 
     private readonly config: GlobalConfig;
 
@@ -51,6 +52,7 @@ export default class Server {
         app.use((ctx: Context<any>, next: () => any) => {
             ctx.response.headers.set(Server.CORS_ORIGIN, "*");
             ctx.response.headers.set(Server.CORS_METHODS, "*");
+            ctx.response.headers.set(Server.CORS_HEADERS, "Content-Type");
             return next();
         });
         app.use(router.routes());

@@ -46,11 +46,16 @@ export default class Server {
 
         const bodyRaw = ctx.request.body();
         if (bodyRaw.type === 'json' && bodyRaw.value) {
-            const bodyValue = await bodyRaw.value;
-            const validBody: boolean = Array.isArray(bodyValue) || Object.keys(bodyValue).length > 0;
+            try {
+                const bodyValue = await bodyRaw.value; // Implicit JSON.parse()
+                const validBody: boolean = Array.isArray(bodyValue) || Object.keys(bodyValue).length > 0;
 
-            if (validBody) {
-                options.body = JSON.stringify(bodyValue);
+                if (validBody) {
+                    options.body = JSON.stringify(bodyValue);
+                }
+            } catch (ex) {
+                this.sendErrorResponse(ctx, 400, urlPath, ex.toString());
+                return;
             }
         }
 
@@ -83,6 +88,8 @@ export default class Server {
 
         if (headers) {
             headers.forEach((value: string, key: string) => {
+                if (key == 'Access-Control-Allow-Origin') return;
+
                 ctx.response.headers.set(key, value);
             });
         }

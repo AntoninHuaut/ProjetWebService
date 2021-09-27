@@ -48,10 +48,17 @@ export default class Server {
             options.body = JSON.stringify(body);
         }
 
-        const response = await fetch(`${host}${urlPath}`, options);
-        ctx.response.status = response.status;
-        ctx.response.headers = response.headers;
-        ctx.response.body = response.body;
+        try {
+            const response = await fetch(`${host}${urlPath}`, options);
+            ctx.response.status = response.status;
+            ctx.response.headers = response.headers;
+            ctx.response.body = response.body;
+        } catch (ex) {
+            ctx.response.status = 400;
+            ctx.response.body = {
+                error: ex.toString()
+            }
+        }
     }
 
     getWebService(webService: string): string {

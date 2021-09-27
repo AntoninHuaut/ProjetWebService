@@ -44,7 +44,7 @@ export default class Server {
 
         app.use((ctx: Context<any>, next: () => any) => {
             ctx.response.headers.set(Server.CORS_ORIGIN, "*");
-            ctx.response.headers.set(Server.CORS_METHODS, "GET, POST, PUT, DELETE");
+            ctx.response.headers.set(Server.CORS_METHODS, "*");
             return next();
         });
         app.use(router.routes());

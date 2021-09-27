@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import '@fontsource/roboto/700.css';
 import NavBar from './component/NavBar';
+import PublisherManager from './route/PublisherManager';
 
 const App = () => {
 
@@ -19,8 +20,8 @@ const App = () => {
 
                 <Switch>
 
-                    <Route path="/about">
-                        <>Publisher</>
+                    <Route path="/publisher">
+                        <PublisherManager />
                     </Route>
 
                     <Route path="/users">

@@ -1,5 +1,4 @@
 import { Application, Context, Router } from "https://deno.land/x/oak@v9.0.1/mod.ts";
-import { oakCors } from "https://deno.land/x/cors/mod.ts";
 import { ConfigModule } from "./Config.ts";
 import Config = ConfigModule.Config;
 
@@ -18,12 +17,20 @@ export default class Server {
             console.log(`Listening on localhost:${this.config.port}`);
         });
 
-        app.use(oakCors());
+        app.use((ctx, next) => {
+            ctx.response.headers.set("Access-Control-Allow-Origin", "*");
+            next();
+        });
 
         const router = new Router();
         router.all('/(.*)', (ctx) => this.proxy(ctx));
 
         app.use(router.routes());
+
+        app.use((ctx, next) => {
+            ctx.response.headers.set("Access-Control-Allow-Origin", "*");
+            next();
+        });
 
         await app.listen({ port: this.config.port });
     }

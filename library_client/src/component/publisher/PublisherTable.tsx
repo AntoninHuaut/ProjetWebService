@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Publisher } from "../../types/library";
 import BaseTable from "../BaseTable";
+import { Button } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
 
 interface Props {
-    data: Publisher[]
+    data: Publisher[],
+    onEdit: (publisher: Publisher) => any
 }
 
 interface PublisherRow {
@@ -13,7 +17,8 @@ interface PublisherRow {
 }
 
 const PublisherTable = ({
-    data=[]
+    data=[],
+    onEdit
 }: Props) => {
 
     const [formatedData, setFormatedData] = useState<PublisherRow[]>([]);
@@ -25,7 +30,13 @@ const PublisherTable = ({
             formated.push({
                 publisherId: item.publisherId,
                 publisherName: item.name,
-                action: <></>
+                action: <>
+                    <Button
+                        onClick={() => onEdit(item)}
+                    >
+                       <FontAwesomeIcon icon={faEdit}/>
+                    </Button>
+                </>
             });
         });
 

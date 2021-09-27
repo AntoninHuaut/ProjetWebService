@@ -13,3 +13,12 @@ export const axiosExecuteGet = (axiosGet: any, setData: any, setLoading: any, se
         setLoading(false);
     })
 }
+
+export const axiosExecutePost = (axiosPost: any, setLoading: any, setError: any) => {
+    return axiosPost.catch((err: string) => {
+        setError(err);
+    })
+    .finally(() => {
+        setLoading(false);
+    })
+}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container } from "react-bootstrap";
 import { axiosExecuteGet } from "../api/axiosUtils";
 import { getPublisherList } from "../api/publisherService";
+import PublisherModal from "../component/publisher/PublisherModal";
 import PublisherTable from "../component/publisher/PublisherTable";
 import { Publisher } from "../types/library";
 
@@ -11,6 +12,10 @@ const PublisherManager = () => {
 
     const [loadingPublishers, setLoadingPublishers] = useState<boolean>(false);
     const [error, setError] = useState<string>('');
+
+    const [modalPublisher, setModalPublisher] = useState<boolean>(false);
+
+    const [selectedPublisher, setSelectedPublisher] = useState<Publisher| undefined>(undefined);
 
     const getPublishers = () => {
         axiosExecuteGet(
@@ -24,6 +29,11 @@ const PublisherManager = () => {
         getPublishers();
     }, []);
 
+    const updateModalPublisher = (publisher: Publisher) => {
+        setSelectedPublisher(publisher);
+        setModalPublisher(true);
+    }
+
     return (
         <>
             <Container
@@ -32,6 +42,13 @@ const PublisherManager = () => {
 
                 <PublisherTable 
                     data={publishers}
+                    onEdit={updateModalPublisher}
+                />
+
+                <PublisherModal
+                    publisher={selectedPublisher}
+                    show={modalPublisher}
+                    handleHide={() => setModalPublisher(false)}
                 />
 
             </Container>

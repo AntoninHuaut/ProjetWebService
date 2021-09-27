@@ -1,4 +1,4 @@
-import { Application, Context } from "https://deno.land/x/oak@v9.0.1/mod.ts";
+import { Application, Context, Router } from "https://deno.land/x/oak@v9.0.1/mod.ts";
 import { oakCors } from "https://deno.land/x/cors/mod.ts";
 import { ConfigModule } from "./Config.ts";
 import Config = ConfigModule.Config;
@@ -20,7 +20,10 @@ export default class Server {
 
         app.use(oakCors());
 
-        app.use((ctx) => this.proxy(ctx));
+        const router = new Router();
+        router.all('/(.*)', (ctx) => this.proxy(ctx));
+
+        app.use(router.routes());
 
         await app.listen({ port: this.config.port });
     }
@@ -88,7 +91,7 @@ export default class Server {
     }
 
     shouldHaveBody(httpMethod: string): boolean {
-        return !['GET', 'HEAD'].includes(httpMethod?.toUpperCase());
+        return ['POST', 'PUT'].includes(httpMethod?.toUpperCase());
     }
 
     timeoutPromise(timeout: number, err: Error, promise: Promise<Response>): Promise<Response> {

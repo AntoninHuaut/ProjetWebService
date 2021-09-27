@@ -1,5 +1,5 @@
-import {Application} from "https://deno.land/x/oak@v9.0.1/mod.ts";
-import {ConfigModule} from "./Config.ts";
+import { Application } from "https://deno.land/x/oak@v9.0.1/mod.ts";
+import { ConfigModule } from "./Config.ts";
 import Config = ConfigModule.Config;
 
 export default class Server {
@@ -19,7 +19,7 @@ export default class Server {
 
         app.use((ctx) => this.proxy(ctx));
 
-        await app.listen({port: this.config.port});
+        await app.listen({ port: this.config.port });
     }
 
     async proxy(ctx: any) {
@@ -37,14 +37,15 @@ export default class Server {
 
         const urlPath: string = url.pathname.replace(`/${webService}`, '');
 
-        const options = {
+        const options: RequestInit = {
             method: ctx.request.method,
-            headers: ctx.request.headers,
-            body: ctx.request.body
+            headers: ctx.request.headers
         };
 
-        if (['GET', 'HEAD'].includes(options.method)) {
-            delete options.body;
+        const bodyRaw = ctx.request.body();
+        if (bodyRaw.type === 'json' && bodyRaw.value) {
+            const body = await bodyRaw.value;
+            options.body = JSON.stringify(body);
         }
 
         const response = await fetch(`${host}${urlPath}`, options);

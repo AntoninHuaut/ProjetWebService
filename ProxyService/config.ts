@@ -1,7 +1,7 @@
 export default {
     service: {
-        library: 'https://www.google.com/search?q=',
-        user: 'https://www.bing.com/search?q='
+        library: 'http://localhost:3043',
+        user: 'http://localhost:3044'
     },
-    port: 3000
+    port: 3042
 }

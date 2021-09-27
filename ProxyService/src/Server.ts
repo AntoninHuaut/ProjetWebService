@@ -4,6 +4,9 @@ import ResponseError from "./ResponseError.ts";
 
 export default class Server {
 
+    private static readonly CORS_ORIGIN = 'Access-Control-Allow-Origin';
+    private static readonly CORS_METHODS = 'Access-Control-Allow-Methods';
+
     private readonly config: GlobalConfig;
 
     constructor(config: GlobalConfig) {
@@ -40,7 +43,8 @@ export default class Server {
         });
 
         app.use((ctx: Context<any>, next: () => any) => {
-            ctx.response.headers.set("Access-Control-Allow-Origin", "*");
+            ctx.response.headers.set(Server.CORS_ORIGIN, "*");
+            ctx.response.headers.set(Server.CORS_METHODS, "GET, POST, PUT, DELETE");
             return next();
         });
         app.use(router.routes());
@@ -99,7 +103,7 @@ export default class Server {
 
         if (headers) {
             headers.forEach((value: string, key: string) => {
-                if (key == 'Access-Control-Allow-Origin') return;
+                if ([Server.CORS_ORIGIN, Server.CORS_METHODS].includes(key)) return;
 
                 ctx.response.headers.set(key, value);
             });

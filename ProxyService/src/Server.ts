@@ -25,10 +25,6 @@ export default class Server {
             return next();
         });
         app.use(router.routes());
-        app.use((ctx, next) => {
-            ctx.response.headers.set("Access-Control-Allow-Origin", "*");
-            return next();
-        });
 
         await app.listen({ port: this.config.port });
     }
@@ -91,7 +87,9 @@ export default class Server {
         ctx.response.body = body;
 
         if (headers) {
-            ctx.response.headers = headers;
+            headers.forEach((value, key) => {
+                ctx.response.headers.set(key, value);
+            });
         }
     }
 

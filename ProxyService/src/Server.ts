@@ -1,12 +1,11 @@
 import { Application, Context, Router } from "https://deno.land/x/oak@v9.0.1/mod.ts";
-import { ConfigModule } from "./Config.ts";
-import Config = ConfigModule.Config;
+import { GlobalConfig } from "./ConfigModel.ts";
 
 export default class Server {
 
-    private readonly config: Config;
+    private readonly config: GlobalConfig;
 
-    constructor(config: Config) {
+    constructor(config: GlobalConfig) {
         this.config = config;
     }
 
@@ -18,9 +17,9 @@ export default class Server {
         });
 
         const router = new Router();
-        router.all('/(.*)', (ctx) => this.proxy(ctx));
+        router.all('/(.*)', (ctx: any) => this.proxy(ctx));
 
-        app.use((ctx, next) => {
+        app.use((ctx: Context<any>, next: () => any) => {
             ctx.response.headers.set("Access-Control-Allow-Origin", "*");
             return next();
         });
@@ -35,15 +34,11 @@ export default class Server {
         const webService: string = url.pathname.split('/').filter(el => el).shift() ?? '';
         const host: string = this.getWebService(webService);
         if (!host) {
-            ctx.response.body = {
-                error: "Invalid webservice"
-            };
-            ctx.response.status = 400;
+            this.sendErrorResponse(ctx, 400, url.pathname, 'Invalid webservice');
             return;
         }
 
         const urlPath: string = url.pathname.replace(`/${webService}`, '');
-
         const options: RequestInit = {
             method: ctx.request.method,
             headers: ctx.request.headers
@@ -66,10 +61,10 @@ export default class Server {
 
         try {
             const proxyFetch: Promise<Response> = fetch(`${host}${urlPath}`, options);
-            const response: Response = await this.timeoutPromise(7000, new Error("Timeout"), proxyFetch)
+            const response: Response = await this.timeoutPromise(new Error("Timeout"), proxyFetch)
             this.sendResponse(ctx, response.status, response.body, response.headers);
         } catch (ex) {
-            this.sendErrorResponse(ctx, 400, urlPath, ex.toString());
+            this.sendErrorResponse(ctx, 408, urlPath, ex.toString());
         }
     }
 
@@ -87,7 +82,7 @@ export default class Server {
         ctx.response.body = body;
 
         if (headers) {
-            headers.forEach((value, key) => {
+            headers.forEach((value: string, key: string) => {
                 ctx.response.headers.set(key, value);
             });
         }
@@ -97,10 +92,10 @@ export default class Server {
         return ['POST', 'PUT'].includes(httpMethod?.toUpperCase());
     }
 
-    timeoutPromise(timeout: number, err: Error, promise: Promise<Response>): Promise<Response> {
-        return new Promise(function (resolve, reject) {
+    timeoutPromise(err: Error, promise: Promise<Response>): Promise<Response> {
+        return new Promise((resolve, reject) => {
             promise.then(resolve, reject);
-            setTimeout(reject.bind(null, err), timeout);
+            setTimeout(reject.bind(null, err), this.config.timeoutDelay);
         });
     }
 

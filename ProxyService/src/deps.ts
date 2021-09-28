@@ -1,1 +1,1 @@
-export { Application, Context, Router } from "https://deno.land/x/oak@v9.0.1/mod.ts";
+export { Application, Context, Router, send } from "https://deno.land/x/oak@v9.0.1/mod.ts";

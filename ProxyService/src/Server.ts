@@ -1,4 +1,4 @@
-import { Application, Context, Router } from "./deps.ts";
+import { Application, Context, Router, send } from "./deps.ts";
 import { GlobalConfig } from "./model/ConfigModel.ts";
 import ResponseError from "./model/ResponseError.ts";
 import Proxy from "./route/Proxy.ts";
@@ -43,6 +43,17 @@ export default class Server {
         router.options('/(.*)', (ctx: Context<any>) => {
             ctx.response.status = 200;
             ctx.response.body = null;
+        });
+
+        router.use(async (ctx, next: () => any) => {
+            try {
+                await send(ctx, ctx.request.url.pathname, {
+                    root: `${Deno.cwd()}/front`,
+                    index: "index.html",
+                });
+            } catch (_ignore) {
+                await next();
+            }
         });
 
         router.all('/(.*)', async (ctx: Context<any>) => {

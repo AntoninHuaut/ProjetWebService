@@ -4,5 +4,5 @@ export default {
         user: 'http://localhost:3044'
     },
     port: 3042,
-    timeoutDelay: 7000
+    timeoutDelay: 15000
 }

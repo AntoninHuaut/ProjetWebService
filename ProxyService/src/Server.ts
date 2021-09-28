@@ -19,12 +19,11 @@ export default class Server {
 
     async start() {
         const app = new Application();
+        const router: Router = this.createRouter();
 
         app.addEventListener('listen', () => {
             console.log(`Listening on localhost:${this.config.port}`);
         });
-
-        app.use(this.createRouter().routes());
 
         app.use((ctx: Context<any>, next: () => any) => {
             ctx.response.headers.set(Server.CORS_ORIGIN, "*");
@@ -32,6 +31,8 @@ export default class Server {
             ctx.response.headers.set(Server.CORS_HEADERS, "*");
             return next();
         });
+
+        app.use(router.routes());
 
         await app.listen({ port: this.config.port });
     }

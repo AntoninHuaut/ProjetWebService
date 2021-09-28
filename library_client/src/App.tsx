@@ -1,9 +1,7 @@
-import React from 'react';
 import {
-    BrowserRouter as Router,
+    HashRouter as Router,
     Switch,
-    Route,
-    Link
+    Route
 } from "react-router-dom";
 import '@fontsource/roboto/700.css';
 import NavBar from './component/NavBar';
@@ -13,7 +11,7 @@ const App = () => {
 
     return (
 
-        <Router>
+        <Router basename='/'>
             <div>
 
                 <NavBar />

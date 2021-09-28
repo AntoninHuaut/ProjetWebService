@@ -10,5 +10,9 @@ export const getPublisherList = () => {
 }
 
 export const updatePublisher = (publisher: Publisher) => {
+    return axios.put(`${publisherURL}/`, publisher);
+}
+
+export const addPublisher = (publisher: Publisher) => {
     return axios.post(`${publisherURL}/`, publisher);
 }

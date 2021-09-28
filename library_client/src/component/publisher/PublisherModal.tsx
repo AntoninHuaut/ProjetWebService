@@ -3,18 +3,23 @@ import { Publisher } from "../../types/library";
 import BaseModal from "../BaseModal";
 import { Form, Button } from "react-bootstrap";
 import { axiosExecutePost } from "../../api/axiosUtils";
-import { updatePublisher } from "../../api/publisherService";
+import { updatePublisher, addPublisher } from "../../api/publisherService";
+import BaseErrorAlert from "../BaseErrorAlert";
 
 interface Props {
     publisher: Publisher| undefined,
     show: boolean,
-    handleHide: () => any
+    handleHide: () => any,
+    update: (publisher: Publisher) => any,
+    add: (publisher: Publisher) => any
 }
 
 const PublisherModal = ({
     publisher,
     show,
-    handleHide
+    handleHide,
+    update,
+    add
 }: Props) => {
 
     const [loading, setLoading] = useState<boolean>(false);
@@ -43,11 +48,21 @@ const PublisherModal = ({
 
     const sendData = () => {
         if(tmpPublisher.publisherId !== -1){
-            axiosExecutePost(updatePublisher(tmpPublisher), setLoading, setError).then(() => {
+            axiosExecutePost(updatePublisher(tmpPublisher), 
+                setLoading, 
+                setError,
+                (data: Publisher) => update(data))
+            .then(() => {
                 handleHide();
             });
         }else{
-
+            axiosExecutePost(addPublisher(tmpPublisher), 
+                setLoading, 
+                setError,
+                (data: Publisher) => update(data))
+            .then(() => {
+                handleHide();
+            });
         }
     }
 
@@ -77,7 +92,9 @@ const PublisherModal = ({
             title={<h5>{tmpPublisher.publisherId === -1 ? 'New ' : 'Edit '} Publisher</h5>}
             actions={ModalActions}
         >
-        
+            
+            <BaseErrorAlert error={error} />
+
             <Form>
                 <Form.Group className="mb-6">
 

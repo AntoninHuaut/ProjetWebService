@@ -1,10 +1,12 @@
 import React from "react";
+import { Spinner } from "react-bootstrap";
 import BootstrapTable from "react-bootstrap-table-next";
 
 
 interface Props {
     keyField?: string,
     title?: any,
+    loading: boolean,
     data: any[],
     columns: any[]
 }
@@ -12,6 +14,7 @@ interface Props {
 const BaseTable = ({
     keyField="",
     title=<></>,
+    loading,
     data,
     columns
 }: Props) => {
@@ -22,11 +25,18 @@ const BaseTable = ({
 
             {title}
 
-            <BootstrapTable 
-                keyField={ keyField }
-                data={ data } 
-                columns={ columns } 
-            />
+            {loading ? 
+                <Spinner 
+                    animation="border"
+                />
+            :
+                <BootstrapTable 
+                    keyField={keyField}
+                    data={data} 
+                    columns={columns}
+                />
+            }
+            
         </>
     )
 }

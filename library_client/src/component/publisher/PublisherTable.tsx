@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Publisher } from "../../types/library";
 import BaseTable from "../BaseTable";
-import { Button } from "react-bootstrap";
+import { Button, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 interface Props {
     data: Publisher[],
-    onEdit: (publisher: Publisher) => any
+    loading: boolean,
+    onEdit: (publisher: Publisher) => any,
+    onNew: () => any
 }
 
 interface PublisherRow {
@@ -18,7 +20,9 @@ interface PublisherRow {
 
 const PublisherTable = ({
     data=[],
-    onEdit
+    loading,
+    onEdit,
+    onNew
 }: Props) => {
 
     const [formatedData, setFormatedData] = useState<PublisherRow[]>([]);
@@ -58,13 +62,33 @@ const PublisherTable = ({
         text: 'Actions'
     }];
     
+    const TableTitle = 
+    <Row>
+        <Col>
+            <h4>
+                Publishers
+            </h4>
+        </Col>
+        
+        <Col sm="auto" >
+            <Button
+                className="mb-2 p-1"
+                variant="success"
+                onClick={onNew}
+            >
+                Add <FontAwesomeIcon icon={faPlus} />
+            </Button>
+        </Col>
+    </Row>
+
 
     return(
         <>
             <BaseTable
-                title={<h4>Publishers</h4>}
+                title={TableTitle}
                 keyField="publisherId"
                 columns={columns}
+                loading={loading}
                 data={formatedData}
             />
         </>

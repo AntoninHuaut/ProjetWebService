@@ -1,22 +1,26 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-import { Exclude } from 'class-transformer';
-import { IsNotEmpty, IsEmail, MinLength, MaxLength, Min, Max, IsNumber, IsString } from "class-validator";
+import { Exclude, Expose } from 'class-transformer';
+import { IsNotEmpty, IsString } from "class-validator";
 
 @Entity()
+@Exclude()
 export class User {
 
     @PrimaryGeneratedColumn()
+    @Expose()
     id: number;
+
+    @Column()
+    @IsString()
+    @Expose()
+    userName: string;
 
     @Column()
     @IsNotEmpty()
     @IsString()
-    userName: string;
-
-    @Column({ select: false })
-    @IsNotEmpty()
-    @IsString()
-    @Exclude({ toPlainOnly: true })
     password: string;
 
+    constructor(partial: Partial<User>) {
+        Object.assign(this, partial);
+    }
 }

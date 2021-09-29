@@ -1,4 +1,5 @@
-import { Injectable } from '@nestjs/common';
+import * as bcrypt from 'bcrypt';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserRepository } from './dto/user.repository';
@@ -6,27 +7,51 @@ import { UserRepository } from './dto/user.repository';
 @Injectable()
 export class UserService {
 
+  private readonly saltOrRounds: number = 8;
+
   constructor(private usersRepository: UserRepository) {
-
-  }
-
-  create(createUserDto: CreateUserDto) {
-    return this.usersRepository.save(createUserDto);
   }
 
   findAll() {
     return this.usersRepository.find();
   }
 
-  findOne(id: number) {
-    return this.usersRepository.findOne(id);
+  async findOne(id: number) {
+    const userCheck = await this.usersRepository.findOne(id);
+    if (userCheck) {
+      return userCheck;
+    } else {
+      throw new NotFoundException();
+    }
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return this.usersRepository.update(id, updateUserDto);
+  async create(createUserDto: CreateUserDto) {
+    if (createUserDto.password) {
+      const hash = await bcrypt.hash(createUserDto.password, this.saltOrRounds);
+      createUserDto.password = hash;
+    }
+    const createResponse = await this.usersRepository.save(createUserDto);
+    delete createResponse.password;
+    return createResponse;
   }
 
-  remove(id: number) {
-    return this.usersRepository.delete(id);
+  async update(updateUserDto: UpdateUserDto) {
+    await this.findOne(updateUserDto.id); // Can throw NotFoundException
+
+    if (updateUserDto.password) {
+      const hash = await bcrypt.hash(updateUserDto.password, this.saltOrRounds);
+      updateUserDto.password = hash;
+    }
+
+    const updateResponse = await this.usersRepository.save(updateUserDto);
+    delete updateResponse.password;
+    return updateResponse;
+
+  }
+
+  async remove(id: number) {
+    const userCheck = await this.findOne(id); // Can throw NotFoundException
+    await this.usersRepository.delete(id);
+    return userCheck;
   }
 }

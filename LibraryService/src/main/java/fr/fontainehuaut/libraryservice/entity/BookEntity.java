@@ -38,4 +38,8 @@ public class BookEntity {
     @ManyToOne(optional = false)
     @JoinColumn(name = "publisherId")
     private PublisherEntity publisher;
+
+    public BookEntity(Long bookId) {
+        this.bookId = bookId;
+    }
 }

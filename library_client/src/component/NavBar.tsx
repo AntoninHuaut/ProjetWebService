@@ -10,7 +10,16 @@ const NavBar = () => {
     return (
         <Navbar bg="dark" variant="dark">
             <Container>
-                <Navbar.Brand href="/#/">Library de quality</Navbar.Brand>
+                <Navbar.Brand href="/#/">
+                    <img
+                        src="/book.png"
+                        width="30"
+                        height="30"
+                        className="d-inline-block align-top"
+                        alt="Book logo"
+                    />{' '}
+                    Book Manager
+                </Navbar.Brand>
                 <Nav className="me-auto">
                     <Nav.Link href="/#/publisher">Publisher</Nav.Link>
                     <Nav.Link href="/#/users">Users</Nav.Link>

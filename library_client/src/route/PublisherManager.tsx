@@ -5,6 +5,7 @@ import { getPublisherList } from "../api/publisherService";
 import BaseErrorAlert from "../component/BaseErrorAlert";
 import PublisherModal from "../component/publisher/PublisherModal";
 import PublisherTable from "../component/publisher/PublisherTable";
+import PublisherDeleteModal from "../component/publisher/PublisherDeleteModal";
 import { Publisher } from "../types/library";
 
 const PublisherManager = () => {
@@ -15,6 +16,7 @@ const PublisherManager = () => {
     const [error, setError] = useState<string>('');
 
     const [modalPublisher, setModalPublisher] = useState<boolean>(false);
+    const [modalDelete, setModalDelete] = useState<boolean>(false);
 
     const [selectedPublisher, setSelectedPublisher] = useState<Publisher| undefined>(undefined);
 
@@ -40,14 +42,27 @@ const PublisherManager = () => {
         setModalPublisher(true);
     }
 
-    const updatePublisher = (publisher: Publisher) => {
+    const deleteModalPublisher = (publisher: Publisher) => {
+        setSelectedPublisher({...publisher});
+        setModalDelete(true);
+    }
 
+    const updatePublisher = (publisher: Publisher) => {
         publishers.forEach((p: Publisher) => {
             if(p.publisherId === publisher.publisherId){
                 p.name = publisher.name;
             }
         });
+        setPublishers([...publishers]);
+    }
 
+    const deletePublisher = (publisherId: number) => {
+        let p = publishers.find(p => p.publisherId === publisherId) ?? {name: "", publisherId: -1};
+
+        const index = publishers.indexOf(p);
+        if (index > -1) {
+            publishers.splice(index, 1);
+        }
         setPublishers([...publishers]);
     }
 
@@ -69,6 +84,7 @@ const PublisherManager = () => {
                     loading={loadingPublishers}
                     onEdit={updateModalPublisher}
                     onNew={newModalPublisher}
+                    onDelete={deleteModalPublisher}
                 />
 
                 <PublisherModal
@@ -78,6 +94,15 @@ const PublisherManager = () => {
                     update={updatePublisher}
                     add={addPublisher}
                 />
+
+                {selectedPublisher &&
+                    <PublisherDeleteModal 
+                        publisher={selectedPublisher}
+                        show={modalDelete}
+                        handleHide={() => setModalDelete(false)}
+                        removeFromList={deletePublisher}
+                    />
+                }
 
             </Container>
         </>

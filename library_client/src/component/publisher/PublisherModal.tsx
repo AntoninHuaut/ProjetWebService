@@ -59,7 +59,7 @@ const PublisherModal = ({
             axiosExecutePost(addPublisher(tmpPublisher), 
                 setLoading, 
                 setError,
-                (data: Publisher) => update(data))
+                (data: Publisher) => add(data))
             .then(() => {
                 handleHide();
             });

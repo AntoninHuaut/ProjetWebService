@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 import '@fontsource/roboto/700.css';
 import NavBar from './component/NavBar';
+import HomePage from './route/HomePage';
 import PublisherManager from './route/PublisherManager';
 
 const App = () => {
@@ -27,10 +28,11 @@ const App = () => {
                     </Route>
 
                     <Route path="/">
-                        <>Welcome home</>
+                        <HomePage />
                     </Route>
 
                 </Switch>
+
             </div>
         </Router>
 

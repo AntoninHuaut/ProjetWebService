@@ -16,3 +16,7 @@ export const updatePublisher = (publisher: Publisher) => {
 export const addPublisher = (publisher: Publisher) => {
     return axios.post(`${publisherURL}/`, publisher);
 }
+
+export const deletePublisher = (publisherId: number) => {
+    return axios.delete(`${publisherURL}/${publisherId}`);
+}

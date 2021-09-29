@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosResponse } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
 
 export const API_URL = "https://ensiws.maner.fr/library";
 
@@ -18,8 +18,8 @@ export const axiosExecutePost = (axiosPost: any, setLoading: any, setError: any,
     return axiosPost.then((res: AxiosResponse) => {
         setData(res.data);
     })
-    .catch((err: string) => {
-        setError(err);
+    .catch((err: Error | AxiosError) => {
+        setError(err.message);
     })
     .finally(() => {
         setLoading(false);

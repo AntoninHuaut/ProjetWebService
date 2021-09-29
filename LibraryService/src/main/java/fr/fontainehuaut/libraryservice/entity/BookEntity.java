@@ -1,5 +1,6 @@
 package fr.fontainehuaut.libraryservice.entity;
 
+import fr.fontainehuaut.libraryservice.validator.BorrowEntityEventListener;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

@@ -25,11 +25,12 @@ const PublisherDeleteModal = ({
     const deletePublisherRequest = () => {
         axiosExecutePost(deletePublisher(publisher.publisherId),
             setLoading,
-            setError
-        ).then(() => {
-            removeFromList(publisher.publisherId);
-            handleClose();
-        });
+            setError,
+            () => {
+                removeFromList(publisher.publisherId);
+                handleClose();
+            }
+        );
     }
 
     const handleClose = () => {

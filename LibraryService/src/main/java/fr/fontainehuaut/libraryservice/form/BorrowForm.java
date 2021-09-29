@@ -1,6 +1,5 @@
 package fr.fontainehuaut.libraryservice.form;
 
-import fr.fontainehuaut.libraryservice.entity.AuthorEntity;
 import fr.fontainehuaut.libraryservice.entity.BookEntity;
 import fr.fontainehuaut.libraryservice.entity.BorrowEntity;
 import lombok.Getter;
@@ -8,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.Instant;
 

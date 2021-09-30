@@ -11,7 +11,7 @@ import {AccessModule} from './access/access.module';
         type: 'sqlite',
         database: 'db',
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        synchronize: true,
+        synchronize: true
     })],
     controllers: [AppController],
     providers: [AppService],

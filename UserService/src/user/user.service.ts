@@ -10,6 +10,9 @@ import {UserRepository} from './dto/user.repository';
 import {InjectRepository} from "@nestjs/typeorm";
 import {User} from "./entities/user.entity";
 import {UserUtil} from './enum/userrole.enum';
+import {ResponseUserUpdate} from "./dto/ResponseUserUpdate";
+import {FormCreateUser} from "./dto/FormCreateUser";
+import {FormUpdateUser} from "./dto/FormUpdateUser";
 
 @Injectable()
 export class UserService {
@@ -19,8 +22,8 @@ export class UserService {
     constructor(@InjectRepository(UserRepository) private usersRepository: UserRepository) {
     }
 
-    findAll() {
-        return this.usersRepository.find();
+    async findAll() {
+        return await this.usersRepository.find();
     }
 
     async findOneWithToken(token: string) {
@@ -58,7 +61,7 @@ export class UserService {
         }
     }
 
-    async create(createUserDto: User) {
+    async create(createUserDto: FormCreateUser): Promise<ResponseUserUpdate> {
         if (!UserUtil.isValidRole(createUserDto.role)) throw new BadRequestException("Invalid role");
 
         let isExist: boolean;
@@ -75,33 +78,21 @@ export class UserService {
             createUserDto.password = await this.hash(createUserDto.password);
         }
 
-        delete createUserDto.token;
-
-        const createResponse = await this.saveUser(createUserDto);
-
-        delete createResponse.password;
-        delete createResponse.token;
-
-        return createResponse;
+        const userEntity = await this.saveUser(FormCreateUser.toEntity(createUserDto));
+        return ResponseUserUpdate.fromEntity(userEntity);
     }
 
-    async update(updateUserDto: User) {
+    async update(updateUserDto: FormUpdateUser): Promise<ResponseUserUpdate> {
         if (!UserUtil.isValidRole(updateUserDto.role)) throw new BadRequestException("Invalid role");
 
-        const user: User = await this.findOne(updateUserDto.id); // Can throw NotFoundException
+        const user: User = await this.findOne(updateUserDto.userId); // Can throw NotFoundException
 
         if (updateUserDto.password) {
             updateUserDto.password = await bcrypt.hash(updateUserDto.password, this.saltOrRounds);
         }
 
-        user.password = updateUserDto.password;
-        user.role = updateUserDto.role;
-
-        const updateResponse = await this.saveUser(user);
-
-        delete updateResponse.password;
-        delete updateResponse.token;
-        return updateResponse;
+        const userEntity = await this.saveUser(FormUpdateUser.fromEntity(updateUserDto, user));
+        return ResponseUserUpdate.fromEntity(userEntity);
     }
 
     async saveUser(user: User): Promise<User> {

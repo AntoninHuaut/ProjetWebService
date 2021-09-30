@@ -16,7 +16,7 @@ export class AccessService {
         const user: User = await this.userService.checkPassword(loginUserDto.userName, loginUserDto.password);
         user.token = randomStringGenerator() + "-" + randomStringGenerator();
 
-        return {token: await this.userService.updateToken(user.id, user.token)};
+        return {token: await this.userService.updateToken(user.userId, user.token)};
     }
 
     async canDo(action: Action, token: string) {

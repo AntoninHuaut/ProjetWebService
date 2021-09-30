@@ -9,7 +9,7 @@ export class User {
 
     @PrimaryGeneratedColumn()
     @Expose()
-    id: number;
+    userId: number;
 
     @Column({
         unique: true
@@ -33,8 +33,4 @@ export class User {
         nullable: true,
     })
     token: string;
-
-    constructor(partial: Partial<User>) {
-        Object.assign(this, partial);
-    }
 }

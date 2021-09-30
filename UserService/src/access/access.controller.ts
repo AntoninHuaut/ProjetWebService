@@ -11,8 +11,9 @@ export class AccessController {
 
     @Get('/:action/:token')
     async canDo(@Param('action') action: Action, @Param('token') token: string) {
+        const bolRes = await this.accessService.canDo(action, token);
         return {
-            access: this.accessService.canDo(action, token)
+            access: bolRes
         }
     }
 

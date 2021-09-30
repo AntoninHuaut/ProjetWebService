@@ -24,7 +24,7 @@ export class UserService {
         const userCheck = await this.usersRepository.findOne({
             token: token
         });
-        if (!userCheck) {
+        if (userCheck) {
             return userCheck;
         } else {
             throw new NotFoundException();

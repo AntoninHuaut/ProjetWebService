@@ -20,7 +20,12 @@ export class AccessService {
     }
 
     async canDo(action: Action, token: string) {
-        const user: User = await this.userService.findOneWithToken(token);
+        let user: User
+        try {
+            user = await this.userService.findOneWithToken(token);
+        } catch (_ignore) {
+            throw new ForbiddenException();
+        }
 
         switch (action) {
             case Action.CONSULT:

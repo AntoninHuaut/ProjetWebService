@@ -1,6 +1,6 @@
 package fr.fontainehuaut.libraryservice.entity;
 
-import fr.fontainehuaut.libraryservice.validator.BorrowEntityEventListener;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Data
 @Getter
 @Setter
 @NoArgsConstructor

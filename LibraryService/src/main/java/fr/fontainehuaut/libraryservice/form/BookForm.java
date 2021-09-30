@@ -8,6 +8,7 @@ import fr.fontainehuaut.libraryservice.entity.PublisherEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.UniqueElements;
 import org.modelmapper.ModelMapper;
 
 import javax.validation.constraints.NotBlank;
@@ -32,6 +33,7 @@ public class BookForm {
     @NotNull()
     private BookState state = BookState.AVAILABLE;
 
+    @UniqueElements
     private List<AuthorEntity> authors;
 
     @NotNull

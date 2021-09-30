@@ -7,6 +7,7 @@ import '@fontsource/roboto/700.css';
 import NavBar from './component/NavBar';
 import HomePage from './route/HomePage';
 import PublisherManager from './route/PublisherManager';
+import BookManager from "./route/BookManager";
 
 const App = () => {
 
@@ -21,10 +22,14 @@ const App = () => {
 
                     <Route path="/publisher">
                         <PublisherManager />
-                    </Route>
+                    </Route>                    
 
                     <Route path="/users">
                         <>Users</>
+                    </Route>
+
+                    <Route path="/book">
+                        <BookManager />
                     </Route>
 
                     <Route path="/">

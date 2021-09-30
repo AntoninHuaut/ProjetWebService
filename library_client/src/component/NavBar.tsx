@@ -22,6 +22,7 @@ const NavBar = () => {
                 </Navbar.Brand>
                 <Nav className="me-auto">
                     <Nav.Link href="/#/publisher">Publisher</Nav.Link>
+                    <Nav.Link href="/#/book">Book</Nav.Link>
                     <Nav.Link href="/#/users">Users</Nav.Link>
                 </Nav>
             </Container>

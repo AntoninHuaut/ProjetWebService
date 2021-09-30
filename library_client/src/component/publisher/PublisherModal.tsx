@@ -93,7 +93,7 @@ const PublisherModal = ({
             actions={ModalActions}
         >
             
-            <BaseErrorAlert error={error} />
+            <BaseErrorAlert error={error} close={() => setError('')} />
 
             <Form>
                 <Form.Group className="mb-6">

@@ -1,5 +1,11 @@
 import * as bcrypt from 'bcrypt';
-import {BadRequestException, ForbiddenException, Injectable, NotFoundException} from '@nestjs/common';
+import {
+    BadRequestException,
+    ForbiddenException,
+    Injectable,
+    InternalServerErrorException,
+    NotFoundException
+} from '@nestjs/common';
 import {UserRepository} from './dto/user.repository';
 import {InjectRepository} from "@nestjs/typeorm";
 import {User} from "./entities/user.entity";
@@ -71,12 +77,8 @@ export class UserService {
 
         delete createUserDto.token;
 
-        let createResponse;
-        try {
-            createResponse = await this.usersRepository.save(createUserDto);
-        } catch (ex) {
-            console.log(ex.name)
-        }
+        const createResponse = await this.saveUser(createUserDto);
+
         delete createResponse.password;
         delete createResponse.token;
 
@@ -95,10 +97,26 @@ export class UserService {
         user.password = updateUserDto.password;
         user.role = updateUserDto.role;
 
-        const updateResponse = await this.usersRepository.save(user);
+        const updateResponse = await this.saveUser(updateUserDto);
+
         delete updateResponse.password;
         delete updateResponse.token;
         return updateResponse;
+    }
+
+    async saveUser(user: User): Promise<User> {
+        try {
+            return await this.usersRepository.save(user);
+        } catch (ex) {
+            if (ex.name === 'QueryFailedError' && ex.message.includes('CONSTRAINT')) {
+                throw new BadRequestException("Invalid data");
+            }
+
+            throw new InternalServerErrorException({
+                error: ex.name,
+                message: ex.message
+            });
+        }
     }
 
     // Internal use

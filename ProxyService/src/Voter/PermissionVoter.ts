@@ -10,10 +10,10 @@ export default class PermissionVoter {
 
     private readonly config: GlobalConfig;
 
-    constructor(webService: string, urlPath: string, token: string, config: GlobalConfig, ctx: Context<any>) {
+    constructor(webService: string, urlPath: string, config: GlobalConfig, ctx: Context<any>) {
         this.webService = webService;
         this.urlPath = urlPath;
-        this.token = token;
+        this.token = ctx.request.url.searchParams.get('token') ?? '';
         this.config = config;
         this.ctx = ctx;
     }
@@ -71,7 +71,7 @@ export default class PermissionVoter {
     }
 
     async vote(): Promise<Boolean> {
-        if (this.token === this.config.rootToken) return true;
+        if (this.config.rootToken && this.token === this.config.rootToken) return true;
 
         let action: Action;
         try {

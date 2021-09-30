@@ -7,5 +7,6 @@ export interface ServiceConfig {
 export interface GlobalConfig {
     service: ServiceConfig;
     port: number;
+    rootToken: string;
     timeoutDelay: number;
 }

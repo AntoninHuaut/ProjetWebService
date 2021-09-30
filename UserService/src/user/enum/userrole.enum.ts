@@ -1,0 +1,8 @@
+export enum UserRole {
+
+    CONSULT_ROLE = 1,
+    BORROW_ROLE,
+    CONTRIBUTOR_ROLE,
+    ADMINISTRATOR_ROLE
+
+}

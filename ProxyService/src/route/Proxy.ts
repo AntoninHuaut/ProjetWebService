@@ -1,6 +1,7 @@
 import { Context } from "../deps.ts";
 import { GlobalConfig } from "../model/ConfigModel.ts";
 import ResponseError from "../model/ResponseError.ts";
+import PermissionVoter from "../Voter/PermissionVoter.ts";
 
 export default class Proxy {
 
@@ -25,6 +26,13 @@ export default class Proxy {
             headers: ctx.request.headers
         }
 
+        const userToken = ctx.request.url.searchParams.get('token') ?? '';
+        const hasPermission = await this.checkPermission(webService, urlPath, userToken, ctx);
+
+        if (!hasPermission) {
+            throw new ResponseError(403, url.pathname, "Invalid token or resource access denied");
+        }
+
         if (ctx.request.hasBody) {
             try {
                 const bodyRaw = ctx.request.body({ type: 'text' });
@@ -43,6 +51,10 @@ export default class Proxy {
 
             throw new ResponseError(500, urlPath, ex.toString());
         }
+    }
+
+    checkPermission(webService: string, urlPath: string, token: string, ctx: Context<any>): Promise<Boolean> {
+        return new PermissionVoter(webService, urlPath, token, this.config, ctx).vote();
     }
 
     sendResponse(ctx: Context<any>, status: number, body: any, headers: Headers | undefined = undefined) {

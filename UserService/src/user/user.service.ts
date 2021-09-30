@@ -1,10 +1,11 @@
 import * as bcrypt from 'bcrypt';
-import {BadRequestException, ForbiddenException, Injectable, NotFoundException} from '@nestjs/common';
-import {CreateUserDto} from './dto/create-user.dto';
-import {UpdateUserDto} from './dto/update-user.dto';
-import {UserRepository} from './dto/user.repository';
-import {InjectRepository} from "@nestjs/typeorm";
-import {User} from "./entities/user.entity";
+import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { UserRepository } from './dto/user.repository';
+import { InjectRepository } from "@nestjs/typeorm";
+import { User } from "./entities/user.entity";
+import { UserUtil } from './enum/userrole.enum';
 
 @Injectable()
 export class UserService {
@@ -54,6 +55,8 @@ export class UserService {
     }
 
     async create(createUserDto: CreateUserDto) {
+        if (!UserUtil.isValidRole(createUserDto.role)) throw new BadRequestException("Invalid role");
+
         let isExist: boolean;
         try {
             await this.findOneWithUsername(createUserDto.userName); // Can throw NotFoundException
@@ -75,6 +78,8 @@ export class UserService {
     }
 
     async update(updateUserDto: UpdateUserDto) {
+        if (!UserUtil.isValidRole(updateUserDto.role)) throw new BadRequestException("Invalid role");
+
         const user: User = await this.findOne(updateUserDto.id); // Can throw NotFoundException
 
         if (updateUserDto.password) {

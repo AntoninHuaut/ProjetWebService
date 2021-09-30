@@ -4,8 +4,6 @@ import {User} from "../user/entities/user.entity";
 import {UserRole} from "../user/enum/userrole.enum";
 import {UserService} from "../user/user.service";
 import {LoginUserDto} from "./dto/login-user-dto";
-
-import {UpdateUserDto} from "../user/dto/update-user.dto";
 import {randomStringGenerator} from "@nestjs/common/utils/random-string-generator.util";
 
 @Injectable()
@@ -17,10 +15,8 @@ export class AccessService {
     async login(loginUserDto: LoginUserDto) {
         const user: User = await this.userService.checkPassword(loginUserDto.userName, loginUserDto.password);
         user.token = randomStringGenerator() + "-" + randomStringGenerator();
-        console.log(new UpdateUserDto(user))
-        await this.userService.update(new UpdateUserDto(user));
 
-        console.log(await this.userService.findOne(user.id));
+        return {token: await this.userService.updateToken(user.id, user.token)};
     }
 
     async canDo(action: Action, token: string) {

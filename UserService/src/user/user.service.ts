@@ -37,7 +37,7 @@ export class UserService {
         const userCheck = await this.usersRepository.findOne({
             userName: userName
         });
-        if (!userCheck) {
+        if (userCheck) {
             return userCheck;
         } else {
             throw new NotFoundException();
@@ -54,33 +54,48 @@ export class UserService {
     }
 
     async create(createUserDto: CreateUserDto) {
+        let isExist: boolean;
         try {
             await this.findOneWithUsername(createUserDto.userName); // Can throw NotFoundException
-
-            if (createUserDto.password) {
-                createUserDto.password = await this.hash(createUserDto.password);
-            }
-            const createResponse = await this.usersRepository.save(createUserDto);
-            delete createResponse.password;
-            delete createResponse.token;
-
-            return createResponse;
+            isExist = true;
         } catch (excepted) {
-            throw new BadRequestException("Username already exist");
+            isExist = false;
         }
+
+        if (isExist) throw new BadRequestException("Username already exist");
+
+        if (createUserDto.password) {
+            createUserDto.password = await this.hash(createUserDto.password);
+        }
+        const createResponse = await this.usersRepository.save(createUserDto);
+        delete createResponse.password;
+        delete createResponse.token;
+
+        return createResponse;
     }
 
     async update(updateUserDto: UpdateUserDto) {
-        await this.findOne(updateUserDto.id); // Can throw NotFoundException
+        const user: User = await this.findOne(updateUserDto.id); // Can throw NotFoundException
 
         if (updateUserDto.password) {
             updateUserDto.password = await bcrypt.hash(updateUserDto.password, this.saltOrRounds);
         }
 
-        const updateResponse = await this.usersRepository.save(updateUserDto);
+        user.password = updateUserDto.password;
+        user.role = updateUserDto.role;
+
+        const updateResponse = await this.usersRepository.save(user);
         delete updateResponse.password;
         delete updateResponse.token;
         return updateResponse;
+    }
+
+    // Internal use
+    async updateToken(id: number, token: string): Promise<String> {
+        const user: User = await this.findOne(id); // Can throw NotFoundException
+        user.token = token;
+        await this.usersRepository.save(user);
+        return token;
     }
 
     async remove(id: number) {

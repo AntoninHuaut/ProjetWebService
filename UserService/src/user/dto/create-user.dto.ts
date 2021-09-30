@@ -7,6 +7,4 @@ export class CreateUserDto {
     password: string;
 
     role: UserRole;
-
-    token: string | null;
 }

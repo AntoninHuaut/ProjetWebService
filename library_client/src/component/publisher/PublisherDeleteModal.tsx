@@ -47,6 +47,7 @@ const PublisherDeleteModal = ({
             onDeleteItem={deletePublisherRequest}
             loadingDelete={loading}
             errorDelete={error}
+            setErrorDelete={setError}
         />
     )
 

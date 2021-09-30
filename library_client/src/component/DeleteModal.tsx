@@ -10,7 +10,8 @@ interface Props {
     onDeleteItem: () => any,
     handleHide: () => any,
     loadingDelete: boolean,
-    errorDelete: string
+    errorDelete: string,
+    setErrorDelete: (error : string) => any
 }
 
 const DeleteModal = ({
@@ -20,7 +21,8 @@ const DeleteModal = ({
     onDeleteItem,
     handleHide,
     loadingDelete,
-    errorDelete
+    errorDelete,
+    setErrorDelete
 }: Props) => {
 
     const actions = 
@@ -49,7 +51,7 @@ const DeleteModal = ({
                 title={<h4>Delete {itemType} - {itemNameToDelete}</h4>}
                 actions={actions}
             >
-                <BaseErrorAlert error={errorDelete} />
+                <BaseErrorAlert error={errorDelete} close={() => setErrorDelete('')}/>
 
                 <>
                     Are you sure to delete the {itemType} : {itemNameToDelete} ?

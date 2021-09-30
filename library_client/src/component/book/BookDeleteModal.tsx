@@ -47,6 +47,7 @@ const BookDeleteModal = ({
             onDeleteItem={deleteBookRequest}
             loadingDelete={loading}
             errorDelete={error}
+            setErrorDelete={setError}
         />
     )
 

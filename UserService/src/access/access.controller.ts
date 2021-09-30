@@ -6,15 +6,18 @@ import {LoginUserDto} from "./dto/login-user-dto";
 @Controller('access')
 export class AccessController {
 
-  constructor(private readonly accessService: AccessService) {}
+    constructor(private readonly accessService: AccessService) {
+    }
 
-  @Get('/:action/:token')
-  async canDo(@Param('action') action: Action, @Param('token') token: string) {
-    return this.accessService.canDo(action, token);
-  }
+    @Get('/:action/:token')
+    async canDo(@Param('action') action: Action, @Param('token') token: string) {
+        return {
+            access: this.accessService.canDo(action, token)
+        }
+    }
 
-  @Post('/login')
-  async login(@Body() loginUserDto: LoginUserDto) {
-    return this.accessService.login(loginUserDto);
-  }
+    @Post('/login')
+    async login(@Body() loginUserDto: LoginUserDto) {
+        return this.accessService.login(loginUserDto);
+    }
 }

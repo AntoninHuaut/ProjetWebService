@@ -97,7 +97,7 @@ export class UserService {
         user.password = updateUserDto.password;
         user.role = updateUserDto.role;
 
-        const updateResponse = await this.saveUser(updateUserDto);
+        const updateResponse = await this.saveUser(user);
 
         delete updateResponse.password;
         delete updateResponse.token;

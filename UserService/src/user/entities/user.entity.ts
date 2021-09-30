@@ -24,6 +24,7 @@ export class User {
     password: string;
 
     @Column()
+    @Expose()
     role: UserRole;
 
     @Column({

@@ -10,7 +10,6 @@ export enum UserRole {
 export class UserUtil {
 
     static isValidRole(userRole: UserRole) {
-        console.log(userRole, userRole >= 1 && userRole <= 4)
         return userRole >= 1 && userRole <= 4;
     }
 }

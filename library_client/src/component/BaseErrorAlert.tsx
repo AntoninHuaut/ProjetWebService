@@ -2,18 +2,20 @@ import React from "react";
 import { Alert } from "react-bootstrap";
 
 interface Props {
-    error: string
+    error: string,
+    close: () => any
 };
 
 const BaseErrorAlert = ({
-    error
+    error,
+    close
 }: Props) => {
 
     return (
         <>
             {error !== "" ?
 
-                <Alert variant="danger">
+                <Alert variant="danger" onClose={close} dismissible>
                     {error}
                 </Alert>
 

@@ -77,7 +77,7 @@ const PublisherManager = () => {
                 className="pt-4"
             >
 
-                <BaseErrorAlert error={error} />
+                <BaseErrorAlert error={error} close={() => setError('')} />
 
                 <PublisherTable 
                     data={publishers}

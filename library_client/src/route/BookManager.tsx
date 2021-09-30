@@ -48,9 +48,14 @@ const BookManager = () => {
     }
 
     const updateBook = (book: Book) => {
-        books.forEach((p: Book) => {
-            if(p.bookId === book.bookId){
-                p.title = book.title;
+        books.forEach((b: Book) => {
+            if(b.bookId === book.bookId){
+                b.title = book.title;
+                b.authors = book.authors;
+                b.description = book.description;
+                b.publicationYear = book.publicationYear;
+                b.publisher = book.publisher;
+                b.state = book.state;
             }
         });
         setBooks([...books]);
@@ -77,7 +82,7 @@ const BookManager = () => {
                 className="pt-4"
             >
 
-                <BaseErrorAlert error={error} />
+                <BaseErrorAlert error={error} close={() => setError('')} />
 
                 <BookTable 
                     data={books}

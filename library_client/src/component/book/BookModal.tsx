@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Author, Book, BookState, Publisher } from "../../types/library";
 import BaseModal from "../BaseModal";
-import { Form, Button, FloatingLabel } from "react-bootstrap";
+import { Form, Button, FloatingLabel, Row, Col } from "react-bootstrap";
 import { axiosExecuteGet, axiosExecutePost } from "../../api/axiosUtils";
 import { getPublisherList } from "../../api/publisherService";
 import { getAuthorList } from "../../api/authorService";
@@ -96,18 +96,18 @@ const BookModal = ({
             axiosExecutePost(updateBook(tmpBook), 
                 setLoading, 
                 setError,
-                (data: Book) => update(data))
-            .then(() => {
-                handleHide();
-            });
+                (data: Book) => {
+                    update(data);
+                    handleHide();
+                });
         }else{
             axiosExecutePost(addBook(tmpBook), 
                 setLoading, 
                 setError,
-                (data: Book) => add(data))
-            .then(() => {
-                handleHide();
-            });
+                (data: Book) => {
+                    add(data);
+                    handleHide();
+                });
         }
     }
 
@@ -138,21 +138,37 @@ const BookModal = ({
             actions={ModalActions}
         >
             
-            <BaseErrorAlert error={error} />
+            <BaseErrorAlert error={error} close={() => setError('')} />
 
             <Form>
-                <Form.Group className="mb-6">
-                    <Form.Label>Title</Form.Label>
-                    <Form.Control 
-                        type="text" 
-                        placeholder="Enter title" 
-                        value={tmpBook.title}
-                        onChange={handleChange}
-                        name="title"
-                    />
-                </Form.Group>
+                <Row>
+                    <Col md={6}>
+                        <Form.Group>
+                            <Form.Label>Title</Form.Label>
+                            <Form.Control 
+                                type="text" 
+                                placeholder="Enter title" 
+                                value={tmpBook.title}
+                                onChange={handleChange}
+                                name="title"
+                            />
+                        </Form.Group>
+                    </Col>
 
-                <Form.Group className="mb-12">
+                    <Col md={6}>
+                        <Form.Group>
+                            <Form.Label>Publication year</Form.Label>
+                            <Form.Control 
+                                type="number"
+                                value={tmpBook.publicationYear}
+                                onChange={handleChange}
+                                name="publicationYear"
+                            />
+                        </Form.Group>
+                    </Col>
+                </Row>
+
+                <Form.Group className="mt-4">
                     <Form.Label>Descritpion</Form.Label>
                     <Form.Control
                         as="textarea"
@@ -164,7 +180,7 @@ const BookModal = ({
                     />
                 </Form.Group>
 
-                <Form.Group className="mb-6">
+                <Form.Group className="mt-4">
                     <Form.Label>Publisher</Form.Label>
                     <Select
                         closeMenuOnSelect={true}
@@ -175,7 +191,7 @@ const BookModal = ({
                     />            
                 </Form.Group>
 
-                <Form.Group className="mb-12">
+                <Form.Group className="mt-4">
                     <Form.Label>Authors</Form.Label>
                     <Select
                         closeMenuOnSelect={false}

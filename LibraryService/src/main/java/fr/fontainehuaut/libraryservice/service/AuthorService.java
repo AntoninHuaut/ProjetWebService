@@ -3,7 +3,10 @@ package fr.fontainehuaut.libraryservice.service;
 import fr.fontainehuaut.libraryservice.entity.AuthorEntity;
 import fr.fontainehuaut.libraryservice.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -47,9 +50,16 @@ public class AuthorService {
         return Optional.empty();
     }
 
-    public Optional<AuthorEntity> delete(Long id) {
+    public Optional<AuthorEntity> delete(Long id) throws ResponseStatusException {
         Optional<AuthorEntity> optAuthorEntity = authorRepository.findById(id);
-        optAuthorEntity.ifPresent(authorRepository::delete);
+
+        if (optAuthorEntity.isPresent()) {
+            try {
+                authorRepository.delete(optAuthorEntity.get());
+            } catch (DataIntegrityViolationException ex) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "DataIntegrityViolation");
+            }
+        }
 
         return optAuthorEntity;
     }

@@ -1,0 +1,11 @@
+export enum Action {
+
+    CONSULT,
+
+    CREATE_CONSULT_USER,
+    MANAGE_BORROW,
+
+    MANAGE_BOOK_PUBLISHER_AUTHOR,
+
+    MANAGE_USER
+}

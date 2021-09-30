@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Author, Book, BookState, Publisher } from "../../types/library";
 import BaseModal from "../BaseModal";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, FloatingLabel } from "react-bootstrap";
 import { axiosExecuteGet, axiosExecutePost } from "../../api/axiosUtils";
 import { getPublisherList } from "../../api/publisherService";
 import { getAuthorList } from "../../api/authorService";
@@ -9,7 +9,7 @@ import { updateBook, addBook } from "../../api/bookService";
 import BaseErrorAlert from "../BaseErrorAlert";
 import Select, { OnChangeValue } from 'react-select';
 import makeAnimated from 'react-select/animated';
-import { authorToSelectOption, getAuthorsFromSelectOptions } from "../../lib/selectOptionHelper";
+import { authorToSelectOption, getAuthorsFromSelectOptions, publisherToSelectOption, publishersToSelectOption, getPublisherFromSelectOptions } from "../../lib/selectOptionHelper";
 import { SelectOption } from "../../types/common";
 
 const animatedComponents = makeAnimated();
@@ -78,10 +78,18 @@ const BookModal = ({
         });
     }
 
-    const handleSelectAuthors = (selectedOptions: OnChangeValue<SelectOption, true>) => {
-        setTmpBook({...tmpBook, authors: getAuthorsFromSelectOptions(authors, selectedOptions)});
+    useEffect(() => {
+        console.log(tmpBook);
+    }, [tmpBook]);
+
+    const handleSelectAuthors = (selectedOptions: any) => {
+        setTmpBook({ ...tmpBook, authors: getAuthorsFromSelectOptions(authors, selectedOptions)});
     }
-        
+    
+    const handleSelectPublisher = (selectedOptions: any) => {
+        console.log(selectedOptions);
+        setTmpBook({ ...tmpBook, publisher: getPublisherFromSelectOptions(publishers, selectedOptions)});
+    }   
 
     const sendData = () => {
         if(tmpBook.bookId !== -1){
@@ -145,14 +153,26 @@ const BookModal = ({
                 </Form.Group>
 
                 <Form.Group className="mb-12">
-                    <Form.Label>Title</Form.Label>
-                    <Form.Control 
-                        type="text" 
-                        placeholder="Enter title" 
-                        value={tmpBook.title}
+                    <Form.Label>Descritpion</Form.Label>
+                    <Form.Control
+                        as="textarea"
+                        placeholder="Book descritpion"
+                        value={tmpBook.description}
                         onChange={handleChange}
-                        name="title"
-                    />               
+                        style={{ height: '150px' }}
+                        name="description"
+                    />
+                </Form.Group>
+
+                <Form.Group className="mb-6">
+                    <Form.Label>Publisher</Form.Label>
+                    <Select
+                        closeMenuOnSelect={true}
+                        components={animatedComponents}
+                        value={publisherToSelectOption(tmpBook.publisher)}
+                        options={publishersToSelectOption(publishers)}
+                        onChange={handleSelectPublisher}
+                    />            
                 </Form.Group>
 
                 <Form.Group className="mb-12">
@@ -160,9 +180,10 @@ const BookModal = ({
                     <Select
                         closeMenuOnSelect={false}
                         components={animatedComponents}
-                        defaultValue={authorToSelectOption(tmpBook.authors)}
+                        value={authorToSelectOption(tmpBook.authors)}
                         isMulti
                         options={authorToSelectOption(authors)}
+                        onChange={handleSelectAuthors}
                     />    
                 </Form.Group>
 

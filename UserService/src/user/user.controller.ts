@@ -10,8 +10,7 @@ import {
   UseInterceptors
 } from '@nestjs/common';
 import {UserService} from './user.service';
-import {CreateUserDto} from './dto/create-user.dto';
-import {UpdateUserDto} from './dto/update-user.dto';
+import {User} from "./entities/user.entity";
 
 @Controller('user')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -30,12 +29,12 @@ export class UserController {
   }
 
   @Post()
-  async create(@Body() createUserDto: CreateUserDto) {
+  async create(@Body() createUserDto: User) {
     return this.userService.create(createUserDto);
   }
 
   @Put()
-  async update(@Body() updateUserDto: UpdateUserDto) {
+  async update(@Body() updateUserDto: User) {
     return this.userService.update(updateUserDto);
   }
 

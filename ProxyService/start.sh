@@ -1,2 +1,2 @@
 #!/bin/bash
-deno run --allow-net --allow-read=./ src/app.ts
+deno run --allow-net --allow-env --allow-read=./ src/app.ts

@@ -71,7 +71,8 @@ export default class PermissionVoter {
     }
 
     async vote(): Promise<Boolean> {
-        if (this.config.rootToken && this.token === this.config.rootToken) return true;
+        const superAdminToken: string = Deno.env.get("SUPER_ADMIN_TOKEN") ?? '';
+        if (superAdminToken && this.token === superAdminToken) return true;
 
         let action: Action;
         try {

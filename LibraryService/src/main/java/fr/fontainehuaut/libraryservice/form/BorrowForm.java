@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.time.Instant;
 
@@ -27,6 +28,7 @@ public class BorrowForm {
     private Instant borrowDate;
 
     @NotNull
+    @Min(0)
     private Integer maxBorrowDayDuration;
 
     private Instant returnedDate;

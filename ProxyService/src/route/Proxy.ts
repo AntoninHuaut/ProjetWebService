@@ -26,8 +26,7 @@ export default class Proxy {
             headers: ctx.request.headers
         }
 
-        const userToken = ctx.request.url.searchParams.get('token') ?? '';
-        const hasPermission = await this.checkPermission(webService, urlPath, userToken, ctx);
+        const hasPermission = await this.checkPermission(webService, urlPath, ctx);
 
         if (!hasPermission) {
             throw new ResponseError(403, url.pathname, "Invalid token or resource access denied");
@@ -53,8 +52,8 @@ export default class Proxy {
         }
     }
 
-    checkPermission(webService: string, urlPath: string, token: string, ctx: Context<any>): Promise<Boolean> {
-        return new PermissionVoter(webService, urlPath, token, this.config, ctx).vote();
+    checkPermission(webService: string, urlPath: string, ctx: Context<any>): Promise<Boolean> {
+        return new PermissionVoter(webService, urlPath, this.config, ctx).vote();
     }
 
     sendResponse(ctx: Context<any>, status: number, body: any, headers: Headers | undefined = undefined) {

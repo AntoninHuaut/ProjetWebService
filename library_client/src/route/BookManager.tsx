@@ -7,6 +7,7 @@ import BookModal from "../component/book/BookModal";
 import BookTable from "../component/book/BookTable";
 import BookDeleteModal from "../component/book/BookDeleteModal";
 import { Book } from "../types/library";
+import PrivateComponent from "../component/PrivateComponent";
 
 const BookManager = () => {
 
@@ -78,6 +79,7 @@ const BookManager = () => {
 
     return (
         <>
+        
             <Container
                 className="pt-4"
             >

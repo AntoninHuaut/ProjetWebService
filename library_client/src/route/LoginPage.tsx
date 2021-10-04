@@ -10,6 +10,8 @@ const LoginPage = ({
 
 }: Props) => {
 
+    const [registerMode, setRegisterMode] = useState<boolean>(false);
+
     const [userName, setUserName] = useState<string>("");
     const [password, setPassword] = useState<string>("");
 
@@ -29,6 +31,13 @@ const LoginPage = ({
                         />
 
                         <Form>
+
+                            <Form.Check 
+                                type="switch"
+                                label="Register mode"
+                                checked={registerMode}
+                                onChange={(e:any) => setRegisterMode(e.target.checked)}
+                            />
 
                             <Form.Group
                                 className="mt-2"
@@ -62,15 +71,9 @@ const LoginPage = ({
                             <Button
                                 className="mt-4"
                             >
-                                Connect
+                                {registerMode ? "Register" : "Connect"}
                             </Button>
 
-                            <Button
-                                className="mt-4 me-2"
-                                variant="outline-secondary"
-                            >
-                                Register
-                            </Button>
                         </div>
                         
                     </Card>

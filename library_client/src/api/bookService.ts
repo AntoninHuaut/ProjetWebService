@@ -1,26 +1,26 @@
 import axios from "axios";
 import { Book } from "../types/library";
-import { API_LIBRARY } from "./axiosUtils";
+import { API_LIBRARY, getUserToken } from "./axiosUtils";
 
 
 const bookURL : string =  API_LIBRARY + "/book"
 
 export const getBookList = () => {
-    return axios.get(`${bookURL}/`);
+    return axios.get(`${bookURL}/?token=${getUserToken()}`);
 }
 
 export const updateBook = (book: Book) => {
-    return axios.put(`${bookURL}/`, book);
+    return axios.put(`${bookURL}/?token=${getUserToken()}`, book);
 }
 
 export const addBook = (book: Book) => {
-    return axios.post(`${bookURL}/`, book);
+    return axios.post(`${bookURL}/?token=${getUserToken()}`, book);
 }
 
 export const deleteBook = (bookId: number) => {
-    return axios.delete(`${bookURL}/${bookId}`);
+    return axios.delete(`${bookURL}/${bookId}?token=${getUserToken()}`);
 }
 
 export const getBookById = (bookId: number) => {
-    return axios.get(`${bookURL}/${bookId}`);
+    return axios.get(`${bookURL}/${bookId}?token=${getUserToken()}`);
 }

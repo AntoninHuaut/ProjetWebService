@@ -4,6 +4,12 @@ export interface LoginStatus {
     user: User
 }
 
+export interface RegisterUserDto {
+    userName: string,
+    password: string,
+    role: UserRole
+}
+
 export interface User {
     userId: number,
     userName: string;

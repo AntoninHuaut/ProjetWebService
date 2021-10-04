@@ -1,6 +1,7 @@
 import { MultiValue } from "react-select";
 import { SelectOption } from "../types/common"
 import { Author, Publisher } from "../types/library"
+import { UserRole } from "../types/login";
 
 
 export const authorToSelectOption = (authors: Author[]) : SelectOption[] => {
@@ -52,4 +53,31 @@ export const getPublisherFromSelectOptions = (publishers: Publisher[], selectOpt
     });
 
     return res;
+}
+
+export const roleSelectOptions = () : SelectOption[] => {
+
+    let arr : SelectOption[] = [];
+
+    arr.push({value: UserRole.CONSULT_ROLE.toString(), label: "Consultant"});
+    arr.push({value: UserRole.CONTRIBUTOR_ROLE.toString(), label: "Contributeur"});
+    arr.push({value: UserRole.ADMINISTRATOR_ROLE.toString(), label: "Administrateur"});
+    arr.push({value: UserRole.BORROW_ROLE.toString(), label: "Emprunteur"});
+
+    return arr;
+}
+
+export const roleToSelectOption = (role: number, roleList: SelectOption[]) : SelectOption => {
+
+    for(let i = 0; i < roleList.length; i++){
+        if(roleList[i].value === role.toString()){
+            return roleList[i];
+        }
+    }
+
+    return {
+        value: role.toString(),
+        label: ""
+    }
+
 }

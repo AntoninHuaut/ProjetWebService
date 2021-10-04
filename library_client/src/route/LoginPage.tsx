@@ -1,6 +1,16 @@
 import React, { useState } from "react";
 import { Image } from "react-bootstrap";
 import { Row, Col, Card, Form, Button } from "react-bootstrap";
+import Select from 'react-select';
+import makeAnimated from 'react-select/animated';
+import { UserRole } from "../types/login";
+import { roleSelectOptions, roleToSelectOption } from "../lib/selectOptionHelper";
+import { SelectOption } from "../types/common";
+import { login, register } from "../api/userService";
+import { axiosExecutePost } from "../api/axiosUtils";
+
+
+const animatedComponents = makeAnimated();
 
 interface Props {
 
@@ -14,6 +24,43 @@ const LoginPage = ({
 
     const [userName, setUserName] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+    const [role, setRole] = useState<number>(UserRole.CONSULT_ROLE);
+
+    const [roleList, setRoleListe] = useState<SelectOption[]>(roleSelectOptions());
+
+    const handleSelectRole = (selectedOptions: any) => {
+        console.log(selectedOptions);
+        setRole(parseInt(selectedOptions.value));
+    }
+
+    const [loading, setLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string>("");
+    const [succesMsg, setSuccessMsg] = useState<string>("");
+
+    const registerRequest = () => {
+        axiosExecutePost(
+            register({
+                userName: userName,
+                password: password,
+                role: role
+            }),
+            setLoading,
+            setError,
+            () => setSuccessMsg("Utilisateur bien ajouté")
+        )
+    }
+
+    const loginRequest = () => {
+        axiosExecutePost(
+            login({
+                userName: userName,
+                password: password
+            }),
+            setLoading,
+            setError,
+            () => setSuccessMsg("Connexion réussi")
+        )
+    }
 
     return (
         <>
@@ -57,11 +104,27 @@ const LoginPage = ({
                                 <Form.Label>Password:</Form.Label>
                                 <Form.Control 
                                     type="password"
-                                    value={userName}
-                                    onChange={(e: any) => setUserName(e.value)}
-                                    name="name"
+                                    value={password}
+                                    onChange={(e: any) => setPassword(e.value)}
+                                    name="password"
                                 />
                             </Form.Group>
+
+                            { registerMode &&
+                                <Form.Group
+                                    className="mt-2"
+                                >
+                                    <Form.Label>Role:</Form.Label>
+                                    <Select
+                                        closeMenuOnSelect={true}
+                                        components={animatedComponents}
+                                        value={roleToSelectOption(role, roleList)}
+                                        onChange={handleSelectRole}
+                                        options={roleList}
+                                    />  
+                                </Form.Group>
+                            }
+
 
                         </Form>
                             
@@ -70,6 +133,7 @@ const LoginPage = ({
                         >
                             <Button
                                 className="mt-4"
+                                onClick={registerMode ? registerRequest : loginRequest}
                             >
                                 {registerMode ? "Register" : "Connect"}
                             </Button>

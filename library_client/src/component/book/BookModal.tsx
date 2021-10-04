@@ -7,7 +7,7 @@ import { getPublisherList } from "../../api/publisherService";
 import { getAuthorList } from "../../api/authorService";
 import { updateBook, addBook } from "../../api/bookService";
 import BaseErrorAlert from "../BaseErrorAlert";
-import Select, { OnChangeValue } from 'react-select';
+import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import { authorToSelectOption, getAuthorsFromSelectOptions, publisherToSelectOption, publishersToSelectOption, getPublisherFromSelectOptions } from "../../lib/selectOptionHelper";
 import { SelectOption } from "../../types/common";

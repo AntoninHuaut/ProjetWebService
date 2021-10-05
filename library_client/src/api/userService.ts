@@ -1,20 +1,16 @@
 import axios, { AxiosResponse } from "axios";
+import { useDispatch } from "react-redux";
+import userActions from "../reducers/userActions";
 import { LoginUserDto, UserRole, RegisterUserDto, User } from "../types/login";
 import { API_USER } from "./axiosUtils";
 
 const userURL : string =  API_USER + "/user";
 const testAdminToken : string = process.env.REACT_APP_ADMIN_TOKEN ?? '';
 
-export const isConnected = (): boolean => {
-    let userStr = localStorage.getItem('user');
-    
-    let user: User | null = userStr !== "" && userStr !== null ? JSON.parse(userStr) : null;
 
-    return user !== null && user.token !== null && user.token !== "";
-}
-
-export const logout = (history: any) => {
+export const logout = (history: any, dispatch: any) => {
     localStorage.removeItem("user");
+    dispatch(userActions.logOut());
     history.push("/login");
 }
 
@@ -30,11 +26,12 @@ export const authHeader = () => {
 
 }
 
-export const login = (loginInfo : LoginUserDto) => {
+export const login = (loginInfo : LoginUserDto, dispatch: any) => {
     return axios.post(`${API_USER}/access/login`, loginInfo).then((response: AxiosResponse) => {
 
         if (response.data.token) {
             localStorage.setItem("user", JSON.stringify(response.data));
+            dispatch(userActions.setUser(response.data));
         }
 
         return response.data;

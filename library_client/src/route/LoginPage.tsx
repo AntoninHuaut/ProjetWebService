@@ -10,6 +10,7 @@ import { login, register } from "../api/userService";
 import { axiosExecutePost } from "../api/axiosUtils";
 import { useHistory } from "react-router-dom";
 import BaseAlert from "../component/BaseAlert";
+import { useDispatch } from "react-redux";
 
 
 const animatedComponents = makeAnimated();
@@ -23,6 +24,7 @@ const LoginPage = ({
 }: Props) => {
 
     const history = useHistory();
+    const dispatch = useDispatch();
 
     const [registerMode, setRegisterMode] = useState<boolean>(false);
 
@@ -71,7 +73,7 @@ const LoginPage = ({
             login({
                 userName: userName,
                 password: password
-            }),
+            }, dispatch),
             setLoading,
             setError,
             () => {

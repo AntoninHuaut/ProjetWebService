@@ -3,13 +3,21 @@ import {
     Container,
     Nav
 } from "react-bootstrap";
-import { isConnected, logout } from "../api/userService";
+import { logout } from "../api/userService";
 import { useHistory } from "react-router";
+import { useSelector, useDispatch } from "react-redux";
 
 
 const NavBar = () => {
 
     const history = useHistory();
+    const dispatch = useDispatch();
+    
+    const user = useSelector((state: any) => {
+        return state.currentUser;
+    });
+
+    console.log(user);
 
     return (
         <Navbar bg="dark" variant="dark">
@@ -30,10 +38,10 @@ const NavBar = () => {
                     <Nav.Link href="/#/book">Book</Nav.Link>
                     <Nav.Link href="/#/users">Users</Nav.Link>
                 </Nav>
-                {isConnected() && 
+                {user.loggedIn && 
                     <Nav className="ms-auto">
                         <Nav.Link
-                            onClick={() => logout(history)}
+                            onClick={() => logout(history, dispatch)}
                         >
                             Logout
                         </Nav.Link>

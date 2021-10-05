@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container } from "react-bootstrap";
 import { axiosExecuteGet } from "../api/axiosUtils";
 import { getBookList } from "../api/bookService";
-import BaseErrorAlert from "../component/BaseErrorAlert";
+import BaseAlert from "../component/BaseAlert";
 import BookModal from "../component/book/BookModal";
 import BookTable from "../component/book/BookTable";
 import BookDeleteModal from "../component/book/BookDeleteModal";
@@ -84,7 +84,7 @@ const BookManager = () => {
                 className="pt-4"
             >
 
-                <BaseErrorAlert error={error} close={() => setError('')} />
+                <BaseAlert msg={error} close={() => setError('')} />
 
                 <BookTable 
                     data={books}

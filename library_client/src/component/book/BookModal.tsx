@@ -6,7 +6,7 @@ import { axiosExecuteGet, axiosExecutePost } from "../../api/axiosUtils";
 import { getPublisherList } from "../../api/publisherService";
 import { getAuthorList } from "../../api/authorService";
 import { updateBook, addBook } from "../../api/bookService";
-import BaseErrorAlert from "../BaseErrorAlert";
+import BaseAlert from "../BaseAlert";
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import { authorToSelectOption, getAuthorsFromSelectOptions, publisherToSelectOption, publishersToSelectOption, getPublisherFromSelectOptions } from "../../lib/selectOptionHelper";
@@ -138,7 +138,7 @@ const BookModal = ({
             actions={ModalActions}
         >
             
-            <BaseErrorAlert error={error} close={() => setError('')} />
+            <BaseAlert msg={error} close={() => setError('')} />
 
             <Form>
                 <Row>

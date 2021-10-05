@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container } from "react-bootstrap";
 import { axiosExecuteGet } from "../api/axiosUtils";
 import { getPublisherList } from "../api/publisherService";
-import BaseErrorAlert from "../component/BaseErrorAlert";
+import BaseAlert from "../component/BaseAlert";
 import PublisherModal from "../component/publisher/PublisherModal";
 import PublisherTable from "../component/publisher/PublisherTable";
 import PublisherDeleteModal from "../component/publisher/PublisherDeleteModal";
@@ -77,7 +77,7 @@ const PublisherManager = () => {
                 className="pt-4"
             >
 
-                <BaseErrorAlert error={error} close={() => setError('')} />
+                <BaseAlert msg={error} close={() => setError('')} />
 
                 <PublisherTable 
                     data={publishers}

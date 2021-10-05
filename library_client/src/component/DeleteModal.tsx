@@ -1,7 +1,7 @@
 import React from "react";
 import BaseModal from "./BaseModal";
 import { Button } from "react-bootstrap";
-import BaseErrorAlert from "./BaseErrorAlert";
+import BaseAlert from "./BaseAlert";
 
 interface Props {
     show: boolean,
@@ -51,7 +51,7 @@ const DeleteModal = ({
                 title={<h4>Delete {itemType} - {itemNameToDelete}</h4>}
                 actions={actions}
             >
-                <BaseErrorAlert error={errorDelete} close={() => setErrorDelete('')}/>
+                <BaseAlert msg={errorDelete} close={() => setErrorDelete('')}/>
 
                 <>
                     Are you sure to delete the {itemType} : {itemNameToDelete} ?

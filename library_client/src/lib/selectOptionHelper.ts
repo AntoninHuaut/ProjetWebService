@@ -59,10 +59,10 @@ export const roleSelectOptions = () : SelectOption[] => {
 
     let arr : SelectOption[] = [];
 
-    arr.push({value: UserRole.CONSULT_ROLE.toString(), label: "Consultant"});
-    arr.push({value: UserRole.CONTRIBUTOR_ROLE.toString(), label: "Contributeur"});
-    arr.push({value: UserRole.ADMINISTRATOR_ROLE.toString(), label: "Administrateur"});
-    arr.push({value: UserRole.BORROW_ROLE.toString(), label: "Emprunteur"});
+    arr.push({value: UserRole.CONSULT_ROLE.toString(), label: "Consult"});
+    arr.push({value: UserRole.BORROW_ROLE.toString(), label: "Borrow"});
+    arr.push({value: UserRole.CONTRIBUTOR_ROLE.toString(), label: "Contributor"});
+    arr.push({value: UserRole.ADMINISTRATOR_ROLE.toString(), label: "Administrator"});
 
     return arr;
 }

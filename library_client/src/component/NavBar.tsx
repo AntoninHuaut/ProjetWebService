@@ -3,9 +3,13 @@ import {
     Container,
     Nav
 } from "react-bootstrap";
+import { isConnected, logout } from "../api/userService";
+import { useHistory } from "react-router";
 
 
 const NavBar = () => {
+
+    const history = useHistory();
 
     return (
         <Navbar bg="dark" variant="dark">
@@ -21,10 +25,20 @@ const NavBar = () => {
                     Book Manager
                 </Navbar.Brand>
                 <Nav className="me-auto">
+                    
                     <Nav.Link href="/#/publisher">Publisher</Nav.Link>
                     <Nav.Link href="/#/book">Book</Nav.Link>
                     <Nav.Link href="/#/users">Users</Nav.Link>
                 </Nav>
+                {isConnected() && 
+                    <Nav className="ms-auto">
+                        <Nav.Link
+                            onClick={() => logout(history)}
+                        >
+                            Logout
+                        </Nav.Link>
+                    </Nav>
+                }
             </Container>
         </Navbar>
     );

@@ -4,7 +4,7 @@ import BaseModal from "../BaseModal";
 import { Form, Button } from "react-bootstrap";
 import { axiosExecutePost } from "../../api/axiosUtils";
 import { updatePublisher, addPublisher } from "../../api/publisherService";
-import BaseErrorAlert from "../BaseErrorAlert";
+import BaseAlert from "../BaseAlert";
 
 interface Props {
     publisher: Publisher| undefined,
@@ -93,7 +93,7 @@ const PublisherModal = ({
             actions={ModalActions}
         >
             
-            <BaseErrorAlert error={error} close={() => setError('')} />
+            <BaseAlert msg={error} close={() => setError('')} />
 
             <Form>
                 <Form.Group className="mb-6">

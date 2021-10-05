@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Image } from "react-bootstrap";
-import { Row, Col, Card, Form, Button } from "react-bootstrap";
+import { Row, Col, Card, Form, Button, Alert } from "react-bootstrap";
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import { UserRole } from "../types/login";
@@ -8,6 +8,8 @@ import { roleSelectOptions, roleToSelectOption } from "../lib/selectOptionHelper
 import { SelectOption } from "../types/common";
 import { login, register } from "../api/userService";
 import { axiosExecutePost } from "../api/axiosUtils";
+import { useHistory } from "react-router-dom";
+import BaseAlert from "../component/BaseAlert";
 
 
 const animatedComponents = makeAnimated();
@@ -19,6 +21,8 @@ interface Props {
 const LoginPage = ({
 
 }: Props) => {
+
+    const history = useHistory();
 
     const [registerMode, setRegisterMode] = useState<boolean>(false);
 
@@ -37,6 +41,15 @@ const LoginPage = ({
     const [error, setError] = useState<string>("");
     const [succesMsg, setSuccessMsg] = useState<string>("");
 
+
+    const onEnter = (e: any) => {
+        console.log(e);
+        if (e.key === 'Enter') {
+            registerMode ? registerRequest() : loginRequest()
+        }
+    }
+
+
     const registerRequest = () => {
         axiosExecutePost(
             register({
@@ -46,7 +59,10 @@ const LoginPage = ({
             }),
             setLoading,
             setError,
-            () => setSuccessMsg("Utilisateur bien ajouté")
+            () => {
+                setSuccessMsg("User successfully created.");
+                setRegisterMode(false);
+            }
         )
     }
 
@@ -58,13 +74,15 @@ const LoginPage = ({
             }),
             setLoading,
             setError,
-            () => setSuccessMsg("Connexion réussi")
+            () => {
+                history.push('/');
+            }
         )
     }
 
     return (
         <>
-            <Row className="justify-content-md-center">
+            <Row className="justify-content-md-center" onKeyPress={onEnter}>
                 <Col xs={12} sm={6} md={4} lg={3} className="mt-4">
 
                     <Card body>
@@ -76,6 +94,12 @@ const LoginPage = ({
                                 padding: "20%"
                             }}
                         />
+
+
+                        <BaseAlert variant="success" msg={succesMsg} close={() => setSuccessMsg("")} />
+                        
+                        <BaseAlert msg={error} close={() => setError("")} />
+
 
                         <Form>
 
@@ -93,7 +117,7 @@ const LoginPage = ({
                                 <Form.Control 
                                     type="text"
                                     value={userName}
-                                    onChange={(e: any) => setUserName(e.value)}
+                                    onChange={(e: any) => setUserName(e.target.value)}
                                     name="name"
                                 />
                             </Form.Group>
@@ -105,7 +129,7 @@ const LoginPage = ({
                                 <Form.Control 
                                     type="password"
                                     value={password}
-                                    onChange={(e: any) => setPassword(e.value)}
+                                    onChange={(e: any) => setPassword(e.target.value)}
                                     name="password"
                                 />
                             </Form.Group>
@@ -125,21 +149,23 @@ const LoginPage = ({
                                 </Form.Group>
                             }
 
+                            <div
+                                className="d-flex flex-row-reverse"
+                            >
+                                <Button
+                                    className="mt-4"
+                                    onClick={registerMode ? registerRequest : loginRequest}       
+                                    disabled={loading}                             
+                                >
+                                    {registerMode ? "Register" : "Connect"}
+                                </Button>
+
+                            </div>
+
 
                         </Form>
-                            
-                        <div
-                            className="d-flex flex-row-reverse"
-                        >
-                            <Button
-                                className="mt-4"
-                                onClick={registerMode ? registerRequest : loginRequest}
-                            >
-                                {registerMode ? "Register" : "Connect"}
-                            </Button>
 
-                        </div>
-                        
+                            
                     </Card>
 
                 </Col>

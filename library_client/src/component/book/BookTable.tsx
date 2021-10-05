@@ -69,7 +69,7 @@ const BookTable = ({
     }, [data]);
 
     const columns = [{
-        dataField: 'BookId',
+        dataField: 'bookId',
         text: 'Book ID',
         sort: true,
         headerStyle: { width: '110px' }

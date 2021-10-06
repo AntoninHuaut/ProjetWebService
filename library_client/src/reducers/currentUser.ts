@@ -1,3 +1,4 @@
+import { getLocalUser, haveLocalUser } from "../api/userService"
 import { User } from "../types/login"
 
 const currentUser = (state = {}, action: any) => {
@@ -17,8 +18,8 @@ const currentUser = (state = {}, action: any) => {
         default:
             return {
                 ...state,
-                user: {},
-                loggedIn: false
+                user: getLocalUser(),
+                loggedIn: haveLocalUser()
             }
     }
 }

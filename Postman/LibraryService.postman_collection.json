@@ -1,0 +1,3504 @@
+{
+	"info": {
+		"_postman_id": "90b2b868-62e0-414b-b2df-2b64a21502f0",
+		"name": "LibraryService",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Publisher",
+			"item": [
+				{
+					"name": "GET All",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{publisher_url}}/",
+							"host": [
+								"{{publisher_url}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET by unknown id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function() {\r",
+									"    pm.response.to.have.status(404);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{publisher_url}}/12932197312894",
+							"host": [
+								"{{publisher_url}}"
+							],
+							"path": [
+								"12932197312894"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST with id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function() {\r",
+									"    pm.response.to.have.status(201);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"publisherId\": 12932199412894,\r\n    \"name\": \"My first publisher\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{publisher_url}}/?token={{userToken}}",
+							"host": [
+								"{{publisher_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST without id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function() {\r",
+									"    pm.response.to.have.status(201);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Name = My first publisher\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[\"name\"]).to.equal(\"My first publisher\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"My first publisher\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{publisher_url}}/?token={{userToken}}",
+							"host": [
+								"{{publisher_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST without data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function() {\r",
+									"    pm.response.to.have.status(400);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{publisher_url}}/?token={{userToken}}",
+							"host": [
+								"{{publisher_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST whit wrong data name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function() {\r",
+									"    pm.response.to.have.status(400);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{publisher_url}}/?token={{userToken}}",
+							"host": [
+								"{{publisher_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"pm.environment.set(\"publisherId\", response.publisherId);\r",
+									"\r",
+									"pm.test(\"Status code is 201\", function() {\r",
+									"    pm.response.to.have.status(201);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Name = My publisher\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[\"name\"]).to.equal(\"My publisher\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"My publisher\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{publisher_url}}/?token={{userToken}}",
+							"host": [
+								"{{publisher_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "OPTIONS",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "OPTIONS",
+						"header": [],
+						"url": {
+							"raw": "{{publisher_url}}/?token={{userToken}}",
+							"host": [
+								"{{publisher_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET All",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{publisher_url}}/",
+							"host": [
+								"{{publisher_url}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Name = My publisher\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[\"name\"]).to.equal(\"My publisher\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{publisher_url}}/{{publisherId}}",
+							"host": [
+								"{{publisher_url}}"
+							],
+							"path": [
+								"{{publisherId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET by unknown id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function() {\r",
+									"    pm.response.to.have.status(404);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{publisher_url}}/12932197312894",
+							"host": [
+								"{{publisher_url}}"
+							],
+							"path": [
+								"12932197312894"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE publisher",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Name = My publisher rename\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[\"name\"]).to.equal(\"My publisher rename\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"publisherId\": {{publisherId}},\r\n    \"name\": \"My publisher rename\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{publisher_url}}/?token={{userToken}}",
+							"host": [
+								"{{publisher_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET updated publisher by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Name = My publisher rename\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[\"name\"]).to.equal(\"My publisher rename\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{publisher_url}}/{{publisherId}}",
+							"host": [
+								"{{publisher_url}}"
+							],
+							"path": [
+								"{{publisherId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE by id",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{publisher_url}}/{{publisherId}}?token={{userToken}}",
+							"host": [
+								"{{publisher_url}}"
+							],
+							"path": [
+								"{{publisherId}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET by removed id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function() {\r",
+									"    pm.response.to.have.status(404);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{publisher_url}}/{{publisherId}}",
+							"host": [
+								"{{publisher_url}}"
+							],
+							"path": [
+								"{{publisherId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE deleted publisher",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function() {\r",
+									"    pm.response.to.have.status(404);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"publisherId\": {{publisherId}},\r\n    \"name\": \"My publisher rename\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{publisher_url}}/?token={{userToken}}",
+							"host": [
+								"{{publisher_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE deleted publisher",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function() {\r",
+									"    pm.response.to.have.status(404);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{publisher_url}}/{{publisherId}}?token={{userToken}}",
+							"host": [
+								"{{publisher_url}}"
+							],
+							"path": [
+								"{{publisherId}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Author",
+			"item": [
+				{
+					"name": "GET All",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{author_url}}/",
+							"host": [
+								"{{author_url}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET by unknown id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function() {\r",
+									"    pm.response.to.have.status(404);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{author_url}}/12932197312894",
+							"host": [
+								"{{author_url}}"
+							],
+							"path": [
+								"12932197312894"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST with id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function() {\r",
+									"    pm.response.to.have.status(201);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authorId\": 12932199412894,\r\n    \"name\": \"My first author\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{author_url}}/?token={{userToken}}",
+							"host": [
+								"{{author_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST without id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function() {\r",
+									"    pm.response.to.have.status(201);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Name = My first author\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[\"name\"]).to.equal(\"My first author\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"My first author\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{author_url}}/?token={{userToken}}",
+							"host": [
+								"{{author_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST whithout data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function() {\r",
+									"    pm.response.to.have.status(400);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{author_url}}/?token={{userToken}}",
+							"host": [
+								"{{author_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST whit wrong data name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function() {\r",
+									"    pm.response.to.have.status(400);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{author_url}}/?token={{userToken}}",
+							"host": [
+								"{{author_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"pm.environment.set(\"authorId\", response.authorId);\r",
+									"\r",
+									"pm.test(\"Status code is 201\", function() {\r",
+									"    pm.response.to.have.status(201);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Name = My author\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[\"name\"]).to.equal(\"My author\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"My author\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{author_url}}/?token={{userToken}}",
+							"host": [
+								"{{author_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET All",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{author_url}}/",
+							"host": [
+								"{{author_url}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Name = My author\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[\"name\"]).to.equal(\"My author\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{author_url}}/{{authorId}}",
+							"host": [
+								"{{author_url}}"
+							],
+							"path": [
+								"{{authorId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET by unknown id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function() {\r",
+									"    pm.response.to.have.status(404);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{author_url}}/12932197312894",
+							"host": [
+								"{{author_url}}"
+							],
+							"path": [
+								"12932197312894"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE author",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Name = My author rename\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[\"name\"]).to.equal(\"My author rename\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authorId\": {{authorId}},\r\n    \"name\": \"My author rename\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{author_url}}/?token={{userToken}}",
+							"host": [
+								"{{author_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET updated author by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Name = My author rename\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[\"name\"]).to.equal(\"My author rename\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{author_url}}/{{authorId}}",
+							"host": [
+								"{{author_url}}"
+							],
+							"path": [
+								"{{authorId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE by id",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{author_url}}/{{authorId}}?token={{userToken}}",
+							"host": [
+								"{{author_url}}"
+							],
+							"path": [
+								"{{authorId}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET by removed id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function() {\r",
+									"    pm.response.to.have.status(404);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{author_url}}/{{authorId}}",
+							"host": [
+								"{{author_url}}"
+							],
+							"path": [
+								"{{authorId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE deleted author",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function() {\r",
+									"    pm.response.to.have.status(404);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": {{authorId}},\r\n    \"name\": \"My publisher rename\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{author_url}}/?token={{userToken}}",
+							"host": [
+								"{{author_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE deleted author",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function() {\r",
+									"    pm.response.to.have.status(404);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{author_url}}/{{authorId}}?token={{userToken}}",
+							"host": [
+								"{{author_url}}"
+							],
+							"path": [
+								"{{authorId}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Book",
+			"item": [
+				{
+					"name": "Get all",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{book_url}}/",
+							"host": [
+								"{{book_url}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get by unknown id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function() {\r",
+									"    pm.response.to.have.status(404);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{book_url}}/129321973128943",
+							"host": [
+								"{{book_url}}"
+							],
+							"path": [
+								"129321973128943"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST publisher",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"pm.environment.set(\"publisherId\", response.publisherId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"My publisher\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{publisher_url}}/?token={{userToken}}",
+							"host": [
+								"{{publisher_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST author",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"pm.environment.set(\"authorId\", response.authorId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"My author\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{author_url}}/?token={{userToken}}",
+							"host": [
+								"{{author_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST without id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function() {\r",
+									"    pm.response.to.have.status(201);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Satan book\",\r\n    \"publicationYear\": 666,\r\n    \"description\": \"Alo\",\r\n    \"state\": \"AVAILABLE\",\r\n    \"authors\": [{{authorId}}],\r\n    \"publisher\": {\r\n        \"publisherId\": {{publisherId}}\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{book_url}}/?token={{userToken}}",
+							"host": [
+								"{{book_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST without data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function() {\r",
+									"    pm.response.to.have.status(400);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{book_url}}/?token={{userToken}}",
+							"host": [
+								"{{book_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST whit wrong data name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function() {\r",
+									"    pm.response.to.have.status(400);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Satan book\",\r\n    \"publicationYear\": 666,\r\n    \"desption\": \"Alo\",\r\n    \"state\": \"AVAILABLE\",\r\n    \"authors\": [],\r\n    \"publisher\": {\r\n        \"publisherId\": 1\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{book_url}}/?token={{userToken}}",
+							"host": [
+								"{{book_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"pm.environment.set(\"bookId\", response.bookId);\r",
+									"\r",
+									"pm.test(\"Status code is 201\", function() {\r",
+									"    pm.response.to.have.status(201);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"data verification\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[\"title\"]).to.equal(\"God book\");\r",
+									"    pm.expect(jsonData[\"publicationYear\"]).to.equal(42);\r",
+									"    pm.expect(jsonData[\"description\"]).to.equal(\"All the response of the universe\");\r",
+									"    pm.expect(jsonData[\"state\"]).to.equal(\"AVAILABLE\");\r",
+									"    pm.expect(jsonData[\"authors\"].length).to.equal(1);\r",
+									"    pm.expect(jsonData[\"authors\"][0].authorId).to.equal(environment.authorId);\r",
+									"    pm.expect(jsonData[\"publisher\"][\"publisherId\"]).to.equal(environment.publisherId);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"God book\",\r\n    \"publicationYear\": 42,\r\n    \"description\": \"All the response of the universe\",\r\n    \"state\": \"AVAILABLE\",\r\n    \"authors\": [{{authorId}}],\r\n    \"publisher\": {\r\n        \"publisherId\": {{publisherId}}\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{book_url}}/?token={{userToken}}",
+							"host": [
+								"{{book_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{book_url}}/",
+							"host": [
+								"{{book_url}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"data verification\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[\"title\"]).to.equal(\"God book\");\r",
+									"    pm.expect(jsonData[\"publicationYear\"]).to.equal(42);\r",
+									"    pm.expect(jsonData[\"description\"]).to.equal(\"All the response of the universe\");\r",
+									"    pm.expect(jsonData[\"state\"]).to.equal(\"AVAILABLE\");\r",
+									"    pm.expect(jsonData[\"authors\"].length).to.equal(1);\r",
+									"    pm.expect(jsonData[\"authors\"][0].authorId).to.equal(environment.authorId);\r",
+									"    pm.expect(jsonData[\"publisher\"][\"publisherId\"]).to.equal(environment.publisherId);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{book_url}}/{{bookId}}",
+							"host": [
+								"{{book_url}}"
+							],
+							"path": [
+								"{{bookId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET by unknown id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function() {\r",
+									"    pm.response.to.have.status(404);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{book_url}}/12932197312894",
+							"host": [
+								"{{book_url}}"
+							],
+							"path": [
+								"12932197312894"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST second author",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"pm.environment.set(\"authorId2\", response.authorId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"My author\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{author_url}}/?token={{userToken}}",
+							"host": [
+								"{{author_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST with 2 author",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function() {\r",
+									"    pm.response.to.have.status(201);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"data verification\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[\"title\"]).to.equal(\"God book\");\r",
+									"    pm.expect(jsonData[\"publicationYear\"]).to.equal(42);\r",
+									"    pm.expect(jsonData[\"description\"]).to.equal(\"All the response of the universe\");\r",
+									"    pm.expect(jsonData[\"state\"]).to.equal(\"AVAILABLE\");\r",
+									"    pm.expect(jsonData[\"authors\"].length).to.equal(2);\r",
+									"    pm.expect(jsonData[\"authors\"][0].authorId).to.equal(environment.authorId);\r",
+									"    pm.expect(jsonData[\"authors\"][1].authorId).to.equal(environment.authorId2);\r",
+									"    pm.expect(jsonData[\"publisher\"][\"publisherId\"]).to.equal(environment.publisherId);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"God book\",\r\n    \"publicationYear\": 42,\r\n    \"description\": \"All the response of the universe\",\r\n    \"state\": \"AVAILABLE\",\r\n    \"authors\": [{{authorId}},{{authorId2}}],\r\n    \"publisher\": {\r\n        \"publisherId\": {{publisherId}}\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{book_url}}/?token={{userToken}}",
+							"host": [
+								"{{book_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST with 2 same author",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function() {\r",
+									"    pm.response.to.have.status(400);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"God book\",\r\n    \"publicationYear\": 42,\r\n    \"description\": \"All the response of the universe\",\r\n    \"state\": \"AVAILABLE\",\r\n    \"authors\": [{{authorId}},{{authorId}}],\r\n    \"publisher\": {\r\n        \"publisherId\": {{publisherId}}\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{book_url}}/?token={{userToken}}",
+							"host": [
+								"{{book_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST wrong author id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function() {\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"God book\",\r\n    \"publicationYear\": 42,\r\n    \"description\": \"All the response of the universe\",\r\n    \"state\": \"AVAILABLE\",\r\n    \"authors\": [4587689],\r\n    \"publisher\": {\r\n        \"publisherId\": {{publisherId}}\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{book_url}}/?token={{userToken}}",
+							"host": [
+								"{{book_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST wrong publisher id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function() {\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"God book\",\r\n    \"publicationYear\": 42,\r\n    \"description\": \"All the response of the universe\",\r\n    \"state\": \"AVAILABLE\",\r\n    \"authors\": [{{authorId}}],\r\n    \"publisher\": {\r\n        \"publisherId\": 74171688\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{book_url}}/?token={{userToken}}",
+							"host": [
+								"{{book_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST second publisher",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"pm.environment.set(\"publisherId\", response.publisherId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"My publisher\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{publisher_url}}/?token={{userToken}}",
+							"host": [
+								"{{publisher_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE all book",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"data verification\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[\"title\"]).to.equal(\"How to manipulate people\");\r",
+									"    pm.expect(jsonData[\"publicationYear\"]).to.equal(2020);\r",
+									"    pm.expect(jsonData[\"description\"]).to.equal(\"not a god\");\r",
+									"    pm.expect(jsonData[\"state\"]).to.equal(\"UNAVAILABLE\");\r",
+									"    pm.expect(jsonData[\"authors\"].length).to.equal(0);\r",
+									"    pm.expect(jsonData[\"publisher\"][\"publisherId\"]).to.equal(environment.publisherId);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"bookId\": \"{{bookId}}\",\r\n    \"title\": \"How to manipulate people\",\r\n    \"publicationYear\": 2020,\r\n    \"description\": \"not a god\",\r\n    \"state\": \"UNAVAILABLE\",\r\n    \"authors\": [],\r\n    \"publisher\": {\r\n        \"publisherId\": {{publisherId}}\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{book_url}}/?token={{userToken}}",
+							"host": [
+								"{{book_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET updated book by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"data verification\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[\"title\"]).to.equal(\"How to manipulate people\");\r",
+									"    pm.expect(jsonData[\"publicationYear\"]).to.equal(2020);\r",
+									"    pm.expect(jsonData[\"description\"]).to.equal(\"not a god\");\r",
+									"    pm.expect(jsonData[\"state\"]).to.equal(\"UNAVAILABLE\");\r",
+									"    pm.expect(jsonData[\"authors\"].length).to.equal(0);\r",
+									"    pm.expect(jsonData[\"publisher\"][\"publisherId\"]).to.equal(environment.publisherId);\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{book_url}}/{{bookId}}",
+							"host": [
+								"{{book_url}}"
+							],
+							"path": [
+								"{{bookId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE one column book",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"data verification\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[\"title\"]).to.equal(\"not a book\");\r",
+									"    pm.expect(jsonData[\"publicationYear\"]).to.equal(2020);\r",
+									"    pm.expect(jsonData[\"description\"]).to.equal(\"not a god\");\r",
+									"    pm.expect(jsonData[\"state\"]).to.equal(\"UNAVAILABLE\");\r",
+									"    pm.expect(jsonData[\"authors\"].length).to.equal(0);\r",
+									"    pm.expect(jsonData[\"publisher\"][\"publisherId\"]).to.equal(environment.publisherId);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"bookId\": \"{{bookId}}\",\r\n    \"title\": \"not a book\",\r\n    \"publicationYear\": 2020,\r\n    \"description\": \"not a god\",\r\n    \"state\": \"UNAVAILABLE\",\r\n    \"authors\": [],\r\n    \"publisher\": {\r\n        \"publisherId\": {{publisherId}}\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{book_url}}/?token={{userToken}}",
+							"host": [
+								"{{book_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET updated book by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"data verification\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[\"title\"]).to.equal(\"not a book\");\r",
+									"    pm.expect(jsonData[\"publicationYear\"]).to.equal(2020);\r",
+									"    pm.expect(jsonData[\"description\"]).to.equal(\"not a god\");\r",
+									"    pm.expect(jsonData[\"state\"]).to.equal(\"UNAVAILABLE\");\r",
+									"    pm.expect(jsonData[\"authors\"].length).to.equal(0);\r",
+									"    pm.expect(jsonData[\"publisher\"][\"publisherId\"]).to.equal(environment.publisherId);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{book_url}}/{{bookId}}",
+							"host": [
+								"{{book_url}}"
+							],
+							"path": [
+								"{{bookId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE by id",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{book_url}}/{{bookId}}?token={{userToken}}",
+							"host": [
+								"{{book_url}}"
+							],
+							"path": [
+								"{{bookId}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET by removed id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function() {\r",
+									"    pm.response.to.have.status(404);\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{book_url}}/{{bookId}}",
+							"host": [
+								"{{book_url}}"
+							],
+							"path": [
+								"{{bookId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE deleted book",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function() {\r",
+									"    pm.response.to.have.status(404);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"bookId\": \"{{bookId}}\",\r\n    \"title\": \"not a book\",\r\n    \"publicationYear\": 2020,\r\n    \"description\": \"not a god\",\r\n    \"state\": \"UNAVAILABLE\",\r\n    \"authors\": [],\r\n    \"publisher\": {\r\n        \"publisherId\": {{publisherId}}\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{book_url}}/?token={{userToken}}",
+							"host": [
+								"{{book_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE deleted book",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function() {\r",
+									"    pm.response.to.have.status(404);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{book_url}}/{{bookId}}?token={{userToken}}",
+							"host": [
+								"{{book_url}}"
+							],
+							"path": [
+								"{{bookId}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Borrow",
+			"item": [
+				{
+					"name": "POST publisher",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"pm.environment.set(\"publisherId\", response.publisherId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"My publisher\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{publisher_url}}/?token={{userToken}}",
+							"host": [
+								"{{publisher_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST author",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"pm.environment.set(\"authorId\", response.authorId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"My author\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{author_url}}/?token={{userToken}}",
+							"host": [
+								"{{author_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST book",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"pm.environment.set(\"bookId\", response.bookId);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"God book\",\r\n    \"publicationYear\": 42,\r\n    \"description\": \"All the response of the universe\",\r\n    \"state\": \"AVAILABLE\",\r\n    \"authors\": [{{authorId}}],\r\n    \"publisher\": {\r\n        \"publisherId\": {{publisherId}}\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{book_url}}/?token={{userToken}}",
+							"host": [
+								"{{book_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{borrow_url}}/",
+							"host": [
+								"{{borrow_url}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get by unknown id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function() {\r",
+									"    pm.response.to.have.status(404);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{borrow_url}}/129321973128943",
+							"host": [
+								"{{borrow_url}}"
+							],
+							"path": [
+								"129321973128943"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST without id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function() {\r",
+									"    pm.response.to.have.status(201);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"bookId\": {{bookId}},\r\n    \"userId\": 69,\r\n    \"borrowDate\": \"2020-09-29T21:41:49Z\",\r\n    \"maxBorrowDayDuration\": 10,\r\n    \"returnedDate\": \"2021-10-11T07:15:49Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{borrow_url}}/?token={{userToken}}",
+							"host": [
+								"{{borrow_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST without data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function() {\r",
+									"    pm.response.to.have.status(400);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{borrow_url}}/?token={{userToken}}",
+							"host": [
+								"{{borrow_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST whit wrong data name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function() {\r",
+									"    pm.response.to.have.status(400);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"book\": 42,\r\n    \"user\": 69,\r\n    \"borrowDate\": \"20210929\",\r\n    \"maxBorrowDayDuration\": 10,\r\n    \"returnedDate\": \"20220929\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{borrow_url}}/?token={{userToken}}",
+							"host": [
+								"{{borrow_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST returned date before borrow date",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function() {\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"bookId\": {{bookId}},\r\n    \"userId\": 69,\r\n    \"borrowDate\": \"2020-09-29T21:41:49Z\",\r\n    \"maxBorrowDayDuration\": 10,\r\n    \"returnedDate\": \"2011-10-11T07:15:49Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{borrow_url}}/?token={{userToken}}",
+							"host": [
+								"{{borrow_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST negativ borrow duration",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function() {\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"bookId\": {{bookId}},\r\n    \"userId\": 69,\r\n    \"borrowDate\": \"2020-09-29T21:41:49Z\",\r\n    \"maxBorrowDayDuration\": -50,\r\n    \"returnedDate\": \"2030-10-11T07:15:49Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{borrow_url}}/?token={{userToken}}",
+							"host": [
+								"{{borrow_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"pm.environment.set(\"borrowId\", response.borrowId);\r",
+									"\r",
+									"pm.test(\"Status code is 201\", function() {\r",
+									"    pm.response.to.have.status(201);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"data verification\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    console.log(jsonData);\r",
+									"    pm.expect(jsonData[\"bookId\"][\"bookId\"]).to.equal(environment.bookId);\r",
+									"    pm.expect(jsonData[\"userId\"]).to.equal(69);\r",
+									"    pm.expect(jsonData[\"borrowDate\"]).to.equal(\"2020-09-29T21:41:49Z\");\r",
+									"    pm.expect(jsonData[\"maxBorrowDayDuration\"]).to.equal(10);\r",
+									"    pm.expect(jsonData[\"returnedDate\"]).to.equal(\"2021-10-11T07:15:49Z\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"bookId\": {{bookId}},\r\n    \"userId\": 69,\r\n    \"borrowDate\": \"2020-09-29T21:41:49Z\",\r\n    \"maxBorrowDayDuration\": 10,\r\n    \"returnedDate\": \"2021-10-11T07:15:49Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{borrow_url}}/?token={{userToken}}",
+							"host": [
+								"{{borrow_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{borrow_url}}/",
+							"host": [
+								"{{borrow_url}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"data verification\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    console.log(jsonData);\r",
+									"    pm.expect(jsonData[\"bookId\"][\"bookId\"]).to.equal(environment.bookId);\r",
+									"    pm.expect(jsonData[\"userId\"]).to.equal(69);\r",
+									"    pm.expect(jsonData[\"borrowDate\"]).to.equal(\"2020-09-29T21:41:49Z\");\r",
+									"    pm.expect(jsonData[\"maxBorrowDayDuration\"]).to.equal(10);\r",
+									"    pm.expect(jsonData[\"returnedDate\"]).to.equal(\"2021-10-11T07:15:49Z\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{borrow_url}}/{{borrowId}}",
+							"host": [
+								"{{borrow_url}}"
+							],
+							"path": [
+								"{{borrowId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET by unknown id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function() {\r",
+									"    pm.response.to.have.status(404);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{borrow_url}}/12932197312894",
+							"host": [
+								"{{borrow_url}}"
+							],
+							"path": [
+								"12932197312894"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST second book",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"pm.environment.set(\"bookId\", response.bookId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"God book\",\r\n    \"publicationYear\": 42,\r\n    \"description\": \"All the response of the universe\",\r\n    \"state\": \"AVAILABLE\",\r\n    \"authors\": [{{authorId}}],\r\n    \"publisher\": {\r\n        \"publisherId\": {{publisherId}}\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{book_url}}/?token={{userToken}}",
+							"host": [
+								"{{book_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE all column",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"data verification\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    console.log(jsonData);\r",
+									"    pm.expect(jsonData[\"bookId\"][\"bookId\"]).to.equal(environment.bookId);\r",
+									"    pm.expect(jsonData[\"userId\"]).to.equal(96);\r",
+									"    pm.expect(jsonData[\"borrowDate\"]).to.equal(\"2020-04-29T21:41:49Z\");\r",
+									"    pm.expect(jsonData[\"maxBorrowDayDuration\"]).to.equal(5);\r",
+									"    pm.expect(jsonData[\"returnedDate\"]).to.equal(\"2021-09-11T07:15:49Z\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.log(\"book\", environment.bookId)\r",
+									"console.log(\"borrow\", environment.borrowId)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"borrowId\": {{borrowId}},\r\n    \"bookId\": {{bookId}},\r\n    \"userId\": 96,\r\n    \"borrowDate\": \"2020-04-29T21:41:49Z\",\r\n    \"maxBorrowDayDuration\": 5,\r\n    \"returnedDate\": \"2021-09-11T07:15:49Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{borrow_url}}/?token={{userToken}}",
+							"host": [
+								"{{borrow_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET updated borrow by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"data verification\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    console.log(jsonData);\r",
+									"    pm.expect(jsonData[\"bookId\"][\"bookId\"]).to.equal(environment.bookId);\r",
+									"    pm.expect(jsonData[\"userId\"]).to.equal(96);\r",
+									"    pm.expect(jsonData[\"borrowDate\"]).to.equal(\"2020-04-29T21:41:49Z\");\r",
+									"    pm.expect(jsonData[\"maxBorrowDayDuration\"]).to.equal(5);\r",
+									"    pm.expect(jsonData[\"returnedDate\"]).to.equal(\"2021-09-11T07:15:49Z\");\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{borrow_url}}/{{borrowId}}",
+							"host": [
+								"{{borrow_url}}"
+							],
+							"path": [
+								"{{borrowId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE one column",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"data verification\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    console.log(jsonData);\r",
+									"    pm.expect(jsonData[\"bookId\"][\"bookId\"]).to.equal(environment.bookId);\r",
+									"    pm.expect(jsonData[\"userId\"]).to.equal(150);\r",
+									"    pm.expect(jsonData[\"borrowDate\"]).to.equal(\"2020-04-29T21:41:49Z\");\r",
+									"    pm.expect(jsonData[\"maxBorrowDayDuration\"]).to.equal(5);\r",
+									"    pm.expect(jsonData[\"returnedDate\"]).to.equal(\"2021-09-11T07:15:49Z\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"borrowId\": {{borrowId}},\r\n    \"bookId\": {{bookId}},\r\n    \"userId\": 150,\r\n    \"borrowDate\": \"2020-04-29T21:41:49Z\",\r\n    \"maxBorrowDayDuration\": 5,\r\n    \"returnedDate\": \"2021-09-11T07:15:49Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{borrow_url}}/?token={{userToken}}",
+							"host": [
+								"{{borrow_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET updated borrow by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"data verification\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    console.log(jsonData);\r",
+									"    pm.expect(jsonData[\"bookId\"][\"bookId\"]).to.equal(environment.bookId);\r",
+									"    pm.expect(jsonData[\"userId\"]).to.equal(150);\r",
+									"    pm.expect(jsonData[\"borrowDate\"]).to.equal(\"2020-04-29T21:41:49Z\");\r",
+									"    pm.expect(jsonData[\"maxBorrowDayDuration\"]).to.equal(5);\r",
+									"    pm.expect(jsonData[\"returnedDate\"]).to.equal(\"2021-09-11T07:15:49Z\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{borrow_url}}/{{borrowId}}",
+							"host": [
+								"{{borrow_url}}"
+							],
+							"path": [
+								"{{borrowId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE wrong date",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function() {\r",
+									"    pm.response.to.have.status(400);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"borrowId\": {{borrowId}},\r\n    \"bookId\": {{bookId}},\r\n    \"userId\": 150,\r\n    \"borrowDate\": \"2020-04-29T21:41:49Z\",\r\n    \"maxBorrowDayDuration\": 5,\r\n    \"returnedDate\": \"2021-80-11T07:15:49Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{borrow_url}}/?token={{userToken}}",
+							"host": [
+								"{{borrow_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE returnedDateBeforeBorrowDate",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function() {\r",
+									"    pm.response.to.have.status(404);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"borrowId\": {{borrowId}},\r\n    \"bookId\": {{bookId}},\r\n    \"userId\": 150,\r\n    \"borrowDate\": \"2020-04-29T21:41:49Z\",\r\n    \"maxBorrowDayDuration\": 5,\r\n    \"returnedDate\": \"2012-08-11T07:15:49Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{borrow_url}}/?token={{userToken}}",
+							"host": [
+								"{{borrow_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE negativ borrow duration",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function() {\r",
+									"    pm.response.to.have.status(400);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"borrowId\": {{borrowId}},\r\n    \"bookId\": {{bookId}},\r\n    \"userId\": 150,\r\n    \"borrowDate\": \"2020-04-29T21:41:49Z\",\r\n    \"maxBorrowDayDuration\": -15,\r\n    \"returnedDate\": \"2021-08-11T07:15:49Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{borrow_url}}/?token={{userToken}}",
+							"host": [
+								"{{borrow_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE by id",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{borrow_url}}/{{borrowId}}?token={{userToken}}",
+							"host": [
+								"{{borrow_url}}"
+							],
+							"path": [
+								"{{borrowId}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET by removed id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function() {\r",
+									"    pm.response.to.have.status(404);\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{borrow_url}}/{{borrowId}}",
+							"host": [
+								"{{borrow_url}}"
+							],
+							"path": [
+								"{{borrowId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE deleted borrow",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function() {\r",
+									"    pm.response.to.have.status(404);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"borrowId\": {{borrowId}},\r\n    \"bookId\": {{bookId}},\r\n    \"userId\": 150,\r\n    \"borrowDate\": \"2020-04-29T21:41:49Z\",\r\n    \"maxBorrowDayDuration\": 5,\r\n    \"returnedDate\": \"2021-09-11T07:15:49Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{borrow_url}}/?token={{userToken}}",
+							"host": [
+								"{{borrow_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE deleted borrow",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function() {\r",
+									"    pm.response.to.have.status(404);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{borrow_url}}/{{borrowId}}?token={{userToken}}",
+							"host": [
+								"{{borrow_url}}"
+							],
+							"path": [
+								"{{borrowId}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

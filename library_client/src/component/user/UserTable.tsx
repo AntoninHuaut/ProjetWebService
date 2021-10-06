@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { User } from "../../types/login";
+import { User, UserRole } from "../../types/login";
 import BaseTable from "../BaseTable";
 import { Button, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -40,7 +40,7 @@ const UserTable = ({
             formated.push({
                 userId: item.userId,
                 userName: item.userName,
-                role: item.role.toString(),
+                role: Object.values(UserRole)[item.role-1].toString().replace(/_ROLE/g, ''),
                 action: canEdit ? <>
                     <Button
                         variant="outline-secondary"

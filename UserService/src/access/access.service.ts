@@ -16,6 +16,7 @@ export class AccessService {
     async login(loginUserDto: LoginUserDto) {
         const user: User = await this.userService.checkPassword(loginUserDto.userName, loginUserDto.password);
         user.token = randomStringGenerator() + "-" + randomStringGenerator();
+        await this.userService.saveUser(user);
         return ResponseUserLogin.fromEntity(user);
     }
 

@@ -10,7 +10,8 @@ interface Props {
     loading: boolean,
     onEdit: (book: Book) => any,
     onDelete: (book: Book) => any,
-    onNew: () => any
+    onNew: () => any,
+    canEdit: boolean
 }
 
 interface BookRow {
@@ -27,7 +28,8 @@ const BookTable = ({
     loading,
     onEdit,
     onDelete,
-    onNew
+    onNew,
+    canEdit
 }: Props) => {
 
     const [formatedData, setFormatedData] = useState<BookRow[]>([]);
@@ -42,7 +44,7 @@ const BookTable = ({
                 publicationYear: item.publicationYear.toString(),
                 state: item.state.toString(),
                 publisherName: item.publisher.name,
-                action: <>
+                action: canEdit ? <>
                     <Button
                         variant="outline-secondary"
                         onClick={() => onEdit(item)}
@@ -57,7 +59,7 @@ const BookTable = ({
                     >
                        <FontAwesomeIcon icon={faTrash}/>
                     </Button>
-                </>
+                </> : <></>
             });
         });
 
@@ -104,15 +106,17 @@ const BookTable = ({
             </h4>
         </Col>
         
-        <Col sm="auto" >
-            <Button
-                className="mb-2 p-1"
-                variant="success"
-                onClick={onNew}
-            >
-                Add <FontAwesomeIcon icon={faPlus} />
-            </Button>
-        </Col>
+        {canEdit &&
+            <Col sm="auto" >
+                <Button
+                    className="mb-2 p-1"
+                    variant="success"
+                    onClick={onNew}
+                >
+                    Add <FontAwesomeIcon icon={faPlus} />
+                </Button>
+            </Col>
+        }
     </Row>
 
 

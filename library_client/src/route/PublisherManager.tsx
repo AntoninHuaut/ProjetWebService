@@ -7,6 +7,8 @@ import PublisherModal from "../component/publisher/PublisherModal";
 import PublisherTable from "../component/publisher/PublisherTable";
 import PublisherDeleteModal from "../component/publisher/PublisherDeleteModal";
 import { Publisher } from "../types/library";
+import { useSelector } from "react-redux";
+import { User } from "../types/login";
 
 const PublisherManager = () => {
 
@@ -19,6 +21,10 @@ const PublisherManager = () => {
     const [modalDelete, setModalDelete] = useState<boolean>(false);
 
     const [selectedPublisher, setSelectedPublisher] = useState<Publisher| undefined>(undefined);
+
+    const user: User = useSelector((state: any) => {
+        return state.currentUser;
+    }).user;
 
     const getPublishers = () => {
         axiosExecuteGet(
@@ -85,6 +91,7 @@ const PublisherManager = () => {
                     onEdit={updateModalPublisher}
                     onNew={newModalPublisher}
                     onDelete={deleteModalPublisher}
+                    canEdit={user.role >= 3}
                 />
 
                 <PublisherModal

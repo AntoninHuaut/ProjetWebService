@@ -8,6 +8,8 @@ import BookTable from "../component/book/BookTable";
 import BookDeleteModal from "../component/book/BookDeleteModal";
 import { Book } from "../types/library";
 import PrivateComponent from "../component/PrivateComponent";
+import { useSelector } from "react-redux";
+import { User } from "../types/login";
 
 const BookManager = () => {
 
@@ -20,6 +22,10 @@ const BookManager = () => {
     const [modalDelete, setModalDelete] = useState<boolean>(false);
 
     const [selectedBook, setSelectedBook] = useState<Book| undefined>(undefined);
+
+    const user: User = useSelector((state: any) => {
+        return state.currentUser;
+    }).user;
 
     const getBooks = () => {
         axiosExecuteGet(
@@ -92,6 +98,7 @@ const BookManager = () => {
                     onEdit={updateModalBook}
                     onNew={newModalBook}
                     onDelete={deleteModalBook}
+                    canEdit={user.role >= 3}
                 />
 
                 <BookModal

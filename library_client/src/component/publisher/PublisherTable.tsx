@@ -10,7 +10,8 @@ interface Props {
     loading: boolean,
     onEdit: (publisher: Publisher) => any,
     onDelete: (publisher: Publisher) => any,
-    onNew: () => any
+    onNew: () => any,
+    canEdit: boolean
 }
 
 interface PublisherRow {
@@ -24,7 +25,8 @@ const PublisherTable = ({
     loading,
     onEdit,
     onDelete,
-    onNew
+    onNew,
+    canEdit
 }: Props) => {
 
     const [formatedData, setFormatedData] = useState<PublisherRow[]>([]);
@@ -36,7 +38,7 @@ const PublisherTable = ({
             formated.push({
                 publisherId: item.publisherId,
                 publisherName: item.name,
-                action: <>
+                action: canEdit ? <>
                     <Button
                         variant="outline-secondary"
                         onClick={() => onEdit(item)}
@@ -51,7 +53,7 @@ const PublisherTable = ({
                     >
                        <FontAwesomeIcon icon={faTrash}/>
                     </Button>
-                </>
+                </> : <></>
             });
         });
 
@@ -86,15 +88,18 @@ const PublisherTable = ({
             </h4>
         </Col>
         
-        <Col sm="auto" >
-            <Button
-                className="mb-2 p-1"
-                variant="success"
-                onClick={onNew}
-            >
-                Add <FontAwesomeIcon icon={faPlus} />
-            </Button>
-        </Col>
+        {canEdit &&
+            <Col sm="auto" >
+                <Button
+                    className="mb-2 p-1"
+                    variant="success"
+                    onClick={onNew}
+                >
+                    Add <FontAwesomeIcon icon={faPlus} />
+                </Button>
+            </Col>
+        }
+        
     </Row>
 
 

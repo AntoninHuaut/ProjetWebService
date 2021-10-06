@@ -10,6 +10,7 @@ import PublisherManager from './route/PublisherManager';
 import BookManager from "./route/BookManager";
 import LoginPage from "./route/LoginPage";
 import PrivateComponent from "./component/PrivateComponent";
+import UserManager from "./route/UserManager";
 
 
 const App = () => {
@@ -30,7 +31,7 @@ const App = () => {
 
                     <Route path="/users">
                         <PrivateComponent />
-                        <>Users</>
+                        <UserManager />
                     </Route>
 
                     <Route path="/book">

@@ -17,8 +17,6 @@ const NavBar = () => {
         return state.currentUser;
     });
 
-    console.log(user);
-
     return (
         <Navbar bg="dark" variant="dark">
             <Container>
@@ -36,7 +34,7 @@ const NavBar = () => {
                     
                     <Nav.Link href="/#/publisher">Publisher</Nav.Link>
                     <Nav.Link href="/#/book">Book</Nav.Link>
-                    <Nav.Link href="/#/users">Users</Nav.Link>
+                    {user.user.role >= 4  &&<Nav.Link href="/#/users">Users</Nav.Link>}
                 </Nav>
                 {user.loggedIn && 
                     <Nav className="ms-auto">

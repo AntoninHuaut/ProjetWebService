@@ -1,0 +1,1316 @@
+{
+	"info": {
+		"_postman_id": "06f777da-3ba6-4bef-8986-a3f5a80b5576",
+		"name": "UserService",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get all",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{user_user_url}}/?token={{userToken}}",
+							"host": [
+								"{{user_user_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get by unknown id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function() {\r",
+									"    pm.response.to.have.status(404);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{user_user_url}}/129321973128943?token={{userToken}}",
+							"host": [
+								"{{user_user_url}}"
+							],
+							"path": [
+								"129321973128943"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST with id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function() {\r",
+									"    pm.response.to.have.status(201);\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function strRandom(o) {\r",
+									"  var a = 10,\r",
+									"      b = 'abcdefghijklmnopqrstuvwxyz',\r",
+									"      c = '',\r",
+									"      d = 0,\r",
+									"      e = ''+b;\r",
+									"  if (o) {\r",
+									"    if (o.startsWithLowerCase) {\r",
+									"      c = b[Math.floor(Math.random() * b.length)];\r",
+									"      d = 1;\r",
+									"    }\r",
+									"    if (o.length) {\r",
+									"      a = o.length;\r",
+									"    }\r",
+									"    if (o.includeUpperCase) {\r",
+									"      e += b.toUpperCase();\r",
+									"    }\r",
+									"    if (o.includeNumbers) {\r",
+									"      e += '1234567890';\r",
+									"    }\r",
+									"  }\r",
+									"  for (; d < a; d++) {\r",
+									"    c += e[Math.floor(Math.random() * e.length)];\r",
+									"  }\r",
+									"  return c;\r",
+									"}\r",
+									"\r",
+									"pm.environment.set(\"userName\",strRandom({\r",
+									"  includeUpperCase: true,\r",
+									"  includeNumbers: true,\r",
+									"  length: 15,\r",
+									"  startsWithLowerCase: false\r",
+									"}));\r",
+									"\r",
+									"pm.environment.set(\"password\",strRandom({\r",
+									"  includeUpperCase: true,\r",
+									"  includeNumbers: true,\r",
+									"  length: 15,\r",
+									"  startsWithLowerCase: false\r",
+									"}));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 15492676547945279,\r\n    \"userName\": \"{{userName}}\",\r\n    \"password\": \"{{password}}\",\r\n    \"role\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{user_user_url}}/?token={{userToken}}",
+							"host": [
+								"{{user_user_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST without data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function() {\r",
+									"    pm.response.to.have.status(400);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{user_user_url}}/?token={{userToken}}",
+							"host": [
+								"{{user_user_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST whit token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function() {\r",
+									"    pm.response.to.have.status(201);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function strRandom(o) {\r",
+									"  var a = 10,\r",
+									"      b = 'abcdefghijklmnopqrstuvwxyz',\r",
+									"      c = '',\r",
+									"      d = 0,\r",
+									"      e = ''+b;\r",
+									"  if (o) {\r",
+									"    if (o.startsWithLowerCase) {\r",
+									"      c = b[Math.floor(Math.random() * b.length)];\r",
+									"      d = 1;\r",
+									"    }\r",
+									"    if (o.length) {\r",
+									"      a = o.length;\r",
+									"    }\r",
+									"    if (o.includeUpperCase) {\r",
+									"      e += b.toUpperCase();\r",
+									"    }\r",
+									"    if (o.includeNumbers) {\r",
+									"      e += '1234567890';\r",
+									"    }\r",
+									"  }\r",
+									"  for (; d < a; d++) {\r",
+									"    c += e[Math.floor(Math.random() * e.length)];\r",
+									"  }\r",
+									"  return c;\r",
+									"}\r",
+									"\r",
+									"pm.environment.set(\"userName\",strRandom({\r",
+									"  includeUpperCase: true,\r",
+									"  includeNumbers: true,\r",
+									"  length: 15,\r",
+									"  startsWithLowerCase: false\r",
+									"}));\r",
+									"\r",
+									"pm.environment.set(\"password\",strRandom({\r",
+									"  includeUpperCase: true,\r",
+									"  includeNumbers: true,\r",
+									"  length: 15,\r",
+									"  startsWithLowerCase: false\r",
+									"}));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\": \"{{userName}}\",\r\n    \"password\": \"{{password}}\",\r\n    \"role\": 1,\r\n    \"token\": \"Je suis un malendrin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{user_user_url}}/?token={{userToken}}",
+							"host": [
+								"{{user_user_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST whit wrong dataName",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function() {\r",
+									"    pm.response.to.have.status(400);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function strRandom(o) {\r",
+									"  var a = 10,\r",
+									"      b = 'abcdefghijklmnopqrstuvwxyz',\r",
+									"      c = '',\r",
+									"      d = 0,\r",
+									"      e = ''+b;\r",
+									"  if (o) {\r",
+									"    if (o.startsWithLowerCase) {\r",
+									"      c = b[Math.floor(Math.random() * b.length)];\r",
+									"      d = 1;\r",
+									"    }\r",
+									"    if (o.length) {\r",
+									"      a = o.length;\r",
+									"    }\r",
+									"    if (o.includeUpperCase) {\r",
+									"      e += b.toUpperCase();\r",
+									"    }\r",
+									"    if (o.includeNumbers) {\r",
+									"      e += '1234567890';\r",
+									"    }\r",
+									"  }\r",
+									"  for (; d < a; d++) {\r",
+									"    c += e[Math.floor(Math.random() * e.length)];\r",
+									"  }\r",
+									"  return c;\r",
+									"}\r",
+									"\r",
+									"pm.environment.set(\"userName\",strRandom({\r",
+									"  includeUpperCase: true,\r",
+									"  includeNumbers: true,\r",
+									"  length: 15,\r",
+									"  startsWithLowerCase: false\r",
+									"}));\r",
+									"\r",
+									"pm.environment.set(\"password\",strRandom({\r",
+									"  includeUpperCase: true,\r",
+									"  includeNumbers: true,\r",
+									"  length: 15,\r",
+									"  startsWithLowerCase: false\r",
+									"}));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usme\": \"{{userName}}\",\r\n    \"password\": \"{{password}}\",\r\n    \"role\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{user_user_url}}/?token={{userToken}}",
+							"host": [
+								"{{user_user_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST invalid role",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function() {\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\": \"{{userId}}\",\r\n    \"password\": \"{{userName}}\",\r\n    \"role\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{user_user_url}}/?token={{userToken}}",
+							"host": [
+								"{{user_user_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"pm.environment.set(\"userId\", response.userId);\r",
+									"\r",
+									"pm.test(\"Status code is 201\", function() {\r",
+									"    pm.response.to.have.status(201);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"data verification\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    console.log(jsonData);\r",
+									"    pm.expect(jsonData[\"userName\"]).to.equal(environment.userName);\r",
+									"    pm.expect(jsonData[\"role\"]).to.equal(1);\r",
+									"    pm.expect(jsonData[\"token\"]).undefined;\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function strRandom(o) {\r",
+									"  var a = 10,\r",
+									"      b = 'abcdefghijklmnopqrstuvwxyz',\r",
+									"      c = '',\r",
+									"      d = 0,\r",
+									"      e = ''+b;\r",
+									"  if (o) {\r",
+									"    if (o.startsWithLowerCase) {\r",
+									"      c = b[Math.floor(Math.random() * b.length)];\r",
+									"      d = 1;\r",
+									"    }\r",
+									"    if (o.length) {\r",
+									"      a = o.length;\r",
+									"    }\r",
+									"    if (o.includeUpperCase) {\r",
+									"      e += b.toUpperCase();\r",
+									"    }\r",
+									"    if (o.includeNumbers) {\r",
+									"      e += '1234567890';\r",
+									"    }\r",
+									"  }\r",
+									"  for (; d < a; d++) {\r",
+									"    c += e[Math.floor(Math.random() * e.length)];\r",
+									"  }\r",
+									"  return c;\r",
+									"}\r",
+									"\r",
+									"pm.environment.set(\"userName\",strRandom({\r",
+									"  includeUpperCase: true,\r",
+									"  includeNumbers: true,\r",
+									"  length: 15,\r",
+									"  startsWithLowerCase: false\r",
+									"}));\r",
+									"\r",
+									"pm.environment.set(\"password\",strRandom({\r",
+									"  includeUpperCase: true,\r",
+									"  includeNumbers: true,\r",
+									"  length: 15,\r",
+									"  startsWithLowerCase: false\r",
+									"}));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\": \"{{userName}}\",\r\n    \"password\": \"{{password}}\",\r\n    \"role\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{user_user_url}}/?token={{userToken}}",
+							"host": [
+								"{{user_user_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{user_user_url}}/?token={{userToken}}",
+							"host": [
+								"{{user_user_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"data verification\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    console.log(jsonData);\r",
+									"    pm.expect(jsonData[\"userName\"]).to.equal(environment.userName);\r",
+									"    pm.expect(jsonData[\"role\"]).to.equal(1);\r",
+									"    pm.expect(jsonData[\"token\"]).undefined;\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{user_user_url}}/{{userId}}?token={{userToken}}",
+							"host": [
+								"{{user_user_url}}"
+							],
+							"path": [
+								"{{userId}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET by unknown id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function() {\r",
+									"    pm.response.to.have.status(404);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{user_user_url}}/12932197312894?token={{userToken}}",
+							"host": [
+								"{{user_user_url}}"
+							],
+							"path": [
+								"12932197312894"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE all column",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"data verification\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    console.log(jsonData);\r",
+									"    pm.expect(jsonData[\"userName\"]).to.equal(environment.userName);\r",
+									"    pm.expect(jsonData[\"role\"]).to.equal(2);\r",
+									"    pm.expect(jsonData[\"token\"]).undefined;\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function strRandom(o) {\r",
+									"  var a = 10,\r",
+									"      b = 'abcdefghijklmnopqrstuvwxyz',\r",
+									"      c = '',\r",
+									"      d = 0,\r",
+									"      e = ''+b;\r",
+									"  if (o) {\r",
+									"    if (o.startsWithLowerCase) {\r",
+									"      c = b[Math.floor(Math.random() * b.length)];\r",
+									"      d = 1;\r",
+									"    }\r",
+									"    if (o.length) {\r",
+									"      a = o.length;\r",
+									"    }\r",
+									"    if (o.includeUpperCase) {\r",
+									"      e += b.toUpperCase();\r",
+									"    }\r",
+									"    if (o.includeNumbers) {\r",
+									"      e += '1234567890';\r",
+									"    }\r",
+									"  }\r",
+									"  for (; d < a; d++) {\r",
+									"    c += e[Math.floor(Math.random() * e.length)];\r",
+									"  }\r",
+									"  return c;\r",
+									"}\r",
+									"\r",
+									"pm.environment.set(\"password\",strRandom({\r",
+									"  includeUpperCase: true,\r",
+									"  includeNumbers: true,\r",
+									"  length: 15,\r",
+									"  startsWithLowerCase: false\r",
+									"}));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": {{userId}},\r\n    \"password\": \"{{password}}\",\r\n    \"role\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{user_user_url}}/?token={{userToken}}",
+							"host": [
+								"{{user_user_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET updated user by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"data verification\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    console.log(jsonData);\r",
+									"    pm.expect(jsonData[\"userName\"]).to.equal(environment.userName);\r",
+									"    pm.expect(jsonData[\"role\"]).to.equal(2);\r",
+									"    pm.expect(jsonData[\"token\"]).undefined;\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{user_user_url}}/{{userId}}?token={{userToken}}",
+							"host": [
+								"{{user_user_url}}"
+							],
+							"path": [
+								"{{userId}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE one column",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"data verification\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    console.log(jsonData);\r",
+									"    pm.expect(jsonData[\"userName\"]).to.equal(environment.userName);\r",
+									"    pm.expect(jsonData[\"role\"]).to.equal(3);\r",
+									"    pm.expect(jsonData[\"token\"]).undefined;\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": {{userId}},\r\n    \"role\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{user_user_url}}/?token={{userToken}}",
+							"host": [
+								"{{user_user_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET updated user by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"data verification\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    console.log(jsonData);\r",
+									"    pm.expect(jsonData[\"userName\"]).to.equal(environment.userName);\r",
+									"    pm.expect(jsonData[\"role\"]).to.equal(3);\r",
+									"    pm.expect(jsonData[\"token\"]).undefined;\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{user_user_url}}/{{userId}}?token={{userToken}}",
+							"host": [
+								"{{user_user_url}}"
+							],
+							"path": [
+								"{{userId}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE wrong role",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function() {\r",
+									"    pm.response.to.have.status(400);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": {{userId}},\r\n    \"role\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{user_user_url}}/?token={{userToken}}",
+							"host": [
+								"{{user_user_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE by id",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{user_user_url}}/{{userId}}?token={{userToken}}",
+							"host": [
+								"{{user_user_url}}"
+							],
+							"path": [
+								"{{userId}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET by removed id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function() {\r",
+									"    pm.response.to.have.status(404);\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{user_user_url}}/{{userId}}?token={{userToken}}",
+							"host": [
+								"{{user_user_url}}"
+							],
+							"path": [
+								"{{userId}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE deleted user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function() {\r",
+									"    pm.response.to.have.status(404);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": {{userId}},\r\n    \"role\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{user_user_url}}/?token={{userToken}}",
+							"host": [
+								"{{user_user_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE deleted user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function() {\r",
+									"    pm.response.to.have.status(404);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{user_user_url}}/{{userId}}?token={{userToken}}",
+							"host": [
+								"{{user_user_url}}"
+							],
+							"path": [
+								"{{userId}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User function",
+			"item": [
+				{
+					"name": "POST",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function strRandom(o) {\r",
+									"  var a = 10,\r",
+									"      b = 'abcdefghijklmnopqrstuvwxyz',\r",
+									"      c = '',\r",
+									"      d = 0,\r",
+									"      e = ''+b;\r",
+									"  if (o) {\r",
+									"    if (o.startsWithLowerCase) {\r",
+									"      c = b[Math.floor(Math.random() * b.length)];\r",
+									"      d = 1;\r",
+									"    }\r",
+									"    if (o.length) {\r",
+									"      a = o.length;\r",
+									"    }\r",
+									"    if (o.includeUpperCase) {\r",
+									"      e += b.toUpperCase();\r",
+									"    }\r",
+									"    if (o.includeNumbers) {\r",
+									"      e += '1234567890';\r",
+									"    }\r",
+									"  }\r",
+									"  for (; d < a; d++) {\r",
+									"    c += e[Math.floor(Math.random() * e.length)];\r",
+									"  }\r",
+									"  return c;\r",
+									"}\r",
+									"\r",
+									"pm.environment.set(\"userName\",strRandom({\r",
+									"  includeUpperCase: true,\r",
+									"  includeNumbers: true,\r",
+									"  length: 15,\r",
+									"  startsWithLowerCase: false\r",
+									"}));\r",
+									"\r",
+									"pm.environment.set(\"password\",strRandom({\r",
+									"  includeUpperCase: true,\r",
+									"  includeNumbers: true,\r",
+									"  length: 15,\r",
+									"  startsWithLowerCase: false\r",
+									"}));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\": \"{{userName}}\",\r\n    \"password\": \"{{password}}\",\r\n    \"role\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{user_user_url}}/?token={{userToken}}",
+							"host": [
+								"{{user_user_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"pm.environment.set(\"userToken2\", response.token);\r",
+									"\r",
+									"pm.test(\"data verification\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    console.log(jsonData);\r",
+									"    pm.expect(jsonData[\"token\"]).exist;\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\": \"{{userName}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{user_access_url}}/login",
+							"host": [
+								"{{user_access_url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CanDo CONSULT",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"data verification\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    console.log(jsonData);\r",
+									"    pm.expect(jsonData[\"access\"]).to.equal(true);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{user_access_url}}/CONSULT/{{userToken2}}",
+							"host": [
+								"{{user_access_url}}"
+							],
+							"path": [
+								"CONSULT",
+								"{{userToken2}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

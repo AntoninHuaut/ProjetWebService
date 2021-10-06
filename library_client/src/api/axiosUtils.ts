@@ -16,8 +16,8 @@ export const axiosExecuteGet = (axiosGet: any, setData: any, setLoading: any, se
     return axiosGet.then((res: AxiosResponse) => {
         setData(res.data);
     })
-    .catch((err: Error | AxiosError) => {
-        setError(err.message);
+    .catch((err: any) => {
+        setError(err?.message + ": " +err?.response?.data?.message ?? '');
     })
     .finally(() => {
         setLoading(false);
@@ -28,8 +28,8 @@ export const axiosExecutePost = (axiosPost: any, setLoading: any, setError: any,
     return axiosPost.then((res: AxiosResponse) => {
         setData(res.data);
     })
-    .catch((err: Error | AxiosError) => {
-        setError(err.message);
+    .catch((err: any) => {
+        setError(err?.message + ": " + err?.response?.data?.message ?? '');
     })
     .finally(() => {
         setLoading(false);

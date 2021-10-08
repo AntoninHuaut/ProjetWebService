@@ -84,7 +84,7 @@ const LoginPage = ({
 
     return (
         <>
-            <Row className="justify-content-md-center" onKeyPress={onEnter}>
+            <div className="d-flex justify-content-md-center" onKeyPress={onEnter}>
                 <Col xs={12} sm={6} md={4} lg={3} className="mt-4">
 
                     <Card body>
@@ -170,7 +170,7 @@ const LoginPage = ({
 
                 </Col>
 
-            </Row>
+            </div>
             
 
         </>

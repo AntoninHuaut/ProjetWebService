@@ -35,7 +35,9 @@ const NavBar = () => {
                     <Nav.Link href="/#/publisher">Publisher</Nav.Link>
                     <Nav.Link href="/#/author">Author</Nav.Link>
                     <Nav.Link href="/#/book">Book</Nav.Link>
+                    {user.user.role >= 2  &&<Nav.Link href="/#/borrow">Borrow</Nav.Link>}
                     {user.user.role >= 4  &&<Nav.Link href="/#/users">Users</Nav.Link>}
+                    
                 </Nav>
                 {user.loggedIn && 
                     <Nav className="ms-auto">

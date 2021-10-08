@@ -3,7 +3,8 @@ import userActions from "../reducers/userActions";
 import { LoginUserDto, RegisterUserDto, User } from "../types/login";
 import { API_USER, getUserToken } from "./axiosUtils";
 
-const userURL : string =  API_USER + "/user";
+const userURL : string = API_USER + "/user";
+const accessURL: string = API_USER + "/access";
 const testAdminToken : string = process.env.REACT_APP_ADMIN_TOKEN ?? '';
 
 export const haveLocalUser = (): boolean => {
@@ -18,9 +19,16 @@ export const getLocalUser = (): User => {
 }
 
 export const logout = (history: any, dispatch: any) => {
-    localStorage.removeItem("user");
-    dispatch(userActions.logOut());
-    history.push("/login");
+    const token = getLocalUser().token;
+    if (!token) return;
+
+    axios.delete(`${accessURL}/logout/${token}`)
+    .catch((err: any) => {})
+    .finally(() => {
+        localStorage.removeItem("user");
+        dispatch(userActions.logOut());
+        history.push("/login");
+    });
 }
 
 
@@ -36,7 +44,7 @@ export const authHeader = () => {
 }
 
 export const login = (loginInfo : LoginUserDto, dispatch: any) => {
-    return axios.post(`${API_USER}/access/login`, loginInfo).then((response: AxiosResponse) => {
+    return axios.post(`${accessURL}/login`, loginInfo).then((response: AxiosResponse) => {
 
         if (response.data.token) {
             localStorage.setItem("user", JSON.stringify(response.data));

@@ -4,7 +4,10 @@
 > FONTAINE Quentin  
 > HUAUT Antonin
 
+
+
 ## Architecture
+
 Nous avons trois webservices :
 - LibraryService : s'occupe de gérer la bibliothèque : livres, auteurs, éditeurs et emprunts
 - UserService : gère les utilisateurs et les rôles
@@ -27,18 +30,25 @@ Pour chaque entité (Auteur, Editeur, Livre, Emprunt, Utilisateur), il est possi
 - Mettre à jour une entité
 - Supprimer une entité
 
+
+
 ## Authentification token magique
 Nous avons fait un choix d'avoir un token magique pour avoir les privilèges admins "à la volée".  
 Cela permet de créer des utilisateurs comme on le souhaite. D'ailleurs, le menu d'inscription permet de choisir son rôle et de créer un administrateur si on le souhaite.  
 Bien sûr, ceci a été réalisé dans un cadre scolaire et ne serait pas fait sur un projet réel !  
 Ce token est stocké dans les fichiers .env.
 
+
+
 ## Postman
 Nous avons réalisé de nombreux tests avec Postman.  
 Nous avons envoyé un lien pour rejoindre notre Workspace par email.  
 Il ne faut pas oublier d'activer un environnement (local ou à distance).
 
+
+
 ## Executer les services
+
 > Des exécutables .sh et .bat sont disponibles pour exécuter les commandes indiquées dans chaque dossier.
 
 ### LibraryService
@@ -73,3 +83,36 @@ cd library_client/
 npm install
 npm run build
 ```
+
+
+
+
+
+## Images
+
+Connexion
+![](.\images_rendu\1.login.png)
+
+Inscription
+![](.\images_rendu\2.register.png)
+
+Inscription (succès)
+![](.\images_rendu\3.register_success.png)Page d'accueil (rôle : emprunt)
+![](.\images_rendu\4.homepage.png)Page d'accueil (rôle : admin)
+![](.\images_rendu\5.homepage_admin.png)Liste des éditeurs
+![](.\images_rendu\6.publisher_list.png)Edition d'un éditeur
+![](.\images_rendu\7.publisher_edit.png)Edition d'un éditeur (succès)
+![](.\images_rendu\8.publisher_edit_success.png)Ajout d'un éditeur
+![](.\images_rendu\9.publisher_add.png)Suppression d'un éditeur
+![](.\images_rendu\10.publisher_delete.png)Suppression d'un éditeur (erreur)
+![](.\images_rendu\11.publisher_delete_error.png)Liste des auteurs
+![](.\images_rendu\12.author_list.png)Liste des livres
+![](.\images_rendu\13.book_list.png)Edition d'un livre
+![](.\images_rendu\14.book_edit.png)Ajout d'un livre
+![](.\images_rendu\15.book_add.png)Suppression d'un livre
+![](.\images_rendu\16.book_delete.png)Liste des utilisateurs
+![](.\images_rendu\17.user_list.png)Ajout d'un utilisateur
+![](.\images_rendu\18.user_add.png)Edition d'un utilisateur
+![](.\images_rendu\19.user_edit.png)
+Suppression d'un utilisateur
+![](.\images_rendu\20.user_delete.png)

@@ -1,7 +1,7 @@
 # Projet
 
-> AUDABRAM Luc
-> FONTAINE Quentin
+> AUDABRAM Luc  
+> FONTAINE Quentin  
 > HUAUT Antonin
 
 ## Architecture

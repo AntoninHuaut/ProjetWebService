@@ -54,4 +54,8 @@ export class AccessService {
         }
         throw new ForbiddenException();
     }
+
+    async deleteToken(token: string) {
+        await this.userService.deleteToken(token);
+    }
 }

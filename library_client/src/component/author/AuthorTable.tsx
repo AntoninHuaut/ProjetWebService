@@ -1,28 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { User, UserRole } from "../../types/login";
+import { Author } from "../../types/library";
 import BaseTable from "../BaseTable";
 import { Button, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 
-
 interface Props {
-    data: User[],
+    data: Author[],
     loading: boolean,
-    onEdit: (user: User) => any,
-    onDelete: (user: User) => any,
+    onEdit: (author: Author) => any,
+    onDelete: (author: Author) => any,
     onNew: () => any,
     canEdit: boolean
 }
 
-interface UserRow {
-    userId: number,
-    userName: string,
-    role: string
+interface AuthorRow {
+    authorId: number,
+    authorName: string,
     action: any
 }
 
-const UserTable = ({
+const AuthorTable = ({
     data=[],
     loading,
     onEdit,
@@ -31,16 +29,15 @@ const UserTable = ({
     canEdit
 }: Props) => {
 
-    const [formatedData, setFormatedData] = useState<UserRow[]>([]);
+    const [formatedData, setFormatedData] = useState<AuthorRow[]>([]);
 
     const formatData = () => {
-        let formated : UserRow[] = [];
+        let formated : AuthorRow[] = [];
 
-        data.forEach((item: User) => {
+        data.forEach((item: Author) => {
             formated.push({
-                userId: item.userId,
-                userName: item.userName,
-                role: Object.values(UserRole)[item.role-1].toString().replace(/_ROLE/g, ''),
+                authorId: item.authorId,
+                authorName: item.name,
                 action: canEdit ? <>
                     <Button
                         variant="outline-secondary"
@@ -68,19 +65,15 @@ const UserTable = ({
     }, [data]);
 
     const columns = [{
-        dataField: 'userId',
-        text: 'User ID',
+        dataField: 'authorId',
+        text: 'Author ID',
         sort: true,
         headerStyle: { width: '110px' }
       }, {
-        dataField: 'userName',
-        text: 'User Name',
+        dataField: 'authorName',
+        text: 'Author Name',
         sort: true
-      },{
-        dataField: 'role',
-        text: 'Role',
-        sort: true
-      },{
+      }, {
         dataField: 'action',
         text: 'Actions',
         sort: false,
@@ -91,7 +84,7 @@ const UserTable = ({
     <Row>
         <Col>
             <h4>
-                Users
+                Authors
             </h4>
         </Col>
         
@@ -106,6 +99,7 @@ const UserTable = ({
                 </Button>
             </Col>
         }
+        
     </Row>
 
 
@@ -113,7 +107,7 @@ const UserTable = ({
         <>
             <BaseTable
                 title={TableTitle}
-                keyField="userId"
+                keyField="authorId"
                 columns={columns}
                 loading={loading}
                 data={formatedData}
@@ -122,4 +116,4 @@ const UserTable = ({
     );
 }
 
-export default UserTable;
+export default AuthorTable;

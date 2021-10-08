@@ -122,47 +122,48 @@ const UserModal = ({
             <BaseAlert msg={error} close={() => setError('')} />
 
             <Form>
-                <Row>
-                    <Col md={6}>
+                <Col md={6}>
+                    <Form.Group>
+                        <Form.Label>User Name</Form.Label>
+                        <Form.Control 
+                            type="text" 
+                            placeholder="Enter user name" 
+                            value={tmpUser.userName}
+                            onChange={handleChange}
+                            name="userName"
+                            readOnly={tmpUser.userId !== -1}
+                        />
+                    </Form.Group>
+                </Col>
+
+                <Col md={6} className="mt-4">
+                    <Form.Group
+                        className="mt-2"
+                    >
+                        <Form.Label>Role:</Form.Label>
+                        <Select
+                            closeMenuOnSelect={true}
+                            components={animatedComponents}
+                            value={roleToSelectOption(tmpUser.role, roleList)}
+                            onChange={handleSelectRole}
+                            options={roleList}
+                        />  
+                    </Form.Group>
+                </Col>
+
+                {tmpUser.userId === -1 &&
+                    <Col md={6} className="mt-4" >
                         <Form.Group>
-                            <Form.Label>User Name</Form.Label>
+                            <Form.Label>Password:</Form.Label>
                             <Form.Control 
                                 type="text" 
-                                placeholder="Enter user name" 
-                                value={tmpUser.userName}
-                                onChange={handleChange}
-                                name="userName"
+                                placeholder="Enter password" 
+                                value={newPassword}
+                                onChange={(e: any) => setNewPassword(e.target.value)}
+                                name="password"
                             />
                         </Form.Group>
                     </Col>
-
-                    <Col md={6}>
-                        <Form.Group
-                            className="mt-2"
-                        >
-                            <Form.Label>Role:</Form.Label>
-                            <Select
-                                closeMenuOnSelect={true}
-                                components={animatedComponents}
-                                value={roleToSelectOption(tmpUser.role, roleList)}
-                                onChange={handleSelectRole}
-                                options={roleList}
-                            />  
-                        </Form.Group>
-                    </Col>
-                </Row>
-
-                {tmpUser.userId === -1 &&
-                    <Form.Group>
-                        <Form.Label>Password:</Form.Label>
-                        <Form.Control 
-                            type="text" 
-                            placeholder="Enter password" 
-                            value={newPassword}
-                            onChange={(e: any) => setNewPassword(e.target.value)}
-                            name="password"
-                        />
-                    </Form.Group>
                 }
 
             </Form>

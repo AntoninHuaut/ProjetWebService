@@ -49,11 +49,11 @@ export const login = (loginInfo : LoginUserDto, dispatch: any) => {
 }
 
 export const updateUser = (user: User) => {
-    return axios.put(`${userURL}/?token=${testAdminToken}`, user);
+    return axios.put(`${userURL}/?token=${getUserToken()}`, user);
 }
 
 export const deleteUser = (userId: number) => {
-    return axios.delete(`${userURL}/${userId}?token=${testAdminToken}`);
+    return axios.delete(`${userURL}/${userId}?token=${getUserToken()}`);
 }
 
 export const getUserList = () => {

@@ -136,4 +136,10 @@ export class UserService {
     async hash(password: string): Promise<string> {
         return await bcrypt.hash(password, this.saltOrRounds);
     }
+
+    async deleteToken(token: string) {
+        const user: User = await this.findOneWithToken(token);
+        user.token = null;
+        await this.usersRepository.save(user);
+    }
 }

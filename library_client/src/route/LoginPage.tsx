@@ -91,12 +91,10 @@ const LoginPage = ({
                         <Image 
                             src="/key.png" 
                             style={{
-                                width: "100%",
-                                height: "100%",
+                                width: "100%",                    
                                 padding: "20%"
                             }}
                         />
-
 
                         <BaseAlert variant="success" msg={succesMsg} close={() => setSuccessMsg("")} />
                         

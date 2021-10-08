@@ -17,7 +17,15 @@ Nous avons mis en place notre architecture sur https://ensiws.maner.fr/. Cette a
 - https://ensiws.maner.fr/ : pour le front-end
 
 Les services LibraryService et UserService sont sur le même serveur que le proxy mais un pare-feu a été mis en place sur la machine pour n'autoriser que les ports HTTP et HTTPS, avec une redirection du domaine ensiws sur le ProxyService.  
-Cela permet d'être sûr que personne ne contournera le système d'authentification et de gestion des permissions présent sur le ProxyService.
+Cela permet d'être sûr que personne ne contournera le système d'authentification et de gestion des permissions présent sur le ProxyService.  
+
+Pour chaque entité (Auteur, Editeur, Livre, Emprunt, Utilisateur), il est possible de :
+- Récupérer toutes les entités
+- Récupérer toutes les entités suivant : name pour Auteur - Editeur - User, title pour Livre - Impossible pour l'emprunt
+- Récupérer une entité par id
+- Ajouter une entité
+- Mettre à jour une entité
+- Supprimer une entité
 
 ## Authentification token magique
 Nous avons fait un choix d'avoir un token magique pour avoir les privilèges admins "à la volée".  

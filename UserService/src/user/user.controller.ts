@@ -6,7 +6,7 @@ import {
     Get,
     Param,
     Post,
-    Put,
+    Put, Query,
     UseInterceptors
 } from '@nestjs/common';
 import {UserService} from './user.service';
@@ -21,8 +21,8 @@ export class UserController {
     }
 
     @Get()
-    async findAll() {
-        return this.userService.findAll();
+    async findAll(@Query('name') name: string) {
+        return this.userService.findAll(name);
     }
 
     @Get(':id')

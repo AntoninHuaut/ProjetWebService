@@ -8,6 +8,7 @@ import {
 } from '@nestjs/common';
 import {UserRepository} from './dto/user.repository';
 import {InjectRepository} from "@nestjs/typeorm";
+import {Like} from "typeorm";
 import {User} from "./entities/user.entity";
 import {UserUtil} from './enum/userrole.enum';
 import {ResponseUserUpdate} from "./dto/ResponseUserUpdate";
@@ -22,7 +23,12 @@ export class UserService {
     constructor(@InjectRepository(UserRepository) private usersRepository: UserRepository) {
     }
 
-    async findAll() {
+    async findAll(name: string) {
+        if (name != undefined) {
+            return await this.usersRepository.find({
+                userName: Like(`%${name}%`)
+            });
+        }
         return await this.usersRepository.find();
     }
 

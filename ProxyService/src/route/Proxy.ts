@@ -42,7 +42,7 @@ export default class Proxy {
         }
 
         try {
-            const proxyFetch: Promise<Response> = fetch(`${host}${urlPath}`, options);
+            const proxyFetch: Promise<Response> = fetch(`${host}${urlPath}${url.search ?? ''}`, options);
             const response: Response = await this.timeoutPromise(new ResponseError(408, urlPath, "Timeout"), proxyFetch)
             this.sendResponse(ctx, response.status, response.body, response.headers);
         } catch (ex) {

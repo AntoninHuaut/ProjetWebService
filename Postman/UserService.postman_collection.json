@@ -1136,6 +1136,356 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get search void",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"pm.environment.set(\"n_user\", response.length);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{user_user_url}}/?token={{userToken}}&name=",
+							"host": [
+								"{{user_user_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								},
+								{
+									"key": "name",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get search unexisting Name",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.test(\"number of response\", function() {\r",
+									"    pm.expect(pm.response).undefined;\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{user_user_url}}/?token={{userToken}}&name=aaaaaaaegzeofhpegfhgzughlmbugemivtbmiwldrj",
+							"host": [
+								"{{user_user_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								},
+								{
+									"key": "name",
+									"value": "aaaaaaaegzeofhpegfhgzughlmbugemivtbmiwldrj"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST username",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"pm.environment.set(\"userId\", response.userId);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function strRandom(o) {\r",
+									"  var a = 10,\r",
+									"      b = 'abcdefghijklmnopqrstuvwxyz',\r",
+									"      c = '',\r",
+									"      d = 0,\r",
+									"      e = ''+b;\r",
+									"  if (o) {\r",
+									"    if (o.startsWithLowerCase) {\r",
+									"      c = b[Math.floor(Math.random() * b.length)];\r",
+									"      d = 1;\r",
+									"    }\r",
+									"    if (o.length) {\r",
+									"      a = o.length;\r",
+									"    }\r",
+									"    if (o.includeUpperCase) {\r",
+									"      e += b.toUpperCase();\r",
+									"    }\r",
+									"    if (o.includeNumbers) {\r",
+									"      e += '1234567890';\r",
+									"    }\r",
+									"  }\r",
+									"  for (; d < a; d++) {\r",
+									"    c += e[Math.floor(Math.random() * e.length)];\r",
+									"  }\r",
+									"  return c;\r",
+									"}\r",
+									"\r",
+									"pm.environment.set(\"userName\",strRandom({\r",
+									"  includeUpperCase: true,\r",
+									"  includeNumbers: true,\r",
+									"  length: 15,\r",
+									"  startsWithLowerCase: false\r",
+									"}));\r",
+									"\r",
+									"pm.environment.set(\"password\",strRandom({\r",
+									"  includeUpperCase: true,\r",
+									"  includeNumbers: true,\r",
+									"  length: 15,\r",
+									"  startsWithLowerCase: false\r",
+									"}));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\": \"{{userName}}\",\r\n    \"password\": \"{{password}}\",\r\n    \"role\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{user_user_url}}/?token={{userToken}}",
+							"host": [
+								"{{user_user_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST same username",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"pm.environment.set(\"userId2\", response.userId);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function strRandom(o) {\r",
+									"  var a = 10,\r",
+									"      b = 'abcdefghijklmnopqrstuvwxyz',\r",
+									"      c = '',\r",
+									"      d = 0,\r",
+									"      e = ''+b;\r",
+									"  if (o) {\r",
+									"    if (o.startsWithLowerCase) {\r",
+									"      c = b[Math.floor(Math.random() * b.length)];\r",
+									"      d = 1;\r",
+									"    }\r",
+									"    if (o.length) {\r",
+									"      a = o.length;\r",
+									"    }\r",
+									"    if (o.includeUpperCase) {\r",
+									"      e += b.toUpperCase();\r",
+									"    }\r",
+									"    if (o.includeNumbers) {\r",
+									"      e += '1234567890';\r",
+									"    }\r",
+									"  }\r",
+									"  for (; d < a; d++) {\r",
+									"    c += e[Math.floor(Math.random() * e.length)];\r",
+									"  }\r",
+									"  return c;\r",
+									"}\r",
+									"\r",
+									"pm.environment.set(\"password\",strRandom({\r",
+									"  includeUpperCase: true,\r",
+									"  includeNumbers: true,\r",
+									"  length: 15,\r",
+									"  startsWithLowerCase: false\r",
+									"}));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\": \"{{userName}}1\",\r\n    \"password\": \"{{password}}\",\r\n    \"role\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{user_user_url}}/?token={{userToken}}",
+							"host": [
+								"{{user_user_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get search void",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"number of response\", function() {\r",
+									"    var exp = environment.n_user+2;\r",
+									"    var number = pm.response.json().length;\r",
+									"    pm.expect(exp).to.equal(number);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{user_user_url}}/?token={{userToken}}&name=",
+							"host": [
+								"{{user_user_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								},
+								{
+									"key": "name",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get search username",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"number of response\", function() {\r",
+									"    var exp = 2;\r",
+									"    var number = pm.response.json().length;\r",
+									"    pm.expect(exp).to.equal(number);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{user_user_url}}/?token={{userToken}}&name={{userName}}",
+							"host": [
+								"{{user_user_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								},
+								{
+									"key": "name",
+									"value": "{{userName}}"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -1316,6 +1666,29 @@
 			"name": "Mano",
 			"item": [
 				{
+					"name": "Get by name Mano",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{user_user_url}}/?token={{userToken}}",
+							"host": [
+								"{{user_user_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "POST Mano",
 					"event": [
 						{
@@ -1450,11 +1823,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"data verification\", function() {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    console.log(jsonData);\r",
-									"    pm.expect(jsonData[\"access\"]).to.equal(true);\r",
-									"})"
+									""
 								],
 								"type": "text/javascript"
 							}

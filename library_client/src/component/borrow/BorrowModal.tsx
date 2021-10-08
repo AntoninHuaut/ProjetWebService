@@ -64,10 +64,12 @@ const BorrowModal = ({
             maxBorrowDayDuration: 14,
             returnedDate: dayjs().add(2, 'day').toDate()
         } : borrow);
+    }, [borrow, show]);
 
+    useEffect(() => {
         getBooksRequest();
         getUsersRequest();
-    }, [borrow]);
+    }, []);
 
     const handleChange = (evt: any) => {
         const value = evt.target.value;
@@ -86,10 +88,6 @@ const BorrowModal = ({
             [evt.target.name]: dayjs(value, "YYYY-MM-DD").toDate()
         });
     }
-
-    useEffect(() => {
-        console.log(tmpBorrow);
-    }, [tmpBorrow]);
 
     const handleSelectBook = (selectedOptions: any) => {
         setTmpBorrow({ ...tmpBorrow, bookId: getBookFromSelectOptions(books, selectedOptions)});

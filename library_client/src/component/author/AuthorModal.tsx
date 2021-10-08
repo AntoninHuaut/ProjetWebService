@@ -35,7 +35,7 @@ const AuthorModal = ({
             authorId: -1,
             name: ""
         } : author);
-    }, [author]);
+    }, [author, show]);
 
     const handleChange = (evt: any) => {
         const value = evt.target.value;

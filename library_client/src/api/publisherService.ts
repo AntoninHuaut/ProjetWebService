@@ -5,8 +5,8 @@ import { API_LIBRARY, getUserToken } from "./axiosUtils";
 
 const publisherURL : string =  API_LIBRARY + "/publisher"
 
-export const getPublisherList = () => {
-    return axios.get(`${publisherURL}/?token=${getUserToken()}`);
+export const getPublisherList = (name: string = "") => {
+    return axios.get(`${publisherURL}/?token=${getUserToken()}&name=${name}`);
 }
 
 export const updatePublisher = (publisher: Publisher) => {

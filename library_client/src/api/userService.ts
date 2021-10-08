@@ -64,8 +64,8 @@ export const deleteUser = (userId: number) => {
     return axios.delete(`${userURL}/${userId}?token=${getUserToken()}`);
 }
 
-export const getUserList = () => {
-    return axios.get(`${userURL}/?token=${getUserToken()}`);
+export const getUserList = (name: string = "") => {
+    return axios.get(`${userURL}/?token=${getUserToken()}&name=${name}`);
 }
 
 export const register = (registerInfo : RegisterUserDto) => {

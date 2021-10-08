@@ -93,6 +93,7 @@ const UserManager = () => {
                     onNew={newModalUser}
                     onDelete={deleteModalUser}
                     canEdit={user.role >= 3}
+                    setData={setUsers}
                 />
 
                 <UserModal

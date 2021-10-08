@@ -4,6 +4,8 @@ import BaseTable from "../BaseTable";
 import { Button, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import SearchData from "../SearchData";
+import { getPublisherList } from "../../api/publisherService";
 
 interface Props {
     data: Publisher[],
@@ -11,7 +13,8 @@ interface Props {
     onEdit: (publisher: Publisher) => any,
     onDelete: (publisher: Publisher) => any,
     onNew: () => any,
-    canEdit: boolean
+    canEdit: boolean,
+    setData: (data: any) => any
 }
 
 interface PublisherRow {
@@ -26,7 +29,8 @@ const PublisherTable = ({
     onEdit,
     onDelete,
     onNew,
-    canEdit
+    canEdit,
+    setData
 }: Props) => {
 
     const [formatedData, setFormatedData] = useState<PublisherRow[]>([]);
@@ -99,6 +103,13 @@ const PublisherTable = ({
                 </Button>
             </Col>
         }
+
+        <Col sm="auto" >
+            <SearchData 
+                setData={setData}
+                searchFunction={getPublisherList}
+            />
+        </Col>
         
     </Row>
 

@@ -5,8 +5,8 @@ import { API_LIBRARY, getUserToken } from "./axiosUtils";
 
 const authorURL : string =  API_LIBRARY + "/author"
 
-export const getAuthorList = () => {
-    return axios.get(`${authorURL}/?token=${getUserToken()}`);
+export const getAuthorList = (name : string = "") => {
+    return axios.get(`${authorURL}/?token=${getUserToken()}&name=${name}`);
 }
 
 export const updateAuthor = (author: Author) => {

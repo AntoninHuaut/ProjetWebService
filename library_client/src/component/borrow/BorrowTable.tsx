@@ -1,47 +1,68 @@
 import React, { useEffect, useState } from "react";
-import { Publisher } from "../../types/library";
+import { Borrow } from "../../types/library";
 import BaseTable from "../BaseTable";
 import { Button, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
-import SearchData from "../SearchData";
-import { getPublisherList } from "../../api/publisherService";
+import { User } from "../../types/login";
+import { axiosExecuteGet } from "../../api/axiosUtils";
+import { getUserList } from "../../api/userService";
+import { getUserFromId } from "../../lib/selectOptionHelper";
+import dayjs from "dayjs";
 
 interface Props {
-    data: Publisher[],
+    data: Borrow[],
     loading: boolean,
-    onEdit: (publisher: Publisher) => any,
-    onDelete: (publisher: Publisher) => any,
+    onEdit: (borrow: Borrow) => any,
+    onDelete: (borrow: Borrow) => any,
     onNew: () => any,
-    canEdit: boolean,
-    setData: (data: any) => any
+    canEdit: boolean
 }
 
-interface PublisherRow {
-    publisherId: number,
-    publisherName: string,
+interface BorrowRow {
+    borrowId: number,
+    bookTitle: string,
+    userName: string,
+    borrowDate: string,
+    maxBorrowDate: string,
+    returnDate: string,
     action: any
 }
 
-const PublisherTable = ({
+const BorrowTable = ({
     data=[],
     loading,
     onEdit,
     onDelete,
     onNew,
-    canEdit,
-    setData
+    canEdit
 }: Props) => {
 
-    const [formatedData, setFormatedData] = useState<PublisherRow[]>([]);
+    const [formatedData, setFormatedData] = useState<BorrowRow[]>([]);
+
+    const [users, setUsers] = useState<User[]>([]);
+    const [loadingRequest, setLoadingRequest] = useState<boolean>(false);
+    const [error, setError] = useState<string>("");
+
+    const getUsersRequest = () => {
+        axiosExecuteGet(getUserList(), setUsers, setLoadingRequest, setError);
+    }
+
+    useEffect(() => {
+        getUsersRequest();
+    }, []);
 
     const formatData = () => {
-        let formated : PublisherRow[] = [];
+        let formated : BorrowRow[] = [];
 
-        data.forEach((item: Publisher) => {
+        data.forEach((item: Borrow) => {
             formated.push({
-                publisherId: item.publisherId,
-                publisherName: item.name,
+                borrowId: item.borrowId,
+                bookTitle: item.bookId?.title ?? "",
+                userName: getUserFromId(users, item.userId.toString()).userName,
+                borrowDate: dayjs(item.borrowDate).format("DD/MM/YYYY HH:mm"),
+                maxBorrowDate: item.maxBorrowDayDuration.toString()+ " day(s)",
+                returnDate: dayjs(item.returnedDate).format("DD/MM/YYYY HH:mm"),
                 action: canEdit ? <>
                     <Button
                         variant="outline-secondary"
@@ -69,13 +90,29 @@ const PublisherTable = ({
     }, [data]);
 
     const columns = [{
-        dataField: 'publisherId',
-        text: 'Publisher ID',
+        dataField: 'borrowId',
+        text: 'Borrow ID',
         sort: true,
         headerStyle: { width: '110px' }
       }, {
-        dataField: 'publisherName',
-        text: 'Publisher Name',
+        dataField: 'bookTitle',
+        text: 'Book Title',
+        sort: true
+      },{
+        dataField: 'userName',
+        text: 'Borrower',
+        sort: true
+      },{
+        dataField: 'borrowDate',
+        text: 'Borrow Date',
+        sort: true
+      }, {
+        dataField: 'maxBorrowDate',
+        text: 'Max Borrow Date',
+        sort: true
+      }, {
+        dataField: 'returnDate',
+        text: 'Retrun Date',
         sort: true
       }, {
         dataField: 'action',
@@ -88,7 +125,7 @@ const PublisherTable = ({
     <Row>
         <Col>
             <h4>
-                Publishers
+                Borrows
             </h4>
         </Col>
         
@@ -103,14 +140,6 @@ const PublisherTable = ({
                 </Button>
             </Col>
         }
-
-        <Col sm="auto" >
-            <SearchData 
-                setData={setData}
-                searchFunction={getPublisherList}
-            />
-        </Col>
-        
     </Row>
 
 
@@ -118,7 +147,7 @@ const PublisherTable = ({
         <>
             <BaseTable
                 title={TableTitle}
-                keyField="publisherId"
+                keyField="borrowId"
                 columns={columns}
                 loading={loading}
                 data={formatedData}
@@ -127,4 +156,4 @@ const PublisherTable = ({
     );
 }
 
-export default PublisherTable;
+export default BorrowTable;

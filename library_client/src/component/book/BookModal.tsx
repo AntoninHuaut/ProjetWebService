@@ -64,10 +64,12 @@ const BookModal = ({
             publicationYear: new Date().getFullYear(),
             state: BookState.AVAILABLE
         } : book);
+    }, [book, show]);
 
+    useEffect(() => {
         getPublishersRequest();
         getAuthorRequest();
-    }, [book]);
+    }, []);
 
     const handleChange = (evt: any) => {
         const value = evt.target.value;
@@ -77,10 +79,6 @@ const BookModal = ({
             [evt.target.name]: value
         });
     }
-
-    useEffect(() => {
-        console.log(tmpBook);
-    }, [tmpBook]);
 
     const handleSelectAuthors = (selectedOptions: any) => {
         setTmpBook({ ...tmpBook, authors: getAuthorsFromSelectOptions(authors, selectedOptions)});

@@ -92,6 +92,7 @@ const AuthorManager = () => {
                     onNew={newModalAuthor}
                     onDelete={deleteModalAuthor}
                     canEdit={user.role >= 3}
+                    setData={setAuthors}
                 />
 
                 <AuthorModal

@@ -1,7 +1,7 @@
 import { MultiValue } from "react-select";
 import { SelectOption } from "../types/common"
-import { Author, Publisher } from "../types/library"
-import { UserRole } from "../types/login";
+import { Author, Book, Publisher } from "../types/library"
+import { User, UserRole } from "../types/login";
 
 
 export const authorToSelectOption = (authors: Author[]) : SelectOption[] => {
@@ -23,6 +23,7 @@ export const getAuthorsFromSelectOptions = (authors: Author[], selectOptions: Mu
 
     return res;
 }
+
 
 
 export const publishersToSelectOption = (publishers: Publisher[]) : SelectOption[] => {
@@ -80,4 +81,48 @@ export const roleToSelectOption = (role: number, roleList: SelectOption[]) : Sel
         label: ""
     }
 
+}
+
+
+export const getBookFromSelectOptions = (books: Book[], selectOptions: SelectOption) : Book => {
+
+    let res = {bookId: -1, title: ""} as Book
+    
+    books.forEach((b) => {
+        if(selectOptions.value === b.bookId.toString()){
+            res = b;
+        }
+    });
+
+    return res;
+}
+
+
+export const getUserFromId = (users: User[], userId: string) : User => {
+
+    let res: User = {userId: -1, userName: "Unknown"} as User;
+    
+    users.forEach((u) => {
+        if(userId === u.userId.toString()){
+            res = u;
+        }
+    });
+
+    return res;
+}
+
+export const usersToSelectOption = (users: User[]) : SelectOption[] => {
+    let arr: SelectOption[] = [];
+
+    users.forEach(user => arr.push({value: user.userId.toString(), label: user.userName}));
+
+    return arr; 
+}
+
+export const booksToSelectOption = (books: Book[]) : SelectOption[] => {
+    let arr: SelectOption[] = [];
+
+    books.forEach(book => arr.push({value: book.bookId.toString(), label: book.title}));
+
+    return arr; 
 }

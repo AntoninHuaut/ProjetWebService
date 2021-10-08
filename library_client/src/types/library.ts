@@ -29,6 +29,6 @@ export interface Borrow {
     bookId: Book;
     userId: number;
     borrowDate: Date;
-    maxBorrowDayDuration: Date;
-    returnedDate: Date;
+    maxBorrowDayDuration: number;
+    returnedDate?: Date;
 }

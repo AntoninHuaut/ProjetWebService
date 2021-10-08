@@ -41,8 +41,9 @@ Ce token est stocké dans les fichiers .env.
 
 
 ## Postman
-Nous avons réalisé de nombreux tests avec Postman.  
+Nous avons réalisé **136** tests avec Postman.  
 Nous avons envoyé un lien pour rejoindre notre Workspace par email.  
+Sinon, il y a aussi les fichiers Postman disponible, il suffit de les importer.  
 Il ne faut pas oublier d'activer un environnement (local ou à distance).
 
 

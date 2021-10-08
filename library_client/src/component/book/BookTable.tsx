@@ -4,6 +4,8 @@ import BaseTable from "../BaseTable";
 import { Button, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import SearchData from "../SearchData";
+import { getBookList } from "../../api/bookService";
 
 interface Props {
     data: Book[],
@@ -11,7 +13,8 @@ interface Props {
     onEdit: (book: Book) => any,
     onDelete: (book: Book) => any,
     onNew: () => any,
-    canEdit: boolean
+    canEdit: boolean,
+    setData: (data: any) => any
 }
 
 interface BookRow {
@@ -29,7 +32,8 @@ const BookTable = ({
     onEdit,
     onDelete,
     onNew,
-    canEdit
+    canEdit,
+    setData
 }: Props) => {
 
     const [formatedData, setFormatedData] = useState<BookRow[]>([]);
@@ -117,6 +121,14 @@ const BookTable = ({
                 </Button>
             </Col>
         }
+
+        <Col sm="auto" >
+            <SearchData 
+                setData={setData}
+                searchFunction={getBookList}
+            />
+        </Col>
+
     </Row>
 
 

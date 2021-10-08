@@ -4,6 +4,8 @@ import BaseTable from "../BaseTable";
 import { Button, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import SearchData from "../SearchData";
+import { getAuthorList } from "../../api/authorService";
 
 interface Props {
     data: Author[],
@@ -11,7 +13,8 @@ interface Props {
     onEdit: (author: Author) => any,
     onDelete: (author: Author) => any,
     onNew: () => any,
-    canEdit: boolean
+    canEdit: boolean,
+    setData: (data: any) => any
 }
 
 interface AuthorRow {
@@ -26,7 +29,8 @@ const AuthorTable = ({
     onEdit,
     onDelete,
     onNew,
-    canEdit
+    canEdit,
+    setData
 }: Props) => {
 
     const [formatedData, setFormatedData] = useState<AuthorRow[]>([]);
@@ -99,6 +103,13 @@ const AuthorTable = ({
                 </Button>
             </Col>
         }
+
+        <Col sm="auto" >
+            <SearchData 
+                setData={setData}
+                searchFunction={getAuthorList}
+            />
+        </Col>
         
     </Row>
 

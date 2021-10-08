@@ -99,6 +99,7 @@ const BookManager = () => {
                     onNew={newModalBook}
                     onDelete={deleteModalBook}
                     canEdit={user.role >= 3}
+                    setData={setBooks}
                 />
 
                 <BookModal

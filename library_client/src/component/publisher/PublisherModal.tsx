@@ -35,7 +35,7 @@ const PublisherModal = ({
             publisherId: -1,
             name: ""
         } : publisher);
-    }, [publisher]);
+    }, [publisher, show]);
 
     const handleChange = (evt: any) => {
         const value = evt.target.value;

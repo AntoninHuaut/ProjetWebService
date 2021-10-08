@@ -12,6 +12,7 @@ import LoginPage from "./route/LoginPage";
 import PrivateComponent from "./component/PrivateComponent";
 import UserManager from "./route/UserManager";
 import AuthorManager from "./route/AuthorManager";
+import BorrowManager from "./route/BorrowManager";
 
 
 const App = () => {
@@ -43,6 +44,11 @@ const App = () => {
                     <Route path="/book">
                         <PrivateComponent />
                         <BookManager />
+                    </Route>
+
+                    <Route path="/borrow">
+                        <PrivateComponent />
+                        <BorrowManager />
                     </Route>
 
                     <Route path="/login">

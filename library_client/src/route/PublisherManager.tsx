@@ -92,6 +92,7 @@ const PublisherManager = () => {
                     onNew={newModalPublisher}
                     onDelete={deleteModalPublisher}
                     canEdit={user.role >= 3}
+                    setData={setPublishers}
                 />
 
                 <PublisherModal

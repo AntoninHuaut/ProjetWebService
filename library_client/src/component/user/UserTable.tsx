@@ -4,6 +4,8 @@ import BaseTable from "../BaseTable";
 import { Button, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import SearchData from "../SearchData";
+import { getUserList } from "../../api/userService";
 
 
 interface Props {
@@ -12,7 +14,8 @@ interface Props {
     onEdit: (user: User) => any,
     onDelete: (user: User) => any,
     onNew: () => any,
-    canEdit: boolean
+    canEdit: boolean,
+    setData: (data: any) => any
 }
 
 interface UserRow {
@@ -28,7 +31,8 @@ const UserTable = ({
     onEdit,
     onDelete,
     onNew,
-    canEdit
+    canEdit,
+    setData
 }: Props) => {
 
     const [formatedData, setFormatedData] = useState<UserRow[]>([]);
@@ -106,6 +110,12 @@ const UserTable = ({
                 </Button>
             </Col>
         }
+        <Col sm="auto" >
+            <SearchData 
+                setData={setData}
+                searchFunction={getUserList}
+            />
+        </Col>
     </Row>
 
 

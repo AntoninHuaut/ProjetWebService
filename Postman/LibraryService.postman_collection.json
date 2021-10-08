@@ -677,6 +677,317 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get search void",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"pm.environment.set(\"n_user\", response.length);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{publisher_url}}/?token={{userToken}}&name=",
+							"host": [
+								"{{publisher_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								},
+								{
+									"key": "name",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get search unexisting name",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.test(\"number of response\", function() {\r",
+									"    pm.expect(pm.response).undefined;\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{publisher_url}}/?token={{userToken}}&name=aaaaaaaegzeofhpegfhgzughlmbugemivtbmiwldrj",
+							"host": [
+								"{{publisher_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								},
+								{
+									"key": "name",
+									"value": "aaaaaaaegzeofhpegfhgzughlmbugemivtbmiwldrj"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"pm.environment.set(\"userId\", response.userId);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function strRandom(o) {\r",
+									"  var a = 10,\r",
+									"      b = 'abcdefghijklmnopqrstuvwxyz',\r",
+									"      c = '',\r",
+									"      d = 0,\r",
+									"      e = ''+b;\r",
+									"  if (o) {\r",
+									"    if (o.startsWithLowerCase) {\r",
+									"      c = b[Math.floor(Math.random() * b.length)];\r",
+									"      d = 1;\r",
+									"    }\r",
+									"    if (o.length) {\r",
+									"      a = o.length;\r",
+									"    }\r",
+									"    if (o.includeUpperCase) {\r",
+									"      e += b.toUpperCase();\r",
+									"    }\r",
+									"    if (o.includeNumbers) {\r",
+									"      e += '1234567890';\r",
+									"    }\r",
+									"  }\r",
+									"  for (; d < a; d++) {\r",
+									"    c += e[Math.floor(Math.random() * e.length)];\r",
+									"  }\r",
+									"  return c;\r",
+									"}\r",
+									"\r",
+									"pm.environment.set(\"userName\",strRandom({\r",
+									"  includeUpperCase: true,\r",
+									"  includeNumbers: true,\r",
+									"  length: 15,\r",
+									"  startsWithLowerCase: false\r",
+									"}));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{userName}}\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{publisher_url}}/?token={{userToken}}",
+							"host": [
+								"{{publisher_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST same name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"pm.environment.set(\"userId2\", response.userId);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{userName}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{publisher_url}}/?token={{userToken}}",
+							"host": [
+								"{{publisher_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get search void",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"number of response\", function() {\r",
+									"    var exp = environment.n_user+2;\r",
+									"    var number = pm.response.json().length;\r",
+									"    pm.expect(exp).to.equal(number);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{publisher_url}}/?token={{userToken}}&name=",
+							"host": [
+								"{{publisher_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								},
+								{
+									"key": "name",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get search name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"number of response\", function() {\r",
+									"    var exp = 2;\r",
+									"    var number = pm.response.json().length;\r",
+									"    pm.expect(exp).to.equal(number);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{publisher_url}}/?token={{userToken}}&name={{userName}}",
+							"host": [
+								"{{publisher_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								},
+								{
+									"key": "name",
+									"value": "{{userName}}"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -1311,6 +1622,317 @@
 								{
 									"key": "token",
 									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get search void",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"pm.environment.set(\"n_user\", response.length);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{author_url}}/?token={{userToken}}&name=",
+							"host": [
+								"{{author_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								},
+								{
+									"key": "name",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get search unexisting name",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.test(\"number of response\", function() {\r",
+									"    pm.expect(pm.response).undefined;\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{author_url}}/?token={{userToken}}&name=aaaaaaaegzeofhpegfhgzughlmbugemivtbmiwldrj",
+							"host": [
+								"{{author_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								},
+								{
+									"key": "name",
+									"value": "aaaaaaaegzeofhpegfhgzughlmbugemivtbmiwldrj"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"pm.environment.set(\"userId\", response.userId);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function strRandom(o) {\r",
+									"  var a = 10,\r",
+									"      b = 'abcdefghijklmnopqrstuvwxyz',\r",
+									"      c = '',\r",
+									"      d = 0,\r",
+									"      e = ''+b;\r",
+									"  if (o) {\r",
+									"    if (o.startsWithLowerCase) {\r",
+									"      c = b[Math.floor(Math.random() * b.length)];\r",
+									"      d = 1;\r",
+									"    }\r",
+									"    if (o.length) {\r",
+									"      a = o.length;\r",
+									"    }\r",
+									"    if (o.includeUpperCase) {\r",
+									"      e += b.toUpperCase();\r",
+									"    }\r",
+									"    if (o.includeNumbers) {\r",
+									"      e += '1234567890';\r",
+									"    }\r",
+									"  }\r",
+									"  for (; d < a; d++) {\r",
+									"    c += e[Math.floor(Math.random() * e.length)];\r",
+									"  }\r",
+									"  return c;\r",
+									"}\r",
+									"\r",
+									"pm.environment.set(\"userName\",strRandom({\r",
+									"  includeUpperCase: true,\r",
+									"  includeNumbers: true,\r",
+									"  length: 15,\r",
+									"  startsWithLowerCase: false\r",
+									"}));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{userName}}\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{author_url}}/?token={{userToken}}",
+							"host": [
+								"{{author_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST same name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"pm.environment.set(\"userId2\", response.userId);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{userName}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{author_url}}/?token={{userToken}}",
+							"host": [
+								"{{author_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get search void",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"number of response\", function() {\r",
+									"    var exp = environment.n_user+2;\r",
+									"    var number = pm.response.json().length;\r",
+									"    pm.expect(exp).to.equal(number);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{author_url}}/?token={{userToken}}&name=",
+							"host": [
+								"{{author_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								},
+								{
+									"key": "name",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get search name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"number of response\", function() {\r",
+									"    var exp = 2;\r",
+									"    var number = pm.response.json().length;\r",
+									"    pm.expect(exp).to.equal(number);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{author_url}}/?token={{userToken}}&name={{userName}}",
+							"host": [
+								"{{author_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								},
+								{
+									"key": "name",
+									"value": "{{userName}}"
 								}
 							]
 						}
@@ -2376,6 +2998,317 @@
 								{
 									"key": "token",
 									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get search void",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"pm.environment.set(\"n_user\", response.length);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{book_url}}/?token={{userToken}}&title=",
+							"host": [
+								"{{book_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								},
+								{
+									"key": "title",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get search unexisting Title",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.test(\"number of response\", function() {\r",
+									"    pm.expect(pm.response).undefined;\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{book_url}}/?token={{userToken}}&title=aaaaaaaegzeofhpegfhgzughlmbugemivtbmiwldrj",
+							"host": [
+								"{{book_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								},
+								{
+									"key": "title",
+									"value": "aaaaaaaegzeofhpegfhgzughlmbugemivtbmiwldrj"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST title",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"pm.environment.set(\"userId\", response.userId);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function strRandom(o) {\r",
+									"  var a = 10,\r",
+									"      b = 'abcdefghijklmnopqrstuvwxyz',\r",
+									"      c = '',\r",
+									"      d = 0,\r",
+									"      e = ''+b;\r",
+									"  if (o) {\r",
+									"    if (o.startsWithLowerCase) {\r",
+									"      c = b[Math.floor(Math.random() * b.length)];\r",
+									"      d = 1;\r",
+									"    }\r",
+									"    if (o.length) {\r",
+									"      a = o.length;\r",
+									"    }\r",
+									"    if (o.includeUpperCase) {\r",
+									"      e += b.toUpperCase();\r",
+									"    }\r",
+									"    if (o.includeNumbers) {\r",
+									"      e += '1234567890';\r",
+									"    }\r",
+									"  }\r",
+									"  for (; d < a; d++) {\r",
+									"    c += e[Math.floor(Math.random() * e.length)];\r",
+									"  }\r",
+									"  return c;\r",
+									"}\r",
+									"\r",
+									"pm.environment.set(\"userName\",strRandom({\r",
+									"  includeUpperCase: true,\r",
+									"  includeNumbers: true,\r",
+									"  length: 15,\r",
+									"  startsWithLowerCase: false\r",
+									"}));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"{{userName}}\",\r\n    \"publicationYear\": 42,\r\n    \"description\": \"All the response of the universe\",\r\n    \"state\": \"AVAILABLE\",\r\n    \"authors\": [{{authorId}}],\r\n    \"publisher\": {\r\n        \"publisherId\": {{publisherId}}\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{book_url}}/?token={{userToken}}",
+							"host": [
+								"{{book_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST same title",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"pm.environment.set(\"userId2\", response.userId);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"{{userName}} 2\",\r\n    \"publicationYear\": 69,\r\n    \"description\": \"All the response of the universe 2\",\r\n    \"state\": \"AVAILABLE\",\r\n    \"authors\": [{{authorId}}],\r\n    \"publisher\": {\r\n        \"publisherId\": {{publisherId}}\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{book_url}}/?token={{userToken}}",
+							"host": [
+								"{{book_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get search void",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"number of response\", function() {\r",
+									"    var exp = environment.n_user+2;\r",
+									"    var number = pm.response.json().length;\r",
+									"    pm.expect(exp).to.equal(number);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{book_url}}/?token={{userToken}}&title=",
+							"host": [
+								"{{book_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								},
+								{
+									"key": "title",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get search title",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"number of response\", function() {\r",
+									"    var exp = 2;\r",
+									"    var number = pm.response.json().length;\r",
+									"    pm.expect(exp).to.equal(number);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{book_url}}/?token={{userToken}}&title={{userName}}",
+							"host": [
+								"{{book_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								},
+								{
+									"key": "title",
+									"value": "{{userName}}"
 								}
 							]
 						}

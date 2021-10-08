@@ -91,28 +91,61 @@ npm run build
 ## Images
 
 Connexion
-![](.\images_rendu\1.login.png)
+![](https://github.com/AntoninHuaut/ProjetWebService/raw/master/images_rendu/1.login.png)
 
 Inscription
-![](.\images_rendu\2.register.png)
+![](https://github.com/AntoninHuaut/ProjetWebService/raw/master/images_rendu/2.register.png)
 
 Inscription (succès)
-![](.\images_rendu\3.register_success.png)Page d'accueil (rôle : emprunt)
-![](.\images_rendu\4.homepage.png)Page d'accueil (rôle : admin)
-![](.\images_rendu\5.homepage_admin.png)Liste des éditeurs
-![](.\images_rendu\6.publisher_list.png)Edition d'un éditeur
-![](.\images_rendu\7.publisher_edit.png)Edition d'un éditeur (succès)
-![](.\images_rendu\8.publisher_edit_success.png)Ajout d'un éditeur
-![](.\images_rendu\9.publisher_add.png)Suppression d'un éditeur
-![](.\images_rendu\10.publisher_delete.png)Suppression d'un éditeur (erreur)
-![](.\images_rendu\11.publisher_delete_error.png)Liste des auteurs
-![](.\images_rendu\12.author_list.png)Liste des livres
-![](.\images_rendu\13.book_list.png)Edition d'un livre
-![](.\images_rendu\14.book_edit.png)Ajout d'un livre
-![](.\images_rendu\15.book_add.png)Suppression d'un livre
-![](.\images_rendu\16.book_delete.png)Liste des utilisateurs
-![](.\images_rendu\17.user_list.png)Ajout d'un utilisateur
-![](.\images_rendu\18.user_add.png)Edition d'un utilisateur
-![](.\images_rendu\19.user_edit.png)
+![](https://github.com/AntoninHuaut/ProjetWebService/raw/master/images_rendu/3.register_success.png)
+
+Page d'accueil (rôle : emprunt)
+![](https://github.com/AntoninHuaut/ProjetWebService/raw/master/images_rendu/4.homepage.png)
+
+Page d'accueil (rôle : admin)
+![](https://github.com/AntoninHuaut/ProjetWebService/raw/master/images_rendu/5.homepage_admin.png)
+
+Liste des éditeurs
+![](https://github.com/AntoninHuaut/ProjetWebService/raw/master/images_rendu/6.publisher_list.png)
+
+Edition d'un éditeur
+![](https://github.com/AntoninHuaut/ProjetWebService/raw/master/images_rendu/7.publisher_edit.png)
+
+Edition d'un éditeur (succès)
+![](https://github.com/AntoninHuaut/ProjetWebService/raw/master/images_rendu/8.publisher_edit_success.png)
+
+Ajout d'un éditeur
+![](https://github.com/AntoninHuaut/ProjetWebService/raw/master/images_rendu/9.publisher_add.png)
+
+Suppression d'un éditeur
+![](https://github.com/AntoninHuaut/ProjetWebService/raw/master/images_rendu/10.publisher_delete.png)
+
+Suppression d'un éditeur (erreur)
+![](https://github.com/AntoninHuaut/ProjetWebService/raw/master/images_rendu/11.publisher_delete_error.png)
+
+Liste des auteurs
+![](https://github.com/AntoninHuaut/ProjetWebService/raw/master/images_rendu/12.author_list.png)
+
+Liste des livres
+![](https://github.com/AntoninHuaut/ProjetWebService/raw/master/images_rendu/13.book_list.png)
+
+Edition d'un livre
+![](https://github.com/AntoninHuaut/ProjetWebService/raw/master/images_rendu/14.book_edit.png)
+
+Ajout d'un livre
+![](https://github.com/AntoninHuaut/ProjetWebService/raw/master/images_rendu/15.book_add.png)
+
+Suppression d'un livre
+![](https://github.com/AntoninHuaut/ProjetWebService/raw/master/images_rendu/16.book_delete.png)
+
+Liste des utilisateurs
+![](https://github.com/AntoninHuaut/ProjetWebService/raw/master/images_rendu/17.user_list.png)
+
+Ajout d'un utilisateur
+![](https://github.com/AntoninHuaut/ProjetWebService/raw/master/images_rendu/18.user_add.png)
+
+Edition d'un utilisateur
+![](https://github.com/AntoninHuaut/ProjetWebService/raw/master/images_rendu/19.user_edit.png)
+
 Suppression d'un utilisateur
-![](.\images_rendu\20.user_delete.png)
+![](https://github.com/AntoninHuaut/ProjetWebService/raw/master/images_rendu/20.user_delete.png)

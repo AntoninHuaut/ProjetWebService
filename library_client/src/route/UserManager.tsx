@@ -73,8 +73,10 @@ const UserManager = () => {
     }
 
     const addUser = (user: User) => {
-        users.push(user);
-        setUsers([...users]);
+        if(user){
+            users.push(user);
+            setUsers([...users]);
+        }
     }
 
     return (

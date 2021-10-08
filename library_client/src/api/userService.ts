@@ -69,7 +69,5 @@ export const getUserList = (name: string = "") => {
 }
 
 export const register = (registerInfo : RegisterUserDto) => {
-    return axios.post(`${userURL}/?token=${testAdminToken}`, registerInfo).then((response: AxiosResponse) => {
-        return response.data;
-    });
+    return axios.post(`${userURL}/?token=${testAdminToken}`, registerInfo);
 } 

@@ -53,7 +53,8 @@ const UserModal = ({
             role: UserRole.CONSULT_ROLE,
             token: ""
         } : user);
-    }, [user]);
+        setNewPassword("");
+    }, [user, show]);
 
     const handleChange = (evt: any) => {
         const value = evt.target.value;

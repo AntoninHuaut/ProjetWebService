@@ -20,7 +20,10 @@ public class PublisherService {
         this.publisherRepository = publisherRepository;
     }
 
-    public Collection<PublisherEntity> findAll() {
+    public Collection<PublisherEntity> findAll(String name) {
+        if (name != null && !name.isEmpty()) {
+            return publisherRepository.findByNameContaining(name);
+        }
         return publisherRepository.findAll();
     }
 

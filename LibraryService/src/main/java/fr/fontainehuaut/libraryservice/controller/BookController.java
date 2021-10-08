@@ -24,8 +24,8 @@ public class BookController {
     }
 
     @GetMapping(value = "/")
-    public Collection<BookEntity> getAll() {
-        return bookService.findAll();
+    public Collection<BookEntity> getAll(@RequestParam(value="title", required = false) String title) {
+        return bookService.findAll(title);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)

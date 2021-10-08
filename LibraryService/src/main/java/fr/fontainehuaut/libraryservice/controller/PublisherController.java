@@ -24,8 +24,8 @@ public class PublisherController {
     }
 
     @GetMapping(value = "/")
-    public Collection<PublisherEntity> getAll() {
-        return publisherService.findAll();
+    public Collection<PublisherEntity> getAll(@RequestParam(value="name", required = false) String name) {
+        return publisherService.findAll(name);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)

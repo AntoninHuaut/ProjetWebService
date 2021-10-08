@@ -24,8 +24,8 @@ public class AuthorController {
     }
 
     @GetMapping(value = "/")
-    public Collection<AuthorEntity> getAll() {
-        return authorService.findAll();
+    public Collection<AuthorEntity> getAll(@RequestParam(value="name", required = false) String name) {
+        return authorService.findAll(name);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)

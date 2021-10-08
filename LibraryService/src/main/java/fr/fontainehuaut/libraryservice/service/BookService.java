@@ -20,7 +20,10 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
-    public Collection<BookEntity> findAll() {
+    public Collection<BookEntity> findAll(String title) {
+        if (title != null && !title.isEmpty()) {
+            return bookRepository.findByTitleContaining(title);
+        }
         return bookRepository.findAll();
     }
 

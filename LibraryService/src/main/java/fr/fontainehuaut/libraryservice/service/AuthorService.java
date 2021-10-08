@@ -20,7 +20,10 @@ public class AuthorService {
         this.authorRepository = authorRepository;
     }
 
-    public Collection<AuthorEntity> findAll() {
+    public Collection<AuthorEntity> findAll(String name) {
+        if (name != null && !name.isEmpty()) {
+            return authorRepository.findByNameContaining(name);
+        }
         return authorRepository.findAll();
     }
 

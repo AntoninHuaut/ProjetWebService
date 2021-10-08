@@ -1311,6 +1311,201 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Mano",
+			"item": [
+				{
+					"name": "POST Mano",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function strRandom(o) {\r",
+									"  var a = 10,\r",
+									"      b = 'abcdefghijklmnopqrstuvwxyz',\r",
+									"      c = '',\r",
+									"      d = 0,\r",
+									"      e = ''+b;\r",
+									"  if (o) {\r",
+									"    if (o.startsWithLowerCase) {\r",
+									"      c = b[Math.floor(Math.random() * b.length)];\r",
+									"      d = 1;\r",
+									"    }\r",
+									"    if (o.length) {\r",
+									"      a = o.length;\r",
+									"    }\r",
+									"    if (o.includeUpperCase) {\r",
+									"      e += b.toUpperCase();\r",
+									"    }\r",
+									"    if (o.includeNumbers) {\r",
+									"      e += '1234567890';\r",
+									"    }\r",
+									"  }\r",
+									"  for (; d < a; d++) {\r",
+									"    c += e[Math.floor(Math.random() * e.length)];\r",
+									"  }\r",
+									"  return c;\r",
+									"}\r",
+									"\r",
+									"pm.environment.set(\"userName\",strRandom({\r",
+									"  includeUpperCase: true,\r",
+									"  includeNumbers: true,\r",
+									"  length: 15,\r",
+									"  startsWithLowerCase: false\r",
+									"}));\r",
+									"\r",
+									"pm.environment.set(\"password\",strRandom({\r",
+									"  includeUpperCase: true,\r",
+									"  includeNumbers: true,\r",
+									"  length: 15,\r",
+									"  startsWithLowerCase: false\r",
+									"}));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\": \"admin\",\r\n    \"password\": \"admin\",\r\n    \"role\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{user_user_url}}/?token={{userToken}}",
+							"host": [
+								"{{user_user_url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{userToken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Mano",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\": \"admin\",\r\n    \"password\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{user_access_url}}/login",
+							"host": [
+								"{{user_access_url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CanDo MANAGE_USER Mano",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"data verification\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    console.log(jsonData);\r",
+									"    pm.expect(jsonData[\"access\"]).to.equal(true);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{user_access_url}}/CONSULT/2cd7597c-ac39-4f7f-ae26-1900b87021b3-ba761381-dfdd-4f81-83a4-07beaabb0dc4",
+							"host": [
+								"{{user_access_url}}"
+							],
+							"path": [
+								"CONSULT",
+								"2cd7597c-ac39-4f7f-ae26-1900b87021b3-ba761381-dfdd-4f81-83a4-07beaabb0dc4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout Mano",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{user_access_url}}/logout/2cd7597c-ac39-4f7f-ae26-1900b87021b3-ba761381-dfdd-4f81-83a4-07beaabb0dc4",
+							"host": [
+								"{{user_access_url}}"
+							],
+							"path": [
+								"logout",
+								"2cd7597c-ac39-4f7f-ae26-1900b87021b3-ba761381-dfdd-4f81-83a4-07beaabb0dc4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

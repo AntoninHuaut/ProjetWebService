@@ -150,3 +150,27 @@ Edition d'un utilisateur
 
 Suppression d'un utilisateur
 ![](https://github.com/AntoninHuaut/ProjetWebService/raw/master/images_rendu/20.user_delete.png)
+
+*(Updated interface)* Publisher with empty search field
+![](https://github.com/AntoninHuaut/ProjetWebService/raw/master/images_rendu/21.publisher_search_empty.png)
+
+*(Updated interface)* Publisher with search field
+![](https://github.com/AntoninHuaut/ProjetWebService/raw/master/images_rendu/21.publisher_search.png)
+
+*(Updated interface)* Author with empty search field
+![](https://github.com/AntoninHuaut/ProjetWebService/raw/master/images_rendu/22.author_search_empty.png)
+
+*(Updated interface)* Author with search field
+![](https://github.com/AntoninHuaut/ProjetWebService/raw/master/images_rendu/23.author_search.png)
+
+*(Updated interface)* Book with empty search field
+![](https://github.com/AntoninHuaut/ProjetWebService/raw/master/images_rendu/24.book_search_empty.png)
+
+*(Updated interface)* Book with search field
+![](https://github.com/AntoninHuaut/ProjetWebService/raw/master/images_rendu/25.book_search.png)
+
+*(Updated interface)* User with empty search field
+![](https://github.com/AntoninHuaut/ProjetWebService/raw/master/images_rendu/26.user_search_empty.png)
+
+*(Updated interface)* User with search field
+![](https://github.com/AntoninHuaut/ProjetWebService/raw/master/images_rendu/27.user_search.png)
